@@ -1,0 +1,431 @@
+{% extends "listing_analytics/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {% if 'safe' in message.tags %}
+            {{ message|safe }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+
+<form id="vendor_form" method="post">
+    {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Assign Listing</legend>
+            <div class="form-row">
+
+                <div class="form-group col-md-12 mb-2">
+                <label for="id_location" class=" requiredField">
+                Select Vendor<span class="asteriskField">*</span></label>
+                <select name="vendor_id" class="select form-control form-control" id="vendor_id" required>
+                    <option value="">----------</option>
+                    {% for vendor in vendors %}
+                        {% if not vendor.draft_listing %}
+                        <option value="{{ vendor.id }}">{{ vendor.vendor_user.user_full_name }} - {{ vendor }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+              </div>
+
+
+              <div class="form-group col-md-6 mb-3">
+                <label for="id_location" class=" requiredField">
+                Vendor Name<span class="asteriskField">*</span></label>
+                  <div class="">
+                    <input type="text" name="vendor_name" maxlength="200" class="textinput textInput form-control" id="id_vendor_name" disabled="">
+                   </div>
+              </div>
+
+              <div class="form-group col-md-6 mb-3">
+                <label for="id_location" class=" requiredField">
+                Vendor Email<span class="asteriskField">*</span></label>
+                  <div class="">
+                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="id_vendor_email" disabled="">
+                   </div>
+              </div>
+
+<!--            <div class="form-group col-md-6 mb-0">-->
+<!--                <label for="id_location" class=" requiredField">-->
+<!--                Vendor Phone Number<span class="asteriskField">*</span></label>-->
+<!--                  <div class="">-->
+<!--                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="phone_number" disabled="">-->
+<!--                   </div>-->
+<!--              </div>-->
+
+<!--            <div class="form-group col-md-6 mb-0">-->
+<!--                <label for="id_location" class=" requiredField">-->
+<!--                Brand Name<span class="asteriskField">*</span></label>-->
+<!--                  <div class="">-->
+<!--                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="brand_name" disabled="">-->
+<!--                   </div>-->
+<!--              </div>-->
+
+<!--            <div class="form-group col-md-6 mb-0">-->
+<!--                <label for="id_location" class=" requiredField">-->
+<!--                Website Link<span class="asteriskField">*</span></label>-->
+<!--                  <div class="">-->
+<!--                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="id_website" disabled="">-->
+<!--                   </div>-->
+<!--              </div>-->
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="id_location" class=" requiredField">
+                Parent Category<span class="asteriskField">*</span></label>
+                  <div class="">
+                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="parent_category" disabled="">
+                   </div>
+              </div>
+
+
+
+            <div class="form-group col-md-6 mb-5">
+                <label for="id_location" class=" requiredField">
+                Sub Category<span class="asteriskField">*</span></label>
+                  <div class="">
+                    <input type="text" name="vendor_email" maxlength="200" class="textinput textInput form-control" id="sub_category" disabled="">
+                   </div>
+              </div>
+            </div>
+
+        <input type="hidden" name="post_listing_id" value="{{ draft_listing.id }}">
+        <input type="hidden" name="post_vendor_id" id="post_vendor_id">
+        <div class="form-group col-md-12 mb-0">
+            <button class="btn btn-outline-info w-100" type="submit">Assign Vendor</button>
+        </div>
+        </fieldset>
+
+
+    </form>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        // $(document).ready(function (){
+        //
+        //     $('#listing_form').find(':input:not(:disabled)').prop('disabled', true);
+        //
+        // });
+
+        $('#vendor_id').on('change', function (){
+           id = $(this).val();
+           url = "{% url 'get-vendor-detail' %}";
+           vendor_id = $('#post_vendor_id');
+           vendor_name = $('#id_vendor_name');
+           vendor_email = $('#id_vendor_email');
+           phone_number = $('#id_vendor_phone_number');
+           website = $('#id_website');
+           parent_category = $('#parent_category');
+           sub_category = $('#sub_category');
+
+           $.ajax({
+               url: url,
+               data: {
+                   'id': id,
+               },
+               success: function (vendor){
+                   vendor_id.val(vendor['id']);
+                   vendor_name.val(vendor['name']);
+                   vendor_email.val(vendor['email']);
+                   phone_number.val(vendor['phone_number']);
+                   website.val(vendor['website_link']);
+                   parent_category.val(vendor['listing_parent_category']);
+                   sub_category.val(vendor['listing_sub_category']);
+               }
+           })
+        });
+    </script>
+
+<hr>
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data" id="listing_form" action="{% url 'blank-listing-update' draft_listing.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="path" value="/assign/vendors/">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Listing</legend>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6 mb-0">
+                {{ form.parent_category|as_crispy_field }}
+              </div>
+                
+              <div class="form-group col-md-6 mb-0">
+                {{ form.category|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.location|as_crispy_field }}
+              </div>
+              
+              <div class="form-group col-md-6 mb-0">
+                {{ form.sub_location|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.title|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.low_price|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.high_price|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-0">
+                {{ form.price_for|as_crispy_field }}
+              </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.pre_low_price_text|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.post_low_price_text|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.pre_high_price_text|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.post_high_price_text|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-0">
+                {{ form.additional_text|as_crispy_field }}
+              </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.meta_title|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.meta_description|as_crispy_field }}
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.short_description|as_crispy_field }}
+
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.description|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.more_info|as_crispy_field }}
+                              {{ form.media }}
+
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.catering_policy|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ form.decor_policy|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.alcohol_policy|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ form.dj_policy|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.label|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.is_in_house_listing|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.is_verified|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.address|as_crispy_field }}
+              </div>
+            </div>
+
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_main|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_2|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_3|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_4|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_5|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_main_link|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_2_link|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_3_link|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_4_link|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_5_link|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_1|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_2|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_3|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_4|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_5|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_6|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_7|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_8|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_9|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_10|as_crispy_field }}
+              </div>
+            </div>
+
+
+
+        </fieldset>
+
+    <div class="form-group col-md-6 mb-0">
+            <button class="btn btn-outline-info" form="listing_form" type="submit">Update Listing</button>
+    </div>
+</form>
+
+
+
+
+{% endblock data %}
+
+
+
+
+
+

@@ -1,0 +1,182 @@
+{% extends "users/dashboard_base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+}
+</style>
+{% endblock head %}
+
+{% block data %}
+
+
+<center style="margin-top:1em;">
+    {% for message in messages %}
+    <h3 class="alert alert-{{ message.tags }}">
+         {{ message }}
+    </h3>
+    {% endfor %}
+</center>
+
+
+<div class=" u-s-m-b-30">
+    <a class="dash__custom-link btn--e-brand-b-2"  style="background-color:#965B92;color:#fff;border-color:#965B92;width: 150px;" onMouseOver="this.style.background-color='#fff'"  data-modal="modal" data-modal-id="#edit-ship-address" >
+        <span style="color: #fff;"><i class="fas fa-plus u-s-m-r-8"></i> Add Guest</span>
+    </a>
+</div>
+
+     <table width="100%" style="text-align: left;margin-top:3em;">
+         {% if guest_list %}
+        <tr>
+            <th width="60%"><p align="left" style="color: #965B92;font-size: 1em;">Family Name</p></th>
+            <th width="20%"><p align="center" style="color: #965B92;font-size: 1em;">Person</p></th>
+            <th width="20%"><p align="center" style="color: #965B92;font-size: 1em;">Remove</p></th>
+        </tr>
+        {% endif %}
+         {% for guest in guest_list %}
+        <tr>
+            <th style="padding: 1em;"><p align="left" style="color: #000;font-size: 1em;">{{ guest.name }}</p></th>
+            <td style="padding: 1em;"><p align="center">{{ guest.people }}</p></td>
+            <td style="padding: 1em;"><p align="center"><a href="{% url 'users-guest-delete' guest.id %}"><i class="fas fa-trash-alt"></i></a></p></td>
+        </tr>
+         {% empty %}
+        <h4><center>Create Guest List Here</center></h1>
+    {% endfor %}
+         {% if guest_list %}
+             <tr>
+                 <th width="50%" style="padding-left: 0em;padding: 0em;font-size: 1em;"><p align="left" style="color: #965B92;font-size: 1em;padding: 1em;">Total</p></th>
+                 <th width="60%" style="padding: 1em;font-size: 1em;"><p align="center" style="color: #000;font-size: 1em;padding: 1em;">{{ guest_list.first.get_total_people_count }} Person's</p></th>
+            </tr>
+         {% endif %}
+    </table>
+
+
+
+
+<div class="modal fade" id="edit-ship-address">
+        <div class="hide-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-right:10em;margin-top:5em;">
+            <div class="modal-content" style="width:60%;">
+                <div class="modal-body" style="width:170%;">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Add Guest</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">FAMILY NAME</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Family Name (Required)" required style="font-size:1em;padding: 1.5em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_people">PERSON</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_people" name="people" placeholder="People Count (Required)" style="font-size:1em;padding: 1.5em;"></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                                                     <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 50%;padding: 0.5em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 50%;padding: 0.5em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+                                    <div class="show-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-top:5em;">
+            <div class="modal-content" style="margin-right:1em;">
+                <div class="modal-body">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Add Guest</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                            <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">FAMILY NAME</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Family Name (Required)" required style="font-size:1em;padding: 1.5em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_people">PERSON</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_people" name="people" placeholder="People Count (Required)" style="font-size:1em;padding: 1.5em;"></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                                                     <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 100%;padding: 0.5em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 100%;padding: 0.5em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+
+                       </div>
+
+{% endblock data %}

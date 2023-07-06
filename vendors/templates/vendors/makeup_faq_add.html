@@ -1,0 +1,236 @@
+{% extends "vendors/base.html" %} {% load static %} {% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+<!--Using this message code for HTML in message-->
+
+{% block data %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .parent>* {
+        width: 100%;
+        margin-top: 0.3rem;
+    }
+
+    .child>* {
+        padding: 0.6rem;
+        font-size: 12px;
+        width: 100%;
+        color: #333333;
+        transition: all 0.6s linear;
+        border: 2px solid transparent;
+        background-color: #f1f1f1;
+        border-radius: 6px;
+    }
+
+    input[type='radio'],
+    input[type='checkbox'] {
+        position: relative;
+        padding: 0.2rem;
+        height: 0.9rem;
+        width: 0.9rem;
+        background-color: white !important;
+    }
+
+    .bg-secondary {
+        background-color: white !important;
+    }
+
+    input[type='checkbox']:checked:after {
+        content: '✔';
+        position: absolute;
+        top: -0.2rem;
+        left: 0.1rem;
+        bottom: 0;
+        right: 0;
+        font-weight: bolder;
+        height: 0.9rem;
+        width: 0.9rem;
+        color: #965B92;
+    }
+
+    input[type='radio']:checked:after {
+        content: '⬤';
+        position: absolute;
+        top: -0.23rem;
+        left: 0.065rem;
+        bottom: 0;
+        right: 0;
+        height: 0.9rem;
+        width: 0.9rem;
+        color: #965B92;
+    }
+</style>
+
+<div class="form-group u-s-m-b-30 border" style="padding: 2em;">
+    <h3 align="center" class="py-1" style="font-weight: 700;">FAQ Questions</h3><hr><br>
+    <form method="POST" class="row">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="col-lg-12 u-s-m-b-30">
+            <div class="col-12 alert alert-danger  alert-error">
+                {% for field in form %}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+                {% if non_field_errors %}
+                <p style="color: red;">{{ non_field_errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li class="{{ message.tags }}">
+                {% if 'safe' in message.tags %} {{ message|safe }} {% else %} {{ message }}
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q1 : {{faq.Q1}}</span>
+            <div class="child">
+                {% if form.ans1|field_type == "typedchoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans1.field.choices|slice:"1:" %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-radio bg-secondary" type="radio" name="{{form.ans1.name}}" value="{{val}}"
+                            id="id_{{form.ans1.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans1.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans1}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q2 : {{faq.Q2}}</span>
+            <div class="child">
+                {% if form.ans2|field_type == "typedchoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans2.field.choices|slice:"1:" %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-radio bg-secondary" type="radio" name="{{form.ans2.name}}" value="{{val}}"
+                            id="id_{{form.ans2.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans2.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans2}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q3 : {{faq.Q3}}</span>
+            <div class="child">
+                {% if form.ans3|field_type == "modelmultiplechoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans3.field.choices %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-checkbox bg-secondary" type="checkbox" value="{{val}}"
+                            name="{{form.ans3.name}}" id="id_{{form.ans3.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans3.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans3}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q4 : {{faq.Q4}}</span>
+            <div class="child">
+                {{form.ans4|add_class:"input-text input-text--primary-style"}}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q5 : {{faq.Q5}}</span>
+            <div class="child">
+                {{form.ans5|add_class:"input-text input-text--primary-style"}}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q6 : {{faq.Q6}}</span>
+            <div class="child">
+                {% if form.ans6|field_type == "typedchoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans6.field.choices|slice:"1:" %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-radio bg-secondary" type="radio" name="{{form.ans6.name}}" value="{{val}}"
+                            id="id_{{form.ans6.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans6.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans6}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q7 : {{faq.Q7}}</span>
+            <div class="child">
+                {% if form.ans7|field_type == "typedchoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans7.field.choices|slice:"1:" %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-radio bg-secondary" type="radio" name="{{form.ans7.name}}" value="{{val}}"
+                            id="id_{{form.ans7.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans7.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans7}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 card parent shadow-sm u-s-m-b-30" style="padding: 1em;">
+            <span class="text-dark border-bottom mb-2 pb-1">Q8 : {{faq.Q8}}</span>
+            <div class="child">
+                {% if form.ans8|field_type == "typedchoicefield" %}
+                <div class="d-flex align-items-center justify-content-left flex-wrap">
+                    {% for val,itm in form.ans8.field.choices|slice:"1:" %}
+                    <div class="pr-5 pl-1 py-2" style="flex: 0 0 auto; max-width: 100%; min-width: 20%;">
+                        <input class="uk-radio bg-secondary" type="radio" name="{{form.ans8.name}}" value="{{val}}"
+                            id="id_{{form.ans8.name}}_{{val}}">
+                        <label class="d-inline ml-1" for="id_{{form.ans8.name}}_{{val}}"
+                            style="font-size:12px; margin-right:0.3rem;">{{itm}}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{form.ans8}}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button class="col-12  btn btn--e-transparent-brand-b-2" type="submit"
+                style="border-color:#965B92; color:#965B92;">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock data %}

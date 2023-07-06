@@ -1,0 +1,1295 @@
+{% load static %} {% load home_extras %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<meta charset="UTF-8">
+
+<head>
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+	<!--google stuff-->
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176799571-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-176799571-1');
+    </script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WCV6LJ2');</script>
+    <!-- End Google Tag Manager -->
+                             <!-- Google Tag Manager (noscript) -->
+
+<!-- End Google Tag Manager (noscript) -->
+
+<!--    <a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="hide-mobile float" target="_blank"> <i class="fab fa-whatsapp my-float"></i> </a>-->
+<!--	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="show-mobile float-m" target="_blank"> <i class="fab fa-whatsapp my-float"></i> </a>-->
+
+    <!--google stuff end -->
+    {% block meta %}
+
+	{% endblock meta %}
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="{% static 'home/images/vnvlogo.png' %}"/>
+    <link rel="icon" type="image/png" href="{% static 'home/images/vnvlogo.png' %}"/>
+	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float hide-mobile" target="_blank"> <i class="fab fa-whatsapp my-float"></i> </a>
+	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float show-mobile" target="_blank" style="bottom: 100px;"> <i class="fab fa-whatsapp my-float"></i> </a>
+
+	<title>VowsnView</title>
+	<!--====== Google Font ======-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{% static 'home/css/all.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/custom-style.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/mine-style.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	<!--====== Vendor Css ======-->
+	<link rel="stylesheet" href="{% static 'home/css/vendor.css' %}">
+	<!--====== Utility-Spacing ======-->
+	<link rel="stylesheet" href="{% static 'home/css/utility.css' %}">
+	<!--====== App ======-->
+	<link rel="stylesheet" href="{% static 'home/css/app.color2.css' %}">
+
+<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+	{% block head %}
+
+	{% endblock head %}
+	<style>
+
+</style>
+</head>
+
+<body id="body" onload="mySnackbar()">
+
+   {% if messages %}
+    {% for message in messages %}
+        <div  id="snackbar">
+          <div  class="alert {% if message.tags %} alert-{{message.tags}} {% else %} alert-primary {% endif %}" style="margin-left: auto;margin-right: auto;max-width: 70%;">
+             {{message}}
+          </div>
+        </div>
+    {% endfor %}
+   {% endif %}
+       
+
+        <script>
+            function mySnackbar() {
+              var x = document.getElementById("snackbar");
+              x.className = "show";
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }
+        </script>
+
+
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCV6LJ2"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<div class="preloader is-active">
+		<div class="preloader__wrap"> <img class="preloader__img" src="{% static 'home/images/home/Vnv.gif' %}" alt="" style="width: 250px;height: auto;"></div>
+	</div>
+	<!--====== Main App ======-->
+
+
+	<div id="app">
+		<!--====== Main Header ======-->
+		<div class="show-mobile">
+			<header class="header--style-1" style="margin-bottom:-2em;">
+				<!--====== Nav 1 ======-->
+				<nav class="primary-nav primary-nav-wrapper--border">
+					<div class="container">
+						<!--====== Primary Nav ======-->
+						<div class="primary-nav">
+							<!--====== Main Logo ======-->
+							<div class="hide-tab">
+							<a class="main-logo" href="/" style="margin-top: 0.5em;margin-left: -0.5em;"> <img src="{% static 'home/images/vnvlogo.png' %}" alt="" style="width: 20%;height: 10%;"> </a></div>
+
+							<div class="show-tab">
+							<a class="main-logo" href="/" style="margin-top: 0em;margin-left: -1em;"> <img src="{% static 'home/images/vnvlogo.png' %}" alt="" style="width: 17%;height: 10%;"> </a></div>
+
+							<!--====== End - Main Logo ======-->
+							<!--====== Search Form ======-->
+							<form class="hide-tab main-form" method='GET' action="{% url 'search' %}" style="margin-top: -4em;margin-left: 10em;">
+								<label for="main-search"></label>
+								<input class="input-text input-text--border-radius input-text--style-1" type="text" name="q" id="main-search" placeholder="Search" style="border-radius: 0em;width: 130%;margin-left: -4em;">
+								<button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top:0em;margin-right: 0.5em;"></button>
+							</form>
+							<form class="show-tab main-form" method='GET' action="{% url 'search' %}" style="margin-top: -6em;margin-left: 17em;">
+								<label for="main-search"></label>
+								<input class="input-text input-text--border-radius input-text--style-1" type="text" name="q" id="main-search" placeholder="Search" style="border-radius: 0em;width: 130%;margin-left: -4em;">
+								<button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top: 0.7em;margin-right: -0.5em;"></button>
+							</form>
+							<div class="hide-mobile">
+								<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+									<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select" style="width: 140px;">
+
+										{% if user.is_authenticated %}
+										<option disabled>INR</option>
+										{% if user.currency == 'INR' %}
+										<option value=INR selected>INR</option> {% else %}
+										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+										<option value=USD selected>USD</option> {% else %}
+										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+										<option value=EUR selected>EUR</option> {% else %}
+										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+										<option value=AUD selected>AUD</option> {% else %}
+										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+										<option value=GBP selected>GBP</option> {% else %}
+										<option value=GBP>GBP</option> {% endif %} {% else %}
+										<option value=INR>────────────</option>
+										<!--<option disabled selected> &nbsp;&nbsp;&nbsp;&nbsp;All Currency&nbsp;&nbsp;&nbsp;&nbsp; </option>-->
+										<option value=INR>INR</option>
+										<option value=USD>USD</option>
+										<option value=EUR>EUR</option>
+										<option value=AUD>AUD</option>
+										<option value=GBP>GBP</option> {% endif %} </select>
+									<noscript>
+										<input type="submit" value="Submit">
+									</noscript>
+									<!--                                    <input class="btn btn-primary" type="submit" />-->
+								</form>
+							</div>
+							<!--====== End - Search Form ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation" style="margin-top: -4em;margin-right: 0.7em;">
+								<button class="btn btn--icon toggle-button toggle-button--secondary" type="button"><i class="fas fa-user-cog"></i></button>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<br>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary" style="margin-top:-1.5em;">
+										{% if not user.is_authenticated %}
+										<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title=""> <a href="{% url 'users-login' %}" style="font-weight: bold;font-size: 0.9em;margin-left: 0.5em;"><i class="fas fa-lock u-s-m-r-6" style="font-size: 0.7em;"></i>Login</a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											{% else %}
+											<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account"> <a><i class="far fa-user-circle"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+										{% endif %}
+											<ul style="width:120px"> {% if not user.is_authenticated %}
+												<li> <a href="{% url 'users-register' %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
+
+                                                    <span>Sign up</span></a></li>
+<!--												<li> <a href="{% url 'users-login' %}"><i class="fas fa-lock u-s-m-r-6"></i>-->
+
+<!--                                                    <span>Signin</span></a></li>-->
+												{% elif user.is_vendor %}
+												<li> <a href="{% url 'vendor-home' %}"><img src="{% static 'vendors/images/homestore.png' %}" width="7%;" style="margin-left: -0.2em;"> <span> &nbsp;Storefront</span></a></li>
+
+												<li> <a href="{% url 'faq-view' %}"><img src="{% static 'vendors/images/faq_2.png' %}" width="7%;" style="margin-left: -0.2em;"> <span> &nbsp;Faq</span></a></li>
+
+												<li> <a href="{% url 'instagram-portfolio' %}"><img src="{% static 'vendors/images/portfolio.png' %}" width="7%;" style="margin-left: -0.2em;"> <span> &nbsp;Portfolio</span></a></li>
+
+												<li> <a href="{% url 'inquiry' %}"><img src="{% static 'vendors/images/inquiry.png' %}" width="7%;" style="margin-left: -0.2em;"> <span> &nbsp;Inquiry</span> {% if show_notification %}<span class="font-size-10" style="background: #965B92;color: #fff;border-radius: 50%;">{{contact_count}}</span>{% endif %}</a></li>
+
+												<li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+												
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li>
+														<!--====== End - Dropdown ======-->
+
+												{% else %}
+												<li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+												<li>
+													<a href="{% url 'profile' %}"><img src="{% static 'home/icons/wedding.png' %}" width="7%;" style="margin-left: -0.2em;"> <span> &nbspWedding Tool</span></a>
+												</li>
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li> {% endif %} </ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<!--                                    <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Settings">-->
+										<!--                                        <a><i class="fas fa-user-cog"></i></a>-->
+										<!--                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                        <span class="js-menu-toggle"></span>-->
+										<!--                                        <ul style="width:120px">-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Language<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:120px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">ENGLISH</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ARABIC</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>FRANCAIS</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ESPANOL</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Currency<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:225px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">$ - US DOLLAR</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>£ - BRITISH POUND STERLING</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>€ - EURO</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                        </ul>-->
+										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9811041767"><i class="fas fa-phone-volume"></i></a></li>
+										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:vowsnviews@gmail.com"><i class="far fa-envelope"></i></a></li>
+									</ul>
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Primary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 1 ======-->
+				<!--====== Nav 2 ======-->
+				<nav class="secondary-nav-wrapper" style="margin-top: 0em;">
+					<div class="container">
+						<!--====== Secondary Nav ======-->
+						<div class="secondary-nav">
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation1" style="margin-left: 1em;">
+								<div class="show-mobile">
+									<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog toggle-button-shop" type="button"></button>
+									<!--                            <span class="total-item-round">2</span>--></div>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+										<!--                                    <li> <a href="https://api.whatsapp.com/send?phone=9811041767&text=VowsnViews">What's app me !</a> <li>-->
+										<li> <a href="/"><i class="fas fa-home u-c-brand"></i></a></li>
+										<li> <a href="{% url 'product-favorite-list' %}" style="color:#965B92;"><i class="far fa-heart"></i></a></li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+								<!--====== Dropdown Main plugin ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation2">
+								<div class="show-mobile">
+									<table style="margin-right: 0em;">
+										<tr>
+											<th>
+												<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+													<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select" style="width: 140px;">
+
+            										{% if user.is_authenticated %}
+            										<option disabled>INR</option>
+            										{% if user.currency == 'INR' %}
+            										<option value=INR selected>INR</option> {% else %}
+            										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+            										<option value=USD selected>USD</option> {% else %}
+            										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+            										<option value=EUR selected>EUR</option> {% else %}
+            										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+            										<option value=AUD selected>AUD</option> {% else %}
+            										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+            										<option value=GBP selected>GBP</option> {% else %}
+            										<option value=GBP>GBP</option> {% endif %} {% else %}
+            										<option value=INR>────────────</option>
+            										<!--<option disabled selected> &nbsp;&nbsp;&nbsp;&nbsp;All Currency&nbsp;&nbsp;&nbsp;&nbsp; </option>-->
+            										<option value=INR>INR</option>
+            										<option value=USD>USD</option>
+            										<option value=EUR>EUR</option>
+            										<option value=AUD>AUD</option>
+            										<option value=GBP>GBP</option> {% endif %} </select>
+													<noscript>
+														<input type="submit" value="Submit">
+													</noscript>
+													<!--                                    <input class="btn btn-primary" type="submit" />-->
+												</form>
+											</th>
+											<th>
+												<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button" style="margin-left: 2em;"></button>
+											</th>
+										</tr>
+									</table>
+								</div>
+
+
+								<!--                            <button class="btn btn&#45;&#45;icon toggle-button toggle-button&#45;&#45;secondary fas fa-cog" type="button"></button>-->
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design2 ah-list--link-color-secondary" >
+										{% if user.is_superuser %}
+										<li class="has-dropdown"  style="color: #965B92;"> <a> Ecommerce<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-dashboard' %}">Analytics Home</a> </li>
+												<li> <a href="{% url 'admin-product-list' %}">All Products</a> </li>
+												<li> <a href="{% url 'admin-category-list' %}">Category</a> </li>
+												<li> <a href="{% url 'admin-order-list' %}">Orders &nbsp;{% if mini_order_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{mini_order_count}}</span>{% endif %}</a> </li>
+												<li> <a href="{% url 'admin-order-return' %}">Return &nbsp;{% if return_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{return_count}}</span>{% endif %}</a> </li>
+												<li> <a href="{% url 'admin-order-cancel' %}">Cancellations &nbsp;{% if cancel_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{cancel_count}}</span>{% endif %}</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-contact' %}">Contact &nbsp;{% if normal_contact %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{normal_contact}}</span>{% endif %}</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li class="has-dropdown"  style="color: #965B92;"> <a> Listing<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width: 200px;">
+												<li> <a href="{% url 'admin-listing-dashboard' %}">Analytics Listing Home</a> </li>
+												<li> <a href="{% url 'admin-listing-list' %}">Listing</a></li>
+												<li> <a href="{% url 'admin-draft-listing-list' %}">Vendor Listing &nbsp;{% if listing_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{draft_listing_count}}</span>{% endif %}</a></li>
+												<li> <a href="{% url 'blank-listing-list' %}">Assign Listing</a> </li>
+												<li> <a href="{% url 'admin-listing-category-list' %}">Listing Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-parent-category-list' %}">Listing Parent Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-location-list' %}">Location</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-contact' %}">Listing Contact</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-blog-list' %}">Diaries</a> </li>
+												<li> <a class="dash-active" href="{% url 'landing-list' %}">Landing Leads</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li> {% endif %}
+<!--										<li> <a href="{% url 'home' %}"  style="color: #965B92;">Home</a> </li>-->
+
+                                        <li class="has-dropdown"> <a href="{% url 'vendor' %}"  style="color: #965B92;">Venues & Vendors <i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width: 100%;left: 0;height: 500px;overflow-y: scroll;">
+												<div class="row">
+                                                      {% for object in parent_category_list %}
+                                                       <div class="col-lg-3" style="padding-left: 3em;margin: 2em 0em;">
+															<li><a href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&parent_category={{object.id}}&vendor_name=" style="color: #965B92;fon-size: 1em;font-weight: bold;margin-bottom: 1em;">{{ object.title }}</a></li>
+															{% for objects in object.listingcategory_set.all %}
+														    <li> <a class="dash-active" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&category={{objects.id}}&vendor_name=">{{objects.title}}</a></li>
+														    {% endfor %}
+														</div>
+												      {% endfor %}
+												</div>
+											</ul>
+										</li>
+
+
+										<li class="has-dropdown"> <a href="{% url 'destination-wedding' %}"  style="color: #965B92;">Destination <i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width: 100%;left: 0;height: 500px;overflow-y: scroll;">
+												<div class="row">
+													<div class="col-lg-12" style="padding-left: 3em;margin: 2em 0em;">
+													{% for venue in listing_locations %}
+														  <li style="padding: 0.2em 0em;"> <a class="dash-active" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{venue.id}}&vendor_name=">{{venue.title}}</a> </li>
+														{% endfor %}
+													</div>
+												</div>
+											</ul>
+										</li>
+
+										<li> <a href="{% url 'in-House-Store-view' %}"  style="color: #965B92;">In House Store</a> </li>
+										<li class="has-dropdown"> <a href="{% url 'in-house-service' %}"  style="color: #965B92;">In House Service<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'planning-decor'  %}">VNV Expert Planner</a></li>
+												<li> <a href="{% url 'wedding-stylist'  %}">Fashion Stylist</a></li>
+												<li> <a href="{% url 'destination-wedding'  %}">Destination Wedding</a></li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li> <a href="{% url 'users-blog-list' %}"  style="color: #965B92;">Our Diaries</a> </li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation3" style="margin-right: 1em;">
+								<div class="menu-init" id="navigation1">
+									<div class="show-mobile">
+										<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag" type="button"></button>
+										<!--                            <span class="total-item-round">2</span>--></div>
+									<!--====== Menu ======-->
+									<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+										<!--====== List ======-->
+										<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+											<!--                                    <li> <a href="https://api.whatsapp.com/send?phone=9811041767&text=VowsnViews">What's app me !</a> <li>-->
+											<li class="has-dropdown"> <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                                <span class="total-item-round">{{ cart_count }}</span></a>
+												<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+												<div class="mini-cart"> {% if cart %}
+													<!--====== Mini Product Container ======-->
+													<div class="mini-product-container gl-scroll u-s-m-b-15"> {% for cart in cart %}
+														<!--====== Card for mini cart ======-->
+														<div class="card-mini-product">
+															<div class="mini-product">
+																<div class="mini-product__image-wrapper">
+																	<a href="{% url 'product-detail-view' cart.product.id %}"> <img src="{{ cart.product.get_image }}" alt="" style="height: 70px;width: 70px;"></a>
+																</div>
+																<div class="mini-product__info-wrapper"> <span class="mini-product__category">
+
+                                                                    <a href="">{{ cart.product.category }}</a></span> <span class="mini-product__name">
+
+                                                                    <a href="{% url 'product-detail-view' cart.product.id %}">{{ cart.product.title }}</a></span> <span class="mini-product__quantity">{{ cart.quantity }} x</span> <span class="mini-product__price">{% currency request cart.get_final_price %}</span></div>
+															</div>
+															<a class="mini-product__delete-link far fa-trash-alt" href="{% url 'delete-cart' cart.id %}"></a>
+														</div>
+														<!--====== End - Card for mini cart ======-->{% endfor %} </div>
+													<!--====== Mini Product Statistics ======-->
+													<div class="mini-product-stat">
+														<div class="mini-total"> <span class="subtotal-text">SUBTOTAL</span> <span class="subtotal-value">{% currency request order.get_total_without_tax_shipping %}</span></div>
+														<div class="mini-action"> <a class="mini-link btn--e-brand-b-2" href="{% url 'order-checkout' %}" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">PROCEED TO CHECKOUT</a> <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'order-view-cart' %}">VIEW CART</a></div>
+													</div> {% else %}
+													<h3 style="margin: 2em;">No Product in cart.</h3> {% endif %}
+													<!--====== End - Mini Product Statistics ======-->
+												</div>
+												<!--====== End - Dropdown ======-->
+											</li>
+										</ul>
+										<!--====== End - List ======-->
+									</div>
+									<!--====== End - Menu ======-->
+									<!--====== Dropdown Main plugin ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Secondary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 2 ======-->
+			</header>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+		<div class="hide-mobile">
+			<header class="header--style-1" style="margin-bottom:-3em;">
+				<!--====== Nav 1 ======-->
+				<nav class="primary-nav primary-nav-wrapper--border">
+					<div class="container">
+						<!--====== Primary Nav ======-->
+						<div class="primary-nav">
+							<!--====== Main Logo ======-->
+							<a class="main-logo" href="/" style="margin-top: 0em;margin-left: -1.3em;"> <img src="{% static 'home/images/vnvlogo.png' %}" alt="" style="width: 16%;height: 10%;"> </a>
+							<!--====== End - Main Logo ======-->
+							<!--====== Search Form ======-->
+							<form class="main-form" method='GET' action="{% url 'search' %}" style="margin-top: -6.3em;margin-left: 15em;">
+								<label for="main-search"></label>
+								<input class="input-text input-text--border-radius input-text--style-1" type="text" name="q" id="main-search" placeholder="Search" style="border-radius: 0em;">
+								<button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top:0.7em;"></button>
+							</form>
+							<div class="hide-mobile">
+								<form method="post" action="{% url 'home' %}" style="margin-top: -3.6em;margin-left: 5em;">  {% csrf_token %}
+									<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select" style="width: 140px;">
+
+										{% if user.is_authenticated %}
+										<option disabled>INR</option>
+										{% if user.currency == 'INR' %}
+										<option value=INR selected>INR</option> {% else %}
+										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+										<option value=USD selected>USD</option> {% else %}
+										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+										<option value=EUR selected>EUR</option> {% else %}
+										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+										<option value=AUD selected>AUD</option> {% else %}
+										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+										<option value=GBP selected>GBP</option> {% else %}
+										<option value=GBP>GBP</option> {% endif %} {% else %}
+										<option value=INR>────────────</option>
+										<!--<option disabled selected> &nbsp;&nbsp;&nbsp;&nbsp;All Currency&nbsp;&nbsp;&nbsp;&nbsp; </option>-->
+										<option value=INR>INR</option>
+										<option value=USD>USD</option>
+										<option value=EUR>EUR</option>
+										<option value=AUD>AUD</option>
+										<option value=GBP>GBP</option> {% endif %} </select>
+									<noscript>
+										<input type="submit" value="Submit">
+									</noscript>
+									<!--                                    <input class="btn btn-primary" type="submit" />-->
+								</form>
+							</div>
+							<!--====== End - Search Form ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation" style="margin-top: -5em;">
+								<button class="btn btn--icon toggle-button toggle-button--secondary" type="button"><i class="fas fa-user-cog"></i></button>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<br>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary" style="margin-top:-1.5em;">
+										{% if not user.is_authenticated %}
+										<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title=""> <a href="{% url 'users-login' %}" style="font-weight: bold;font-size: 0.9em;margin-left: 0.5em;"><i class="fas fa-lock u-s-m-r-6" style="font-size: 0.7em;"></i>Login</a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											{% else %}
+											<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account"> <a><i class="far fa-user-circle"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+										{% endif %}
+											<ul style="width:120px">
+												{% if not user.is_authenticated %}
+												<li> <a href="{% url 'users-register' %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
+
+                                                    <span>Signup</span></a></li>
+<!--												<li> <a href="{% url 'users-login' %}"><i class="fas fa-lock u-s-m-r-6"></i>-->
+
+<!--                                                    <span>Login</span></a></li>-->
+												{% elif user.is_vendor %}
+												<li> <a href="{% url 'vendor-home' %}"><img src="{% static 'vendors/images/homestore.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbsp;Storefront</span></a></li>
+
+												<li> <a href="{% url 'faq-view' %}"><img src="{% static 'vendors/images/faq_2.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbsp;Faq</span></a></li>
+
+												<li> <a href="{% url 'instagram-portfolio' %}"><img src="{% static 'vendors/images/portfolio.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbsp;Portfolio</span></a></li>
+
+												<li> <a href="{% url 'inquiry' %}"><img src="{% static 'vendors/images/inquiry.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbsp;Inquiry &nbsp;</span>{% if show_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{contact_count}}</span>{% endif %}</a></li>
+
+											    <li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+											
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li>
+														<!--====== End - Dropdown ======-->
+
+												{% else %}
+
+												<li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+												<li>
+													<a href="{% url 'profile' %}"><img src="{% static 'home/icons/wedding.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbspWedding Tool</span></a>
+												</li>
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li>
+										{% endif %}
+									</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+
+										<!--                                    <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Settings">-->
+										<!--                                        <a><i class="fas fa-user-cog"></i></a>-->
+										<!--                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                        <span class="js-menu-toggle"></span>-->
+										<!--                                        <ul style="width:120px">-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Language<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:120px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">ENGLISH</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ARABIC</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>FRANCAIS</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ESPANOL</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Currency<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:225px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">$ - US DOLLAR</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>£ - BRITISH POUND STERLING</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>€ - EURO</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                        </ul>-->
+										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                    </li>-->
+										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
+										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
+									</ul>
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Primary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 1 ======-->
+				<!--====== Nav 2 ======-->
+				<nav class="secondary-nav-wrapper" style="margin-top: 0em;">
+					<div class="container">
+						<!--====== Secondary Nav ======-->
+						<div class="secondary-nav">
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation1"> <a href="/"><i class="fas fa-home u-c-brand"></i></a></li>
+								<!--====== Menu ======-->
+								<!--====== End - Menu ======-->
+								<!--====== Dropdown Main plugin ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation2">
+								<div class="show-mobile">
+									<table>
+										<tr>
+											<th>
+												<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+													<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select" style="width: 140px;">
+
+                										{% if user.is_authenticated %}
+                										<option disabled>INR</option>
+                										{% if user.currency == 'INR' %}
+                										<option value=INR selected>INR</option> {% else %}
+                										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+                										<option value=USD selected>USD</option> {% else %}
+                										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+                										<option value=EUR selected>EUR</option> {% else %}
+                										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+                										<option value=AUD selected>AUD</option> {% else %}
+                										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+                										<option value=GBP selected>GBP</option> {% else %}
+                										<option value=GBP>GBP</option> {% endif %} {% else %}
+                										<option value=INR>────────────</option>
+                										<!--<option disabled selected> &nbsp;&nbsp;&nbsp;&nbsp;All Currency&nbsp;&nbsp;&nbsp;&nbsp; </option>-->
+                										<option value=INR>INR</option>
+                										<option value=USD>USD</option>
+                										<option value=EUR>EUR</option>
+                										<option value=AUD>AUD</option>
+                										<option value=GBP>GBP</option> {% endif %} </select>
+													<noscript>
+														<input type="submit" value="Submit">
+													</noscript>
+													<!--                                    <input class="btn btn-primary" type="submit" />-->
+												</form>
+											</th>
+											<th>
+												<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button" style="margin-left: 1em;"></button>
+											</th>
+										</tr>
+									</table>
+								</div>
+								                            <!--<button class="btn btn&#45;&#45;icon toggle-button toggle-button&#45;&#45;secondary fas fa-cog" type="button"></button>-->
+								<!--====== Menu ======-->
+
+								<div class="ah-lg-mode">
+
+									<span class="ah-close">✕ Close</span>
+
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design2 ah-list--link-color-secondary" >
+										{% if user.is_superuser %}
+										<li class="has-dropdown"  style="color: #965B92;"> <a> ECOMMERCE&nbsp;{% if show_order_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0em 0.7em;border-radius: 50%;font-size: 0.8em;"></span>{% endif %}</a><i class="fas fa-angle-down" style="font-size: 0.7em;"></i>&nbsp;&nbsp; <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-dashboard' %}">Analytics Home</a> </li>
+												<li> <a href="{% url 'admin-product-list' %}">All Products</a> </li>
+												<li> <a href="{% url 'admin-category-list' %}">Category</a> </li>
+												<li> <a href="{% url 'admin-order-list' %}">Orders &nbsp;{% if mini_order_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{mini_order_count}}</span>{% endif %}</a></li>
+												<li> <a href="{% url 'admin-order-return' %}">Return &nbsp;{% if return_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{return_count}}</span>{% endif %}</a> </li>
+												<li> <a href="{% url 'admin-order-cancel' %}">Cancellations &nbsp;{% if cancel_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{cancel_count}}</span>{% endif %}</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-contact' %}">Contact &nbsp;{% if normal_contact %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{normal_contact}}</span>{% endif %}</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li class="has-dropdown"  style="color: #965B92;"> <a> LISTING&nbsp;{% if listing_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0em 0.6em;border-radius: 50%;font-size: 0.8em;"></span>{% endif %}</a><i class="fas fa-angle-down" style="font-size: 0.7em;"></i>&nbsp;&nbsp; <span class="js-menu-toggle"></span>
+											<ul style="width: 200px;">
+												<li> <a href="{% url 'admin-listing-dashboard' %}">Analytics Listing Home</a> </li>
+												<li> <a href="{% url 'admin-listing-list' %}">Listing</a></li>
+												<li> <a href="{% url 'admin-draft-listing-list' %}">Vendor Listing &nbsp;{% if listing_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{draft_listing_count}}</span>{% endif %}</a></li>
+											    <li> <a href="{% url 'blank-listing-list' %}">Assign Listing</a> </li>
+												<li> <a href="{% url 'admin-listing-category-list' %}">Listing Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-parent-category-list' %}">Listing Parent Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-location-list' %}">Location</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-contact' %}">Listing Contact</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-blog-list' %}">Diaries</a> </li>
+												<li> <a class="dash-active" href="{% url 'landing-list' %}">Landing Leads</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li> {% endif %}
+<!--										<li> <a href="{% url 'home' %}"  style="color: #965B92;">Home</a> </li>-->
+
+                                        <li class="has-dropdown"> <a href="{% url 'vendor' %}"  style="color: #965B92;">VENUES & VENDORS</a><i class="fas fa-angle-down" style="font-size: 0.7em;"></i>&nbsp;&nbsp; <span class="js-menu-toggle"></span>
+											<ul style="width: 100%;left: 0;height: 500px;overflow-y: scroll;">
+												<div class="row">
+													{% for object in parent_category_list %}
+                                                       <div class="col-lg-3" style="padding-left: 3em;margin: 2em 0em;">
+                                                           	<li><a href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&parent_category={{object.id}}&vendor_name=" style="color: #965B92;fon-size: 1em;font-weight: bold;margin-bottom: 1em;">{{ object.title }}</a></li>
+
+
+															{% for objects in object.listingcategory_set.all %}
+														    <li> <a class="dash-active" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&category={{objects.id}}&vendor_name="><p style="margin-top: 0.5em;">{{objects.title}}</p></a></li>
+														    {% endfor %}
+														</div>
+													{% endfor %}
+
+												</div>
+											</ul>
+										</li>
+
+
+										<li class="has-dropdown"> <a href="{% url 'destination-wedding' %}"  style="color: #965B92;">DESTINATION</a><i class="fas fa-angle-down" style="font-size: 0.7em;"></i>&nbsp;&nbsp; <span class="js-menu-toggle"></span>
+											<ul style="width: 100%;left: 0;height: 500px;overflow-y: scroll;padding: 1.5em;">
+												<div class="row">
+													<div class="col-lg-3">
+														<ul style="margin: 0em;">
+														{% for venue in listing_locations %}
+														  <li style="padding: 0.5em 0em;"> <a class="dash-active" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{venue.id}}&vendor_name=">{{venue.title}}</a> </li>
+														{% endfor %}
+														</ul>
+													</div>
+													<div class="col-lg-9">
+														<li><h4 style="font-weight: bold;">Destination Wedding Venues</h4></li><hr>
+														<div class="row">
+															{% for venue in listing_locations %}
+																<div class="col-lg-3 mega-image" style="padding: 1em 1em;" onclick="window.location.href='https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{venue.id}}&vendor_name='">
+																	<div class="mega-banner">
+
+																		<a class="u-d-block" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{venue.id}}&vendor_name=">
+                                                                            {% if venue.image %}
+																			    <img class="u-img-fluid u-d-block" src="{{ venue.image.url }}" alt="" style="border-radius: 0.5em;height: 250px;object-fit: cover;">
+                                                                            {% endif %}
+                                                                            </a>
+																		 <p align="center" style="font-weight: bold;margin-top: 0.5em;">{{venue.title}}</p>
+
+																	</div>
+																</div>
+															{% endfor %}
+														</div>
+													</div>
+
+												</div>
+											</ul>
+										</li>
+
+										<li> <a href="{% url 'in-House-Store-view' %}"  style="color: #965B92;">IN HOUSE STORE</a> </li>
+										<li class="has-dropdown"> <a href="{% url 'in-house-service' %}"  style="color: #965B92;">IN HOUSE SERVICE</a><i class="fas fa-angle-down" style="font-size: 0.7em;"></i>&nbsp;&nbsp;
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'planning-decor'  %}">VNV Expert Planner</a></li>
+												<li> <a href="{% url 'wedding-stylist'  %}">Fashion Stylist</a></li>
+												<li> <a href="{% url 'destination-wedding'  %}">Destination Wedding</a></li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li> <a href="{% url 'users-blog-list' %}"  style="color: #965B92;">OUR DIARIES</a> </li>
+									</ul>
+								</div>
+							</div>
+							<div class="menu-init" id="navigation3">
+								<div class="show-mobile">
+									<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars toggle-button-shop" type="button"></button></div>
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+										<li> <a href="{% url 'product-favorite-list' %}" style="color:#965B92;"><i class="far fa-heart"></i></a></li>
+										<li class="has-dropdown"> <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                                <span class="total-item-round">{{ cart_count }}</span></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<div class="mini-cart"> {% if cart %}
+												<div class="mini-product-container gl-scroll u-s-m-b-15"> {% for cart in cart %}
+													<div class="card-mini-product">
+														<div class="mini-product">
+															<div class="mini-product__image-wrapper">
+																<a  href="{% url 'product-detail-view' cart.product.id %}"> <img  src="{{ cart.product.get_image }}" alt="" style="height: 70px;width: 70px;"></a>
+															</div>
+															<div class="mini-product__info-wrapper"> <span class="mini-product__category">
+
+                                                                    <a href="shop-side-version-2.html">{{ cart.product.category }}</a></span> <span class="mini-product__name">
+
+                                                                    <a href="{% url 'product-detail-view' cart.product.id %}">{{ cart.product.title }}</a></span> <span class="mini-product__quantity">{{ cart.quantity }} x</span> <span class="mini-product__price">{% currency request cart.get_final_price %}</span></div>
+														</div>
+														<a class="mini-product__delete-link far fa-trash-alt" href="{% url 'delete-cart' cart.id %}"></a>
+													</div>
+													<!--====== End - Card for mini cart ======-->{% endfor %} </div>
+												<!--====== Mini Product Statistics ======-->
+												<div class="mini-product-stat">
+													<div class="mini-total"> <span class="subtotal-text">SUBTOTAL</span> <span class="subtotal-value">{% currency request order.get_total_without_tax_shipping %}</span></div>
+													<div class="mini-action"> <a class="mini-link btn--e-brand-b-2" href="{% url 'order-checkout' %}" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">PROCEED TO CHECKOUT</a> <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'order-view-cart' %}">VIEW CART</a></div>
+												</div>
+												<!--====== End - Mini Product Statistics ======-->{% else %}
+												<h3 style="margin: 2em;">No Product in cart.</h3> {% endif %} </div>
+											<!--====== End - Dropdown ======-->
+										</li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Secondary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 2 ======-->
+			</header>
+		</div> {% block content %} {% endblock content %}
+		<footer>
+			<div class="outer-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4 col-md-6">
+							<div class="outer-footer__content u-s-m-b-40"> <span class="outer-footer__content-title">Contact Us</span>
+								<div class="outer-footer__text-wrap"><i class="fas fa-home"></i> <span>Delhi</span></div>
+								<div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i> <span>(+91) 9811041767</span></div>
+								<div class="outer-footer__text-wrap"><i class="far fa-envelope"></i> <span>vowsnview@gmail.com</span></div>
+								<div class="outer-footer__social">
+									<ul>
+										<li> <a class="s-fb--color-hover" href="https://www.facebook.com/vowsnviews"><i class="fab fa-facebook-f"></i></a></li>
+										<li> <a class="s-youtube--color-hover" href="https://www.pinterest.com/vowsnviews/"><i class="fab fa-pinterest-p"></i></a></li>
+										<li> <a class="s-youtube--color-hover" href="https://www.youtube.com/channel/UCEAU0QdK-98S8zOf226TN6g"><i class="fab fa-youtube"></i></a></li>
+										<li> <a class="s-insta--color-hover" href="https://www.instagram.com/Vowsnviews/"><i class="fab fa-instagram"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="row">
+								<div class="col-lg-6 col-md-6">
+									<div class="outer-footer__content u-s-m-b-40"> <span class="outer-footer__content-title">Pages</span>
+										<div class="outer-footer__list-wrap">
+											<ul>
+												<li> <a href="{% url 'listing-list-view' %}">Vendors & Venues</a></li>
+												<li> <a href="{% url 'product-list-view' %}">In House Store</a></li>
+												<li> <a href="{% url 'order-view-cart' %}">Cart</a></li>
+												<li> <a href="{% url 'profile' %}">My Dashboard</a></li>
+												<li> <a href="{% url 'listing-list-view' %}">My Account</a></li>
+												{% if not user.is_authenticated %}
+												<li> <a href="{% url 'vendor-register' %}">Become A Vendor</a></li>
+												{% endif %}
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<div class="outer-footer__content u-s-m-b-40">
+										<div class="outer-footer__list-wrap"> <span class="outer-footer__content-title"></span>
+											<ul>
+												<!--<li> <a href="{% url 'about' %}">About us</a></li>-->
+												<li> <a href="{% url 'contact' %}">Contact Us</a></li>
+												<!--<li> <a href="{% url 'sitemap' %}">Sitemap</a></li>-->
+												<li> <a href="{% url 'vendor-policy' %}">Vendor Policy</a></li>
+												<li> <a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
+												<li> <a href="{% url 'terms-and-condition' %}">Terms & Condition</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<div class="outer-footer__content"> <span class="outer-footer__content-title">Join our Newsletter</span>
+								<form class="newsletter" method="post" action="{% url 'news-letter' %}"> {% csrf_token %}
+									<div class="newsletter__group">
+										<label for="id_email"></label>
+										<input class="input-text input-text--only-white" type="text" id="id_email" name="email" placeholder="Enter your Email" style="" required>
+										<button class="btn btn--e-brand newsletter__btn" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;margin-left: -2em;" onMouseOver="this.style.background-color='#fff'">SUBSCRIBE</button>
+									</div> <span class="newsletter__text">Subscribe to the mailing list to receive updates on promotions, new arrivals, discount and coupons.</span> </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="lower-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4">
+
+								<div class="lower-footer__copyright"> <span>Copyright © {{ current_year }}</span> <a href="/">Vowsnviews</a> <span>All Right Reserved</span>
+
+								</div>
+						</div>
+
+								<div class="col-lg-4 pb-3">
+								    <a href="http://siteguide.co.in">
+											<p style="color: #fff;">Developed By Siteguide</p>
+										</a>
+								</div>
+								<div class="col-lg-4 pb-5 mb-5 show-mobile">
+								<div class="lower-footer__payment">
+									<ul>
+
+										                                        <li><i class="fab fa-cc-visa"></i></li>
+										                                        <li><i class="fab fa-cc-mastercard"></i></li>
+										                                        <li><i class="fab fa-cc-stripe"></i></li>
+										                                        <li><i class="fab fa-cc-amex"></i></li>
+									</ul>
+								</div>
+							</div>
+							
+							
+							
+					
+								<div class="col-lg-4 hide-mobile">
+								<div class="lower-footer__payment">
+									<ul>
+
+										                                        <li><i class="fab fa-cc-visa"></i></li>
+										                                        <li><i class="fab fa-cc-mastercard"></i></li>
+										                                        <li><i class="fab fa-cc-stripe"></i></li>
+										                                        <li><i class="fab fa-cc-amex"></i></li>
+									</ul>
+								</div>
+							</div>
+							
+							
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+
+{#		{% if offer %}#}
+
+<div id="modal">
+
+</div>
+
+
+
+{#		  {% endif %}#}
+<script>
+
+      function close_popup(){
+          localStorage.setItem('close_popup', "true");
+          $('#newsletter-modal').modal('hide');
+      }
+
+      $(document).ready(function(){
+         console.log("document ready");
+
+         let popup = localStorage.getItem('close_popup');
+         if(popup === "true")
+         {
+             $('#newsletter-modal').modal('hide');
+         }
+         else{
+             photo_url = "{% static 'home/images/popup.jpg' %}";
+             html = `
+             <div class="modal fade new-l" id="newsletter-modal" style="padding: 1em 1.5em 1em 0.5em;">
+             <div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content modal--shadow">
+
+						<a ><button class="btn new-l__dismiss fas fa-times" type="button" onclick="close_popup()"></button></a>
+						<div class="modal-body">
+							<div class="row u-s-m-x-0">
+								<div class="col-lg-6 new-l__col-1 u-s-p-x-0">
+
+									<a class="new-l__img-wrap u-d-block">
+
+										<img class="u-img-fluid u-d-block" src="${photo_url}" alt="" style="height: 700px;object-fit: cover;"></a></div>
+								<div class="col-lg-6 new-l__col-2">
+									<div class="new-l__section u-s-m-t-30">
+										<div class="u-s-m-b-8 new-l--center">
+											<h3 class="new-l__h3" style="font-weight: bold;">Lucky Offer</h3>
+										</div>
+										<div class="u-s-m-b-30 new-l--center">
+											<h5 align="center">By filling the details, you register for lucky offers. </h5>
+
+										</div>
+										<form class="new-l__form" method="post" action="{% url 'popup' %}">
+											{% csrf_token %}
+
+											<div class="u-s-m-b-15">
+
+												<input class="news-l__input" id="id_name" name="name" type="text" placeholder="Name" required></div>
+
+											<div class="u-s-m-b-15">
+
+												<input class="news-l__input" id="id_email" name="email" type="email" placeholder="E-mail Address (Optional)"></div>
+
+											<div class="u-s-m-b-15">
+
+												<input class="news-l__input" type="tel" id="id_mobile" name="mobile"  placeholder="Mobile Number" required></div>
+
+											<div class="u-s-m-b-15">
+
+												<input class="news-l__input" id="id_city" name="city" type="text" placeholder="City Name (Optional)"></div>
+
+
+											<div class="u-s-m-b-15">
+
+												<button  type="submit" style="width: 100%;background: #965B92;color: #fff;padding: 0.8em;border: 0px;border-radius: 0.3em;">Register for offers</button></div>
+										</form>
+										<div class="u-s-m-b-15 new-l">
+
+
+										<ul>
+											<li>1st anniversary dinner on us for our 10 lucky customers.</li>
+											<li>10% off on our in-house  store to 10 lucky customers.</li>
+											<li>Lucky customers will be updated on mail.</li>
+										</ul>
+
+										</div>
+										<div class="u-s-m-b-15 new-l--center">
+
+											<a class="new-l__link" onclick="close_popup()"> No Thanks</a></div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div></div>`;
+
+             $('#modal').append(html);
+             $('#newsletter-modal').modal('show');
+
+             console.log("Data appedned");
+         }
+      });
+  </script>
+	<div class="show-mobile shadow">
+		<table width="100%" style="overflow: hidden;position: fixed;bottom: 0;z-index: 10;background: #fff;border-top-left-radius: 1em;border-top-right-radius: 1em;border-top: 1px solid #000;" class="shadow">
+
+
+			<th style="padding: 0em 0.5em">
+				<div class="dropup mt-2">
+					{% if  "/products/" in request.get_full_path %}
+					<center><a href="{% url 'in-House-Store-view' %}" class="dropbtn" style="color: #965B92;font-size: 0.9em;font-weight: 800;"><i class="fas fa-store" style="font-size: 1.4em;"></i><br> <span>Store</span></a></center>
+					{% else %}
+					<center><a href="{% url 'in-House-Store-view' %}" class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><i class="fas fa-store" style="font-size: 1.4em;"></i><br> <span>Store</span></a></center>
+		  		    {% endif %}
+		  		</div>
+			</th>
+
+			<th style="padding: 0em 0.5em">
+				<div class="dropup mt-2">
+					{% if request.get_full_path == "/vendor/" or  "/listing/" in request.get_full_path %}
+					<center><a href="{% url 'vendor' %}" class="dropbtn" style="color: #965B92;font-size: 0.9em;font-weight: 800;"><i class="fas fa-address-book" style="font-size: 1.4em;"></i><br> <span>Vendors</span></a></center>
+					{% else %}
+					<center><a href="{% url 'vendor' %}" class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><i class="fas fa-address-book" style="font-size: 1.4em;"></i><br> <span>Vendors</span></a></center>
+		  		    {% endif %}
+		  		</div>
+			</th>
+
+			<th style="padding: 0.5em 0.5em" width="20%" class="b-active">
+				<div class="dropup">
+					{% if request.get_full_path == "/" %}
+					<center><a href="/" class="dropbtn" style="color: #965B92;font-size: 1em;font-weight: 800;"><img src="{% static 'home/images/vnvlogo.png' %}" width="70%"><br> <span>Home</span></a></center>
+					{% else %}
+					<center><a href="/" class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><img src="{% static 'home/images/vnvlogo.png' %}" width="70%"><br> <span>Home</span></a></center>
+		  		    {% endif %}
+				</div>
+			</th>
+
+
+			<th style="padding: 0em 0.5em">
+				<div class="dropup mt-2">
+					{% if request.get_full_path == "/in-house-services/"  or request.get_full_path == "/planning-decor/"  or request.get_full_path == "/fashion-stylist/" or request.get_full_path == "/destination-wedding/"  %}
+					<center><a href="javascript:void(0)" class="dropbtn" style="color: #965B92;font-size: 0.9em;font-weight: 800;"><i class="fas fa-calculator" style="font-size: 1.4em;"></i><br> <span>Services</span></a></center>
+					{% else %}
+					<center><a href="javascript:void(0)" class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><i class="fas fa-calculator" style="font-size: 1.4em;"></i><br> <span>Services</span></a></center>
+		  		    {% endif %}
+					<div class="dropup-content">
+					  <a href="{% url 'in-house-service' %}">In House Service</a>
+					  <a href="{% url 'planning-decor' %}">VNV Expert Planner</a>
+					  <a href="{% url 'wedding-stylist' %}">Fashion Stylist</a>
+					  <a href="{% url 'destination-wedding' %}">Destination Wedding</a>
+					</div>
+		  		</div>
+			</th>
+			<th style="padding: 0em 0.5em;">
+				<div class="dropup mt-2">
+				    {% if not user.is_authenticated %}
+				    
+				    {% if  "/user/" in request.get_full_path %}
+					<center><a href="{% url 'users-login' %}" class="dropbtn" style="color: #965B92;font-size: 0.9em;font-weight: 800;"><i class="fas fa-lock" style="font-size: 1.3em;"></i><br> <span>Login</span></a></center>
+					{% else %}
+					<center><a href="{% url 'users-login' %}" class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><i class="fas fa-lock" style="font-size: 1.3em;"></i><br> <span>Login</span></a></center>
+		  		    {% endif %}
+				    
+				    {% else %}
+				    
+					{% if  "/vendors/" in request.get_full_path or  "/user/" in request.get_full_path %}
+					<center><a  class="dropbtn" style="color: #965B92;font-size: 0.9em;font-weight: 800;"><i class="far fa-user-circle" style="font-size: 1.4em;"></i><br> <span>Account</span></a></center>
+					{% else %}
+					<center><a class="dropbtn" style="color: grey;" onmouseover="this.style.color='black'"><i class="far fa-user-circle" style="font-size: 1.4em;font-weight: bold;"></i><br> <span>Account</span></a></center>
+		  		    {% endif %}
+		  		    <div class="dropup-content">
+		  		        {% if user.is_vendor %}
+    					  <a href="{% url 'vendor-home' %}"><img src="{% static 'vendors/images/homestore.png' %}" width="10%;"> &nbsp;&nbsp;Storefront</a>
+    					  <a href="{% url 'faq-view' %}"><img src="{% static 'vendors/images/faq_2.png' %}" width="10%;"> &nbsp;&nbsp;Faq</a>
+    					  <a href="{% url 'instagram-portfolio' %}"><img src="{% static 'vendors/images/portfolio.png' %}" width="10%;"> &nbsp;&nbsp;Portfolio</a>
+    					  <a href="{% url 'contact-list' %}"><img src="{% static 'vendors/images/inquiry.png' %}" width="10%;"> &nbsp;&nbsp;Inquiry</a>
+    					  <a href="{% url 'pricing' %}"><img src="{% static 'vendors/images/pricing.png' %}" width="10%;"> &nbsp;&nbsp;Pricing</a>
+    					  
+    					{% endif %}
+    					  <a href="{% url 'user-account' %}"><i class="far fa-user-circle" style="font-size: 25px;"></i> &nbsp;&nbsp;Account</a>
+    					  <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open" style="font-size: 20px;"></i> &nbsp;&nbsp;Signout</a>
+					</div>
+					{% endif %}
+		  		</div>
+			</th>
+
+		</table>
+	</div>
+
+
+<!--	   <ulf class="show-mobile">-->
+<!--		<lif class="dropup">-->
+<!--			<center><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-home" style="color: #965B92;font-size: 1.4em;"></i><br> Order</a></center>-->
+
+<!--			<div class="dropup-content">-->
+<!--			  <a href="#">Link 1</a>-->
+<!--			  <a href="#">Link 2</a>-->
+<!--			  <a href="#">Link 3</a>-->
+<!--			</div>-->
+<!--		  </lif>-->
+<!--		<lif class="dropup">-->
+<!--			<center><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-home" style="color: #965B92;font-size: 1.4em;"></i><br> Order</a></center>-->
+<!--			<div class="dropup-content">-->
+<!--			  <a href="#">Link 1</a>-->
+<!--			  <a href="#">Link 2</a>-->
+<!--			  <a href="#">Link 3</a>-->
+<!--			</div>-->
+<!--		  </lif>-->
+<!--		  <lif class="dropup">-->
+<!--			<center><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-home" style="color: #965B92;font-size: 1.4em;"></i><br> Order</a></center>-->
+<!--			<div class="dropup-content">-->
+<!--			  <a href="#">Link 1</a>-->
+<!--			  <a href="#">Link 2</a>-->
+<!--			  <a href="#">Link 3</a>-->
+<!--			</div>-->
+<!--		  </lif>-->
+<!--		   <lif class="dropup">-->
+<!--			<center><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-home" style="color: #965B92;font-size: 1.4em;"></i><br> Order</a></center>-->
+<!--				<div class="dropup-content">-->
+<!--			  <a href="#">Link 1</a>-->
+<!--			  <a href="#">Link 2</a>-->
+<!--			  <a href="#">Link 3</a>-->
+<!--			</div>-->
+<!--			</lif>-->
+
+<!--		   <lif class="dropup">-->
+<!--			<center><a href="javascript:void(0)" class="dropbtn"><i class="fas fa-home" style="color: #965B92;font-size: 1.4em;"></i><br> Order</a></center>-->
+<!--				<div class="dropup-content">-->
+<!--			  <a href="#">Link 1</a>-->
+<!--			  <a href="#">Link 2</a>-->
+<!--			  <a href="#">Link 3</a>-->
+<!--			</div>-->
+<!--			</lif>-->
+
+<!--		</ulf>-->
+
+
+		<!-- Facebook Pixel Code -->
+		<script>
+		! function(f, b, e, v, n, t, s) {
+			if(f.fbq) return;
+			n = f.fbq = function() {
+				n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if(!f._fbq) f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '136403081447207');
+		fbq('track', 'PageView');
+		</script>
+		<noscript> <img height="1" width="1" src="https://www.facebook.com/tr?id=136403081447207&ev=PageView
+&noscript=1" /> </noscript>
+		<!-- End Facebook Pixel Code -->
+
+
+		<script type="text/javascript">
+		window.ga = function() {
+			ga.q.push(arguments)
+		};
+		ga.q = [];
+		ga.l = +new Date;
+		ga('create', 'UA-XXXXX-Y', 'auto');
+		ga('send', 'pageview')
+		</script>
+		<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+		<!--====== Vendor Js ======-->
+		<script src="{% static 'home/js/vendor.js' %}"></script>
+		<!--====== jQuery Shopnav plugin ======-->
+		<script src="{% static 'home/js/jquery.shopnav.js' %}"></script>
+		<!--====== App ======-->
+		<script src="{% static 'home/js/app.js' %}"></script>
+		<!--====== Noscript ======-->
+		<noscript>
+			<div class="app-setting">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="app-setting__wrap">
+								<h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1> <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</noscript>
+		
+		<script>
+    $(document).ready(function ()
+    {
+       getLocation();
+    });
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          }
+        }
+        function showPosition(position) {
+            save_location(position.coords.latitude, position.coords.longitude);
+
+        }
+
+
+        function save_location(lat, long)
+        {
+            let url = "{% url 'save-location' %}";
+            $.ajax({
+                url: url,
+                data: {
+                    lat: lat,
+                    long: long,
+                },
+                success: function (data){
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+		
+		
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Draft Listing</title>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <h1>This is Vendors Listing Detail View.</h1>
+            <span>After listing approved vendor able to see this page and if faq is not answer yet by vendor faq form is shown here.</span>
+            <br>
+            <div class="col-8 mt-5">Category: {{ object.category }}</div>
+            <div class="col-8">Title : {{ object.title }}</div>
+
+            <div class="col-8">{{ faq.Q1 }}</div>
+        </div>
+
+        {% if not  object.is_faq_answered %}
+        <h3>FAQ Section</h3>
+        <div class="row">
+            <form method="post" action="{% url 'faq-answers' object.id %}">
+                {% csrf_token %}
+            <input type="hidden" name="faq_category" value="{{ object.category.title }}">
+            {% if faq.Q1 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q1 }}</label><br>
+                {{ form.ans1|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q2 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q2 }}</label><br>
+                {{ form.ans2|as_crispy_field }}
+            </div>
+            {% endif %}
+             {% if faq.Q3 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q3 }}</label><br>
+                {{ form.ans3|as_crispy_field }}
+            </div>
+            {% endif %}
+             {% if faq.Q4 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q4 }}</label><br>
+                {{ form.ans4|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q5 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q5 }}</label><br>
+                {{ form.ans5|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q6 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q6 }}</label><br>
+                {{ form.ans6|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q7 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q7 }}</label><br>
+                {{ form.ans7|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q8 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q8 }}</label><br>
+                {{ form.ans8|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q9 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q9 }}</label><br>
+                {{ form.ans9|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q10 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q10 }}</label><br>
+                {{ form.ans10|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q11 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q11 }}</label><br>
+                {{ form.ans11|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q12 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q12 }}</label><br>
+                {{ form.ans12|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q13 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q13 }}</label><br>
+                {{ form.ans13|as_crispy_field }}
+            </div>
+            {% endif %}
+            {% if faq.Q14 %}
+            <div class="form-group col-8">
+                <label>{{ faq.Q14 }}</label><br>
+                {{ form.ans14|as_crispy_field }}
+            </div>
+            {% endif %}
+            <div class="form-group col-8">
+                <button class="btn btn-primary"> Submit </button>
+            </div>
+        </form>
+
+        </div>
+        {% endif %}
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>

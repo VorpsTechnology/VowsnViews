@@ -1,0 +1,2220 @@
+{% extends "home/base.html" %}
+{% load home_extras %}
+{% load widget_tweaks %}
+<!--U
+sing this messages for message display -->
+<!--<ul>-->
+<!--    {% for message in messages %}-->
+<!--    <li class="{{ message.tags }}">-->
+<!--         {{ message }}-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+{% block meta %}
+
+<title>{{object.meta_title}}</title>
+<meta name="description" content="{{object.meta_description}}">
+<meta name="author" content="">
+
+{% endblock meta %}
+
+
+{% block head %}
+
+<style>
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 350px;
+}
+
+.myGallery {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+}
+
+.myGallery img {
+    width: 100%;
+}
+
+video {
+    max-width: 100%;
+    height: 330px;
+}
+
+.myGallery .item {
+    position: relative;
+    overflow: hidden;
+}
+
+.myGallery .item img video {
+    vertical-align: middle;
+}
+
+.myGallery .caption {
+    margin: 0;
+    padding: 1em;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    transition: transform .5s;
+    transform: translateY(100%);
+    background: rgba(0, 0, 0, .7);
+    color: rgb(255, 255, 255);
+}
+
+.myGallery .item:hover .caption {
+    transform: translateY(0%);
+}
+
+.t-color {
+    color: #965b92;
+}
+.label-style{
+    background-color:#965b92;
+    color:white;
+    font-size:0.8rem;
+    border-radius:1rem;
+}
+
+.info-blocks {
+    border-right: solid #cccccc 0.08rem;
+}
+
+.short-information {
+    border-top: solid #cccccc 0.05rem;
+    border-bottom: solid #cccccc 0.05rem;
+    padding: 0.6rem 0;
+}
+
+.action-btn {
+    cursor: pointer;
+    border: 1px solid #965b92;
+    text-align: center;
+    background-color: white;
+    color: #965b92;
+    padding: .300rem .50rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.action-btn:hover {
+    border: 1px solid #965b92;
+    background-color: #965b92;
+    color: white;
+}
+.faq{
+    border-top: solid 0.2rem #dddddd;
+    padding:0.7rem 0.1rem 0.7rem 0.1rem;
+}
+
+/* Portfolio Gallery Stylings */
+.portfolio-img-wrap{
+    position:relative;
+    cursor:pointer;
+    max-height:300px;
+    height:300px;
+    max-width:100%;
+    width:400px;
+    transform:scale(1);
+    transition: all 0.5s;
+}
+.portfolio-img-wrap:hover{
+    transform:scale(1.05);
+}
+.portfolio-img{
+    object-fit: cover;
+    background-size:cover;
+    width:100%;
+    height:100%;
+}
+.pf-modal-dialog{
+  max-width: 90vw;
+  max-height: 95vh;
+}
+.lr-icon{
+    position:relative;
+    display:block;
+    font-size:3rem;
+    cursor:pointer;
+    width:4rem;
+    transition:all 0.3s;
+}
+.lr-icon:hover{
+    color:white;
+}
+
+@media only screen and (max-width: 1024px) {
+    .res-heading{
+        font-weight: 500;
+        font-size:1.6rem;
+    }
+    .portfolio-img-wrap:hover{
+        transform:scale(1);
+    }
+    .modal-dialog{
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    .lr-icon{
+        font-size:1rem;
+        color:white;
+    }
+}
+
+ #map-plug {
+	display:none;
+}
+#google-reviews {
+	display: flex;
+	flex-wrap:wrap;
+	/*display: grid;
+	grid-template-columns: repeat( auto-fit, minmax(320px, 1fr));
+	*/
+}
+.review-item {
+	border:solid 1px rgba(190,190,190,.35);
+	margin:0 auto;
+	padding:1em;
+	flex: 1 1 20%;
+}
+@media ( max-width:1200px) {
+	.review-item {
+	flex: 1 1 40%;
+	}
+}
+@media ( max-width:450px) {
+	.review-item {
+		flex: 1 1 90%;
+	}
+}
+.review-meta, .review-stars {
+	text-align: left;
+	font-size:100%;
+}
+.review-author {
+	font-weight:bold;
+	margin-bottom: 1em;
+}
+.review-date {
+	font-size:13px;
+	padding: 0.5em 0em;
+	opacity:.6;
+	display:block;
+}
+.review-text {
+	line-height:1.55;
+	text-align:left;
+	float: left;
+	max-width:32em;
+	margin:auto;
+}
+.review-stars ul {
+	display: inline-block;
+	list-style: none !important;
+	margin:0;
+	padding:0;
+}
+.review-stars ul li {
+	float: left;
+	list-style: none !important;
+	margin-right: 1px;
+	line-height:1;
+}
+.review-stars ul li i {
+	color: #E4B248;
+	font-size: 1.4em;
+	font-style:normal;
+}
+.review-stars ul li i.inactive {
+	color: #c6c6c6;
+}
+.star:after {
+	content: "\2605";
+}
+
+
+</style>
+{% endblock head %}
+
+{% block content %}
+<!--====== End - Main Header ======-->
+
+
+<!--====== App Content ======-->
+<div class="app-content">
+
+    <center style="margin-top:3em;">
+        {% for message in messages %}
+        <p class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </p>
+        {% endfor %}
+    </center>
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-t-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!--====== Product Breadcrumb ======-->
+                    <div class="pd-breadcrumb u-s-m-b-30" style="margin-top: -5em;">
+                        <ul class="pd-breadcrumb__list">
+                            <li class="has-separator">
+
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="has-separator">
+
+                                <a href="{% url 'listing-list-view' %}">listing's</a>
+                            </li>
+
+                            <li class="is-marked">
+
+                                <a href="">{{ object.title }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--====== End - Product Breadcrumb ======-->
+
+                    <div class="row my-2">
+                        <div class="col-lg-8">
+                            <h3 class="h3 d-inline m-0 mb-2" style="font-weight: 600;">{{object.title}} &nbsp;&nbsp;</h3>
+                            {% if object.label %}
+                                <span class='label-style ml-0 my-3 my-lg-2 px-3 py-1 text-center text-nowrap'>{{object.label|default_if_none:""}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4 mt-3 mt-lg-0 text-lg-right">
+                            <a href="{% url 'listing-favorite-add' object.id %}" class="mx-1">
+                                <div class="btn btn-outline-dark" style="border: 1px solid #965B92; color: #965B92;">
+                                    <i class="fas fa-heart p-1"></i>
+                                    <span>Favourite</span>
+                                </div>
+                            </a>
+                            <div class="btn btn-outline-dark mx-1" style="border: 1px solid #965B92; color: #965B92;" onclick="window.location.href='#rev'">
+                                <i class="fas fa-pencil-alt p-1"></i>
+                                <span class="mt-1">Write Review</span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 my-2">
+                                <i class="fas fa-map-marker-alt p-1 t-color"></i>
+                            <span class="t-color">{{object.location}}</span> - {{object.address}}
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="col-lg-2 mr-2">
+                            <a href="#listing-inquiry" class="w-100 btn btn-theme font-weight-bold mb-3 mb-lg-0" type="submit" style="background-color:#965B92;color:#fff;text-transform:capitalize;padding: 1em 2em;">Send Inquiry</a>
+                        </div>
+                        <div class="pr-3 info-blocks pl-3 pl-lg-0">
+                            <span class='t-color'>
+                            {% for rating in '12345'|make_list %}
+                                {% if average_review >= forloop.counter %}
+                                    <i class="fas fa-star"></i>
+                                {% elif int_average_review == forloop.counter|add:'-1' and average_review > forloop.counter|add:'-1' %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                            </span>
+                            <span>{{review_count}}&nbsp;reviews</span>
+                            <p class="font-weight-bold">{{average_review|default:"0"}} out of 5.0</p>
+                        </div>
+                        {% comment %} <div class="px-3 info-blocks">
+                            <span>Number of guests</span>
+                            <p class="font-weight-bold"><i class="fas fa-users t-color"></i> 50 to 2000
+                            <p>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 short-information mt-3 mb-4 border-0" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 5px 0px;">
+            <div class="container d-flex align-items-center justify-content-left px-3 font-weight-bold">
+                <a href="#short-desc">
+                <div class="pr-2 pl-1 text-dark">
+                    <span>Description </span>
+                    <span class='pl-2 t-color'>•</span>
+                </div>
+                </a>
+                {% if faq %}
+                <a href="#faqs">
+                <div class="px-2 pl-1 text-dark">
+                    <span>FAQs </span>
+                    <span class='pl-2 t-color'>•</span>
+                </div>
+                </a>
+                {% endif %}
+                <a href="#rev">
+                <div class="px-2 text-dark">
+                    <span>Photos </span><small class="text-muted">({{object.photos.count}})</small>
+                    <span class='pl-2 t-color'>•</span>
+                </div>
+                </a>
+                <a href="#rev">
+                <div class="px-2 text-dark">
+                    <span>Reviews </span><small class="text-muted">({{review_count}})</small>
+                    <span class='pl-2 t-color'>•</span>
+                </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!--====== Product Detail Zoom ======-->
+        <div class="container">
+            <div class='row'>
+                <div class='col-lg-8'>
+                    <div class="pd u-s-m-b-30">
+                        <div class="slider-fouc pd-wrap">
+                            <div id="pd-o-initiate">
+                                {% if object.image_main %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_main.url }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_main.url }}"
+                                        data-zoom-image="{{ object.image_main.url }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 70%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_2 %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_2.url }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_2.url }}"
+                                        data-zoom-image="{{ object.image_2.url }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_3 %}
+
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_3.url }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_3.url }}"
+                                        data-zoom-image="{{ object.image_3.url }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_4 %}
+
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_4.url }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_4.url }}"
+                                        data-zoom-image="{{ object.image_4.url }35 alt="
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_5 %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_5.url }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_5.url }}"
+                                        data-zoom-image="{{ object.image_5.url }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_main_link %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_main_link }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_main_link }}"
+                                        data-zoom-image="{{ object.image_main_link }35 alt="
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_2_link %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_2_link }}">
+                                    <img class="u-img-fluid" src="{{ object.image_2_link }}"
+                                        data-zoom-image="{{ object.image_2_link }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_3_link %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_3_link }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_3_link }}"
+                                        data-zoom-image="{{ object.image_3_link }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_4_link %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_4_link }}">
+
+                                    <img class="u-img-fluid" src="{{ object.image_4_link }}"
+                                        data-zoom-image="{{ object.image_4_link }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+
+                                {% if object.image_5_link %}
+                                <div class="pd-o-img-wrap" data-src="{{ object.image_5_link }}">
+                                    <img class="u-img-fluid" src="{{ object.image_5_link }}"
+                                        data-zoom-image="{{ object.image_5_link }}" alt=""
+                                        style="height: 300px;width: 100%;object-fit: cover;object-position: 0% 30%;">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="u-s-m-t-15">
+                            <div class="slider-fouc">
+                                <div id="pd-o-thumbnail">
+                                    {% if object.image_main %}
+                                    <div>
+                                        <img class="u-img-fluid" src="{{ object.image_main.url }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_2 %}
+                                    <div>
+                                        <img class="u-img-fluid" src="{{ object.image_2.url }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_3 %}
+                                    <div>
+                                        <img class="u-img-fluid" src="{{ object.image_3.url }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_4 %}
+                                    <div>
+                                        <img class="u-img-fluid" src="{{ object.image_4.url }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_5 %}
+                                    <div>
+                                        <img class="u-img-fluid" src="{{ object.image_5.url }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_main_link %}
+                                    <div class="pd-o-img-wrap" data-src="{{ object.image_main_link }}">
+
+                                        <img class="u-img-fluid" src="{{ object.image_main_link }}"
+                                            data-zoom-image="{{ object.image_main_link }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_2_link %}
+                                    <div class="pd-o-img-wrap" data-src="{{ object.image_2_link }}">
+
+                                        <img class="u-img-fluid" src="{{ object.image_2_link }}"
+                                            data-zoom-image="{{ object.image_2_link }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_3_link %}
+
+                                    <div class="pd-o-img-wrap" data-src="{{ object.image_3_link }}">
+
+                                        <img class="u-img-fluid" src="{{ object.image_3_link }}"
+                                            data-zoom-image="{{ object.image_3_link }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_4_link %}
+
+                                    <div class="pd-o-img-wrap" data-src="{{ object.image_4_link }}">
+
+                                        <img class="u-img-fluid" src="{{ object.image_4_link }}"
+                                            data-zoom-image="{{ object.image_4_link }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                    {% if object.image_5_link %}
+                                    <div class="pd-o-img-wrap" data-src="{{ object.image_5_link }}">
+
+                                        <img class="u-img-fluid" src="{{ object.image_5_link }}"
+                                            data-zoom-image="{{ object.image_5_link }}" alt=""
+                                            style="height: 120px;width: 100%;object-fit: cover;">
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    <div class="show-mobile" style="margin-top: -1em;">-->
+<!--                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"-->
+<!--                            style="margin: 0em -0.8em;">-->
+<!--                            <div class="carousel-inner">-->
+<!--                                {% if object.image_main %}-->
+<!--                                <div class="carousel-item active">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_main.url }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_2 %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_2.url }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_3 %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_3.url }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_4 %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_4.url }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_5 %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_5.url }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+
+
+<!--                                {% if object.image_main_link %}-->
+<!--                                {% if not object.image_main %}-->
+<!--                                <div class="carousel-item active">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_main_link }}"-->
+<!--                                        style="height: 300px;">-->
+<!--                                </div>-->
+<!--                                {% else %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_main_link }}"-->
+<!--                                        style="height: 300px;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_2_link %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_2_link }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_3_link %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_3_link }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_4_link %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_4_link }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                {% if object.image_5_link %}-->
+<!--                                <div class="carousel-item">-->
+<!--                                    <img class="d-block w-100" src="{{ object.image_5_link }}"-->
+<!--                                        style="height: 300px;object-fit: cover;">-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                            </div>-->
+<!--                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"-->
+<!--                                data-slide="prev">-->
+<!--                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                                <span class="sr-only">Previous</span>-->
+<!--                            </a>-->
+<!--                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"-->
+<!--                                data-slide="next">-->
+<!--                                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                                <span class="sr-only">Next</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="short-description mb-3" id="short-desc">
+                        <h5 class="h5 res-heading w-100 font-weight-bold my-3 py-2">Info</h5>
+                        {{object.short_description|safe}}
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="uk-card shadow-sm p-3 bg-white mb-1 border">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class='h6 font-weight-bold text-dark mb-0'>Pricing Info</span>
+                            {% comment %} <span>Pricing Info <i class="fas fa-chevron-down"
+                                    style="font-size:0.8rem"></i></span> {% endcomment %}
+                        </div>
+                    </div>
+                    {% if object.additional_pricing.last %}
+                        <div class="uk-card shadow-sm d-flex justify-content-around flex-wrap p-3 mb-1 border" style="background-color:whitesmoke;">
+                        {% for ap in object.additional_pricing.all %}
+                            <div class="mb-2" style="flex:50%;">
+                                <span class='small text-dark font-weight-bold'>{{ap.pricing_title}}</span>
+                                <p class='small'>₹ {{ap.cost|default_if_none:''}} {{ap.suffix|default_if_none:''}}</p>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="uk-card shadow-sm p-3 bg-white mb-1 border">
+                        <span class="row font-weight-bold t-color">
+                        <div class="col-4">
+                        <small class="h5 font-weight-normal">{{ object.pre_low_price_text|default_if_none:''}}</small>
+                        <span class="h6">{% if object.low_price %}₹{{object.low_price}}{% else %}On Request{% endif %}</span>
+                        </div>
+                        <div class="col-8">
+                        <span class='text-muted float-right  pl-4' style="font-weight: 600;font-size: 0.9em;">{{ object.post_low_price_text|default_if_none:''}}</span>
+                        </div>
+                        </span>
+<!--                        {% comment %} {% if object.parent_category == 'Venue' %}-->
+<!--                            <br>-->
+<!--                            <small>(taxes extra)</small>-->
+<!--                        {% endif %} {% endcomment %}-->
+                    </div>
+                    {% if object.high_price %}
+                    <div class="uk-card shadow-sm p-3 bg-white mb-1 border">
+                        <span class="row font-weight-bold t-color">
+                        <div class="col-4">
+                        <small class="h5 font-weight-normal">{{ object.pre_high_price_text|default_if_none:''}}</small>
+                        <span class="h6">{{ object.high_price|default_if_none:''}}</span>
+                        </div>
+                        <div class="col-8">
+                        <span class='text-muted float-right  pl-4' style="font-weight: 600;font-size: 0.9em;">{{ object.post_high_price_text|default_if_none:''}}</span>
+                        </div>
+                        </span>
+<!--                        {% comment %} {% if object.parent_category == 'Venue' %}-->
+<!--                            <br>-->
+<!--                            <small>(taxes extra)</small>-->
+<!--                        {% endif %} {% endcomment %}-->
+                    </div>
+                    {% endif %}
+                    <div class="uk-card shadow-sm p-4 mt-5 border" id="listing-inquiry">
+                        <form method="post">
+                            {% csrf_token %}
+                            <h6 class="h6 font-weight-bold border-bottom u-s-m-b-15 pb-3  align-middle" align="center"><i class="fas fa-envelope px-1"></i> Send Inquiry</h6>
+                            <div class="u-s-m-b-15">
+<!--                                <label class="gl-label" for="id_name">Name*</label>-->
+                                <input class="w-100 input-text input-text--primary-style" type="text" id="id_name"
+                                    name="name" placeholder="Name (Required)" required>
+                            </div>
+                            <div class="u-s-m-b-15">
+<!--                                <label class="gl-label" for="id_email">Email address</label>-->
+                                <input class="w-100 input-text input-text--primary-style" type="email" id="id_email"
+                                    name="email" placeholder="Email">
+                            </div>
+                            <div class="u-s-m-b-15">
+<!--                                <label class="gl-label" for="id_mobile">Mobile Number*</label>-->
+                                <input class="w-100 input-text input-text--primary-style" type="number" id="id_mobile"
+                                    name="mobile" placeholder="Mobile Number (Required)" required>
+                            </div>
+
+                            <div class="u-s-m-b-15">
+<!--                                <label class="gl-label" for="id_mobile">Short Description *</label>-->
+                                <textarea class="w-100 form_control input-text input-text--primary-style"
+                                    name="description" id="id_description" placeholder="Write short reason for this inquiry..."
+                                    style="padding-top:0.8rem;min-height: 5rem;"></textarea>
+                            </div>
+                            <div>
+
+                                <button class="uk-button w-100" style="background-color:#965B92;color:#fff;" type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--====== Product Detail Tab ======-->
+<div class="u-s-p-y-30">
+    <div class="container">
+        <div class="row" id="rev">
+            <div class="col-lg-12">
+                <div class="pd-tab">
+                    <div class="u-s-m-b-30">
+                        <ul class="nav pd-tab__list px-3 flex-nowrap" style="overflow-y:hidden;overflow-x:auto">
+
+
+                            {% if object.photos.all %}
+                            <li class="nav-item">
+
+                                <a class="nav-link active" data-toggle="tab" href="#pd-portfolio"
+                                    style="font-size: 0.8em">PORTFOLIO</a>
+                            </li>
+                            {% endif %}
+
+                            {% if object.video_1 %}
+                            <li class="nav-item">
+
+                                <a class="nav-link" data-toggle="tab" href="#pd-video"
+                                    style="font-size: 0.8em">VIDEO</a>
+                            </li>
+                            {% endif %}
+
+                            <li class="nav-item">
+
+                                <a class="nav-link " data-toggle="tab" href="#pd-desc"
+                                    style="font-size: 0.8em">DESCRIPTION</a>
+                            </li>
+                            <!--                                        <li class="nav-item">-->
+
+                            <!--                                            <a class="nav-link" data-toggle="tab" href="#pd-tag">TAGS</a></li>-->
+
+                            {% if object.area.first %}
+                            <li class="nav-item">
+
+                                <a class="nav-link " data-toggle="tab" href="#pd-area"
+                                    style="font-size: 0.8em">AREAS</a>
+                            </li>
+                            {% endif %}
+
+                            <li class="nav-item">
+
+                                <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev"
+                                    style="font-size: 0.8em">REVIEWS
+                                </a>
+                            </li>
+
+
+
+                            <li class="nav-item hide-mobile">
+
+                                <a class="nav-link" data-toggle="tab" href="#pd-more" style="font-size: 0.8em">MORE
+                                    INFO</a>
+                            </li>
+
+
+                            <!--                                        <li class="nav-item">-->
+
+                            <!--                                            <a class="nav-link" data-toggle="tab" href="#pd-about">ABOUT</a></li>-->
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="tab-content">
+
+                    <!--====== Tab 1 ======-->
+                    <div class="tab-pane" id="pd-desc">
+                        <div style="margin-top: 2em;">
+                            <p>{{ object.description|safe }}</p>
+                        </div>
+
+                    </div>
+                    <!--====== End - Tab 1 ======-->
+
+                    <!--====== Tab 3 ======-->
+                    <div class="tab-pane fade show" id="pd-rev">
+                        <div class="pd-tab__rev">
+                            <div class="u-s-m-b-30">
+                                <div class="pd-tab__rev-score">
+                                    <div class="u-s-m-b-8">
+                                        <h2>{{ review_count }} Reviews - {{ average_review }} (Overall)</h2>
+                                    </div>
+
+                                    <div class="gl-rating-style-2 u-s-m-b-8">
+                                        {% if reviews %}
+                                        {% for rating in '12345'|make_list %}
+                                        {% if average_review >= forloop.counter%}
+                                        <i class="fas fa-star"></i>
+                                        {% if int_average_review == forloop.counter and average_review > forloop.counter %}
+                                        <i class="fas fa-star-half-alt"></i>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="u-s-m-b-8">
+                                        <h4>We want to hear from you!</h4>
+                                    </div>
+
+                                    <span class="gl-text">Tell us what you think about this item</span>
+
+                                    <a href="https://search.google.com/local/writereview?placeid=ChIJQXakhOkBDTkRPK0A8bzAH0k" class="btn btn-outline-dark my-3" target="_blank">Review Now</a>
+                                </div>
+                            </div>
+                            <div class="u-s-m-b-30">
+                                <form class="pd-tab__rev-f1">
+                                    <div class="rev-f1__group">
+                                        <div class="u-s-m-b-15">
+                                            <h2>{{ review_count }} Review(s) for {{ object.title }}</h2>
+                                        </div>
+                                        <!--                                                        <div class="u-s-m-b-15">-->
+
+                                        <!--                                                            <label for="sort-review"></label><select class="select-box select-box&#45;&#45;primary-style" id="sort-review">-->
+                                        <!--                                                                <option selected>Sort by: Best Rating</option>-->
+                                        <!--                                                                <option>Sort by: Worst Rating</option>-->
+                                        <!--                                                            </select></div>-->
+                                    </div>
+                                    <div class="rev-f1__review">
+<!--                                        {% for review in reviews %}-->
+<!--                                        <div class="review-o u-s-m-b-15">-->
+<!--                                            <div class="review-o__info u-s-m-b-8">-->
+
+<!--                                                <span class="review-o__name">{{ review.user.user_full_name }}</span>-->
+
+<!--                                                <span class="review-o__date">{{ review.date }}</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="review-o__rating gl-rating-style u-s-m-b-8">-->
+<!--                                                {% for rating in '12345'|make_list %}-->
+<!--                                                {% if review.rating >= forloop.counter%}-->
+<!--                                                <i class="fas fa-star"></i>-->
+
+<!--                                                {% if review.to_int == forloop.counter and review.rating > forloop.counter %}-->
+<!--                                                    <i class="fas fa-star-half-alt"></i>-->
+<!--                                                {% endif %}-->
+<!--                                                {% endif %}-->
+<!--                                                {% endfor %}-->
+
+<!--                                                <span>({{ review.rating }})</span>-->
+<!--                                            </div>-->
+<!--                                            <p class="review-o__text">{{ review.review_description }}</p>-->
+<!--                                        </div>-->
+<!--                                        {% endfor%}-->
+
+                                        <div id="google-reviews" style="text-align: center;"></div>
+
+<!--                                        <link rel="stylesheet" href="https://cdn.rawgit.com/stevenmonson/googleReviews/master/google-places.css">-->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                                        <script src="https://cdn.jsdelivr.net/gh/stevenmonson/googleReviews@6e8f0d794393ec657dab69eb1421f3a60add23ef/google-places.js"></script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyC6_aFPzVOB9CRdT42snCYXzfKrxoqvXtY&signed_in=true&libraries=places"></script>
+
+                                        <script>
+                                        jQuery(document).ready(function( $ ) {
+                                           $("#google-reviews").googlePlaces({
+                                                placeId: 'ChIJQXakhOkBDTkRPK0A8bzAH0k' //Find placeID @: https://developers.google.com/places/place-id
+                                              , render: ['reviews']
+                                              , min_rating: 4
+                                              , max_rows:4
+                                           });
+                                        });
+                                        </script>
+
+
+                                    </div>
+                                </form>
+                            </div>
+<!--                            {% if reviewed == 'False' %}-->
+<!--                            <div class="u-s-m-b-30">-->
+<!--                                <form class="pd-tab__rev-f2" method="post">-->
+<!--                                    {% csrf_token %}-->
+<!--                                    <h2 class="u-s-m-b-15">Add a Review</h2>-->
+
+<!--                                    <span class="gl-text u-s-m-b-15">Your email address will not be published. Required-->
+<!--                                        fields are marked *</span>-->
+<!--                                    <div class="u-s-m-b-30">-->
+<!--                                        <div class="rev-f2__table-wrap gl-scroll">-->
+<!--                                            <table class="rev-f2__table">-->
+<!--                                                <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i>-->
+
+<!--                                                                <span>(1)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star-half-alt"></i>-->
+
+<!--                                                                <span>(1.5)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i>-->
+
+<!--                                                                <span>(2)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star-half-alt"></i>-->
+
+<!--                                                                <span>(2.5)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i class="fas fa-star"></i>-->
+
+<!--                                                                <span>(3)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star-half-alt"></i>-->
+
+<!--                                                                <span>(3.5)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i class="fas fa-star"></i>-->
+
+<!--                                                                <span>(4)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star-half-alt"></i>-->
+
+<!--                                                                <span>(4.5)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                        <th>-->
+<!--                                                            <div class="gl-rating-style-2"><i class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i-->
+<!--                                                                    class="fas fa-star"></i><i class="fas fa-star"></i>-->
+
+<!--                                                                <span>(5)</span>-->
+<!--                                                            </div>-->
+<!--                                                        </th>-->
+<!--                                                    </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                    <tr>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-1" name="rating" value="1">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-1"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-1.5" name="rating"-->
+<!--                                                                    value="1.5">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-1.5"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-2" name="rating" value="2">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-2"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-2.5" name="rating"-->
+<!--                                                                    value="2.5">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-2.5"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-3" name="rating" value="3">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-3"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-3.5" name="rating"-->
+<!--                                                                    value="3.5">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-3.5"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-4" name="rating" value="4">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-4"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-4.5" name="rating"-->
+<!--                                                                    value="4.5">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-4.5"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+
+<!--                                                            &lt;!&ndash;====== Radio Box ======&ndash;&gt;-->
+<!--                                                            <div class="radio-box">-->
+
+<!--                                                                <input type="radio" id="star-5" name="rating" value="5">-->
+<!--                                                                <div class="radio-box__state radio-box__state&#45;&#45;primary">-->
+
+<!--                                                                    <label class="radio-box__label"-->
+<!--                                                                        for="star-5"></label>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            &lt;!&ndash;====== End - Radio Box ======&ndash;&gt;-->
+<!--                                                        </td>-->
+<!--                                                    </tr>-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="rev-f2__group">-->
+<!--                                        <div class="u-s-m-b-15">-->
+
+<!--                                            <label class="gl-label" for="id_review_description">YOUR REVIEW-->
+<!--                                                *</label><textarea class="text-area text-area&#45;&#45;primary-style"-->
+<!--                                                name="review_description" id="id_review_description"></textarea>-->
+<!--                                        </div>-->
+<!--                                        <div>-->
+<!--                                            &lt;!&ndash;                                                            <p class="u-s-m-b-30">&ndash;&gt;-->
+
+<!--                                            &lt;!&ndash;                                                                <label class="gl-label" for="reviewer-email">EMAIL *</label>&ndash;&gt;-->
+
+<!--                                            &lt;!&ndash;                                                                <input class="input-text input-text&#45;&#45;primary-style" type="text" id="reviewer-email"></p>&ndash;&gt;-->
+
+<!--                                            &lt;!&ndash;                                                             <p class="u-s-m-b-30">&ndash;&gt;-->
+
+<!--                                            &lt;!&ndash;                                                                <label class="gl-label" for="reviewer-name">NAME *</label>&ndash;&gt;-->
+
+<!--                                            &lt;!&ndash;                                                                <input class="input-text input-text&#45;&#45;primary-style" type="text" id="reviewer-name"></p>&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+
+<!--                                        <button class="action-btn w-25 p-2" type="submit">SUBMIT</button>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            {% endif%}-->
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" style="min-height:40vh" id="pd-video">
+
+
+                        <div class="myGallery">
+
+
+
+                            <!--{% if object.video_1 %}-->
+                            <!--{% if 'youtube' in object.video_1 %}-->
+                            <!--        yt-->
+                            <!--{% elif 'facebook' in object.video_1 %}-->
+                            <!--        fb-->
+                            <!--{% endif %}-->
+
+                            <!--    <div class="embed-responsive embed-responsive-16by9">-->
+                            <!--      <iframe class="embed-responsive-item" src="{{object.video_1}}" allowfullscreen></iframe>-->
+                            <!--    </div>    -->
+
+                            <!--<iframe  src="{{object.video_1}}" width="365" height="400px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_2 %}-->
+
+                            <!--<div class="embed-responsive embed-responsive-16by9">-->
+                            <!--      <iframe class="embed-responsive-item" src="{{object.video_2}}" allowfullscreen></iframe>-->
+                            <!--    </div> -->
+
+                            <!--<iframe src="{{object.video_2}}" width="365" height="400px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_3 %}-->
+
+
+                            <!--<div class="embed-responsive embed-responsive-16by9">-->
+                            <!--      <iframe class="embed-responsive-item" src="{{object.video_3}}" allowfullscreen></iframe>-->
+                            <!--    </div> -->
+
+                            <!--<iframe  src="{{object.video_3}}" width="330" height="400px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_4 %}-->
+
+                            <!--<iframe src="{{object.video_4}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_5 %}-->
+
+                            <!--<iframe src="{{object.video_5}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_6 %}-->
+
+                            <!--<iframe src="{{object.video_6}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_7 %}-->
+
+                            <!--<iframe src="{{object.video_7}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_8 %}-->
+
+                            <!--<iframe src="{{object.video_8}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_9 %}-->
+
+                            <!--<iframe src="{{object.video_9}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--{% endif %}-->
+
+                            <!--{% if object.video_10 %}-->
+
+                            <!--<iframe src="{{object.video_10}}" style="width: 330px;height: 350px;border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+
+                            <!--{% endif %}-->
+
+                            {% for video in object.videos.all %}
+
+                            <!--<iframe src="https://www.facebook.com/plugins/video.php?height=312&href=https%3A%2F%2Fwww.facebook.com%2FIndianDanceVideos%2Fvideos%2F252779889765329%2F&show_text=false&width=560" width="560" height="312" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>-->
+
+                            <!--<video controls>-->
+                            <!--  <source src="https://www.youtube.com/watch?v=12Rq_vJJenw&ab_channel=IndianBackpacker" type="video/mp4">-->
+                            <!--  <source src="mov_bbb.ogg" type="video/ogg">-->
+                            <!--  Your browser does not support HTML5 video.-->
+                            <!--</video>-->
+                            <!--<iframe width="330px" height="330px" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>-->
+                            {% endfor %}
+
+
+                            <!-- Grid row -->
+
+
+
+
+                        </div>
+
+                        <div class="hide-mobile">
+                            <div class="row">
+                                {% if object.video_1 %}
+                                <div class="col-lg-4" style="padding-top: 0em;">
+                                    <iframe src="{{object.video_1}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_2 %}
+                                <div class="col-lg-4" style="padding-top: 0em;">
+                                    <iframe src="{{object.video_2}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_3 %}
+                                <div class="col-lg-4" style="padding-top: 0em;">
+                                    <iframe src="{{object.video_3}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_4 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_4}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_5 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_5}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_6 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_6}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_7 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_7}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_8 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_8}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_9 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_9}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+                                {% if object.video_10 %}
+                                <div class="col-lg-4" style="padding-top: 3em;">
+                                    <iframe src="{{object.video_10}}" style="width: 100%;height: 220px;"
+                                        allowFullScreen="true"></iframe>
+                                </div>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+
+                        <div class="show-mobile">
+
+                            {% if object.video_1 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_1}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_2 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_2}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_3 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_3}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_4 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_4}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_5 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_5}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_6 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_6}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_7 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_7}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_8 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_8}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_9 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_9}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                            {% if object.video_10 %}
+                            <div style="height: 260px">
+                                <iframe src="{{object.video_10}}" style="width: 100%;height: 220px;"
+                                    allowFullScreen="true"></iframe>
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane active" id="pd-portfolio">
+                        <div class="myGallery">
+                            {% for photo in object.photos.all %}
+                            <a data-toggle="modal" data-target="#portfolio-img-modal" onclick="openImg(this)">
+                                <img src="{{ photo.file.url }}" style="height: 300px;object-fit: cover;"  class="portfolio-img">
+                            </a>
+                            {% endfor %}
+
+                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="PortfolioImages" aria-hidden="true" id="portfolio-img-modal">
+                                <div class="modal-dialog pf-modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="background:#00000000">
+                                        <div class="modal-header col-11 px-0 border-0">
+                                            <button type="button" class="close p-1" data-dismiss="modal" aria-label="Close">
+                                                <span class="h2 text-white" aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-1 p-0 d-flex align-items-center justify-content-center lr-icon" id="next-portfolio-img" onclick="prevImg(this)"><i class="fas fa-chevron-left"></i></div>
+                                                <div class="col-10 px-0 text-center" style="max-height:90vh;overflow-y:hidden">
+                                                    <img src="" id="modalImg" style="max-height:85vh; max-width:100%;object-fit:cover;">
+                                                </div>
+                                            <div class="col-1 p-0 d-flex align-items-center justify-content-center lr-icon" id="prev-portfolio-img" onclick="nextImg(this)"><i class="fas fa-chevron-right"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="pd-more">
+                        <div class="u-s-m-b-15">
+                            <div class="uk-card uk-card-default uk-card-body">
+                                <p>{{ object.more_info|safe }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Area Details for Venue -->
+                    {% if object.area.first %}
+                        <!--====== Tab 6 ======-->
+                        <div class="tab-pane" id="pd-area">
+                            <div class="mt-2 mb-3 p-1">
+                                {% comment %} <h5 class="h5 align-self-start font-weight-bold mb-3 pb-2 border-bottom">Areas Available</h5> {% endcomment %}
+                                <div class="row">
+                                    {% for a in object.area.all %}
+                                        <div class="col-6 col-md-4 mb-5 text-center">
+                                            <div class="row">
+                                                <div class="col-lg-3 ">
+                                                    <i class="fas fa-hotel text-dark" style="font-size:2rem; line-height:2rem"></i>
+                                                    <p class='small d-block text-dark font-weight-bold'>{{a.seating_type}}</p>
+                                                </div>
+                                                <div class="col-lg-9 text-lg-left">
+                                                    <div class="row">
+                                                        <div class="col-12 p-0">
+                                                            <span class='small text-dark font-weight-bold'>{{a.seating_space}} Seating | {{a.floating_space}} Floating</span>
+                                                        </div>
+                                                        <div class="col-12 p-0">
+                                                            <p class='small font-weight-bold'>{{a.additional_text}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!--====== End - Tab 1 ======-->
+                    <!--====== End - Tab 1 ======-->
+                    <!--====== End - Tab 3 ======-->
+                    <!--                                     <div class="tab-pane" id="pd-about">-->
+                    <!--                                        <div class="pd-tab__desc">-->
+                    <!--                                            <div class="u-s-m-b-15">-->
+                    <!--                                                <h4>{{ object.title }}</h4>-->
+                    <!--                                                <p>{{ object.description }}</p>-->
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="u-s-m-b-15 show-mobile">
+            <div class="uk-card uk-card-default p-1 uk-card-body">
+                <h3 class="h5 res-heading w-100 font-weight-bold ml-md-n3 mt-4 mb-0 pt-2 ">More Info</h3><br>
+                {{ object.more_info|safe }}
+            </div>
+        </div>
+
+        {% if object.catering_policy %}
+        <div class="container" style="margin: 5em 0em;">
+            <div class="row">
+                <div class="col-sm">
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body" style="margin: 1em 0em;">
+                            <h5 style="color: #000;font-weight: bold;">Catering Policy</h5>
+                            <p>{{ object.catering_policy }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if object.decor_policy %}
+                <div class="col-sm">
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body" style="margin: 1em 0em;">
+                            <h5 style="color: #000;font-weight: bold;">Decor Policy</h5>
+                            <p>{{ object.decor_policy }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if object.alcohol_policy %}
+                <div class="col-sm">
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body" style="margin: 1em 0em;">
+                            <h5 style="color: #000;font-weight: bold;">Alcohol Policy</h5>
+                            <p>{{ object.alcohol_policy }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if object.dj_policy %}
+                <div class="col-sm">
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body" style="margin: 1em 0em;">
+                            <h5 style="color: #000;font-weight: bold;">DJ Policy</h5>
+                            <p>{{ object.dj_policy }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+
+{% if faq %}
+<!-- FAQ Section -->
+<div class="u-s-p-y-30">
+    <div class="container">
+        <div class="faq-section" id='faqs'>
+            <h5 class="h5 res-heading w-100 font-weight-bold ml-md-n3 my-3 py-2">More Information</h5>
+            {% with model=faq.last %}
+            <div class="w-100 text-dark">
+
+                <!-- Question 1 -->
+                {% if model.Q1 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q1}}</div>
+                    {% if model.get_ans1_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans1_display}}
+                        </div>
+                    {% elif model.ans1.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans1.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans1}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 2 -->
+                {% if model.Q2 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q2}}</div>
+                    {% if model.get_ans2_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans2_display}}
+                        </div>
+                    {% elif model.ans2.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans2.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans2}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 3 -->
+                {% if model.Q3 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q3}}</div>
+                    {% if model.get_ans3_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans3_display}}
+                        </div>
+                    {% elif model.ans3.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans3.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans3}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 4 -->
+                {% if model.Q4 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q4}}</div>
+                    {% if model.get_ans4_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans4_display}}
+                        </div>
+                    {% elif model.ans4.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans4.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans4}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 5 -->
+                {% if model.Q5 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q5}}</div>
+                    {% if model.get_ans5_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans5_display}}
+                        </div>
+                    {% elif model.ans5.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans5.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans5}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 6 -->
+                {% if model.Q6 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q6}}</div>
+                    {% if model.get_ans6_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans6_display}}
+                        </div>
+                    {% elif model.ans6.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans6.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans6}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 7 -->
+                {% if model.Q7 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q7}}</div>
+                    {% if model.get_ans7_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans7_display}}
+                        </div>
+                    {% elif model.ans7.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans7.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans7}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 8 -->
+                {% if model.Q8 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q8}}</div>
+                    {% if model.get_ans8_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans8_display}}
+                        </div>
+                    {% elif model.ans8.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans8.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans8}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 9 -->
+                {% if model.Q9 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q9}}</div>
+                    {% if model.get_ans9_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans9_display}}
+                        </div>
+                    {% elif model.ans9.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans9.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans9}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 10 -->
+                {% if model.Q10 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q10}}</div>
+                    {% if model.get_ans10_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans10_display}}
+                        </div>
+                    {% elif model.ans10.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans10.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans10}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 11 -->
+                {% if model.Q11 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q11}}</div>
+                    {% if model.get_ans11_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans11_display}}
+                        </div>
+                    {% elif model.ans11.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans11.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans11}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 12 -->
+                {% if model.Q12 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q12}}</div>
+                    {% if model.get_ans12_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans12_display}}
+                        </div>
+                    {% elif model.ans12.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans12.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans12}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 13 -->
+                {% if model.Q13 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q13}}</div>
+                    {% if model.get_ans13_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans13_display}}
+                        </div>
+                    {% elif model.ans13.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans13.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans13}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 14 -->
+                {% if model.Q14 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q14}}</div>
+                    {% if model.get_ans14_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans14_display}}
+                        </div>
+                    {% elif model.ans14.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans14.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans14}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 15 -->
+                {% if model.Q15 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q15}}</div>
+                    {% if model.get_ans15_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans15_display}}
+                        </div>
+                    {% elif model.ans15.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans15.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans15}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 16 -->
+                {% if model.Q16 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q16}}</div>
+                    {% if model.get_ans16_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans16_display}}
+                        </div>
+                    {% elif model.ans16.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans16.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans16}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 17 -->
+                {% if model.Q17 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q17}}</div>
+                    {% if model.get_ans17_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans17_display}}
+                        </div>
+                    {% elif model.ans17.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans17.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans17}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 18 -->
+                {% if model.Q18 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q18}}</div>
+                    {% if model.get_ans18_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans18_display}}
+                        </div>
+                    {% elif model.ans18.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans18.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans18}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 19 -->
+                {% if model.Q19 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q19}}</div>
+                    {% if model.get_ans19_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans19_display}}
+                        </div>
+                    {% elif model.ans19.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans19.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans19}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Question 20 -->
+                {% if model.Q20 %}
+                <div class='row faq'>
+                    <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q20}}</div>
+                    {% if model.get_ans20_display %}
+                        <!-- For choices -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans20_display}}
+                        </div>
+                    {% elif model.ans20.all %}
+                        <!-- For ManytoMany -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                            {% for choice in model.ans20.all %}
+                                <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <!-- For Other -->
+                        <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                            <span class="pt-1 d-inline-block">{{model.ans20}}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+
+
+
+            </div><!--Row Ends-->
+
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+<!--====== End - Product Detail Tab ======-->
+<div class="u-s-p-b-90 mt-5">
+
+    <!--====== Section Intro ======-->
+    <div class="section__intro u-s-m-b-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__text-wrap">
+                        <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER ALSO VIEWED</h1>
+
+                        <span class="section__span u-c-grey">PRODUCTS THAT CUSTOMER VIEWED</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Intro ======-->
+
+
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="container">
+            <div class="slider-fouc">
+                <div class="owl-carousel product-slider" data-item="3">
+                    {% for product in similar_listing %}
+                    <div class="u-s-m-b-30">
+                        <div class="product-o product-o--hover-on">
+                            <div class="product-o__wrap">
+
+                                <a class="aspect aspect--bg-grey  u-d-block"
+                                    href="{% url 'listing-detail-view' product.id %}" style="height: 260px;">
+
+                                    <img class="aspect__img" src="{{ product.get_image }}" alt=""
+                                        style="height: 260px;object-fit: cover;"></a>
+                                <div class="product-o__action-wrap">
+                                    <ul class="product-o__action-list">
+                                        <li>
+                                            <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal"
+                                                data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top"
+                                                title="View"><i class="fas fa-search-plus"></i></a>
+                                        </li>
+                                        <li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {% if product.label %}
+                            <span class="pd-text"
+                                style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                            {% endif %}
+
+                            <span class="product-o__category">
+
+                                <a href="">{{ product.category }}</a></span>
+
+                            <span class="product-o__name">
+
+                                <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 1 ======-->
+</div>
+<!--====== End - App Content ======-->
+</div>
+<!--====== End - Main App ======-->
+</div>
+<script>
+{
+    let pfimages = document.getElementsByClassName("portfolio-img");
+    const imgLinks = [];
+    for (let img of pfimages){
+        imgLinks.push(img.getAttribute('src'));
+    }
+    function openImg(e){
+        const modalImg = document.getElementById("modalImg");
+        currImgLink = e.children[0].getAttribute('src');
+        modalImg.setAttribute('src', currImgLink);
+    }
+    function prevImg(e){
+        const modalImg = document.getElementById("modalImg");
+        const currImgNo = imgLinks.indexOf(modalImg.getAttribute('src'));
+        let prevImg = (currImgNo-1)%imgLinks.length;
+        prevImg = prevImg < 0 ? imgLinks.length-1 : prevImg;
+        modalImg.setAttribute('src', imgLinks[prevImg]);
+    }
+    function nextImg(e){
+        const modalImg = document.getElementById("modalImg");
+        const currImgNo = imgLinks.indexOf(modalImg.getAttribute('src'));
+        let nextImg = (currImgNo+1)%imgLinks.length;
+        nextImg = nextImg < imgLinks.length ? nextImg : 0;
+        modalImg.setAttribute('src', imgLinks[nextImg]);
+    }
+}
+</script>
+{% endblock content %}

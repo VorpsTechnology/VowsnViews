@@ -1,0 +1,100 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+        <div class="app-content">
+            <div class="u-s-p-y-60">
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+                                        <a href="/">Home</a></li>
+                                    <li class="is-marked">
+                                        <a href="">Resend Confirmation</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row row--center">
+                            <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                                <div class="l-f-o">
+                                    <div class="l-f-o__pad-box">
+                                        <h1 class="gl-h1">Resend Confirmation</h1>
+                                        <br>
+                                        <form class="l-f-o__form" method="POST">
+                                            {% csrf_token %}
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="id_email">E-MAIL *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="id_email" name="email" placeholder="Enter E-mail" required></div>
+
+                                            {% if form.errors %}
+                                                <div class="alert alert-error">
+                                                    {% for field in form %}
+                                                      {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                           <p style="color: red;">{{ error }}</p>
+                                                        {% endfor %}
+                                                      {% endif %}
+                                                    {% endfor %}
+                                                  {% if form.non_field_errors %}
+                                                    <p style="color: red;">{{ form.non_field_errors }}</p>
+                                                  {% endif %}
+                                                </div>
+                                            {% endif %}
+
+                                            <!--Using this message code for HTML in message-->
+
+                                            <center style="margin-top:3em;">
+                                                {% for message in messages %}
+                                                <h3 class="alert alert-{{ message.tags }}">
+                                                     {{ message }}
+                                                </h3>
+                                                {% endfor %}
+                                            </center>
+
+
+
+                                            <div class="gl-inline">
+                                                <div class="u-s-m-b-30">
+                                                    <button class="btn btn--e-transparent-brand-b-2" type="submit" style="border-color:#965B92;">RESEND MAIL</button>
+                                                </div>
+                                            </div>
+                                            <div class="u-s-m-b-30">
+                                                <div class="check-box">
+                                                    <input type="checkbox" id="remember-me">
+                                                    <div class="check-box__state check-box__state--primary">
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+     
+
+
+
+
+
+{% endblock content %}

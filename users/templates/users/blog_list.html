@@ -1,0 +1,181 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+
+      <div class="u-s-p-y-90" style="margin-top: -3em;">
+                <div class="container">
+<div class="pd-tab">
+                                <div class="u-s-m-b-30">
+                                    <ul class="nav pd-tab__list">
+                                        {% if object_list %}
+                                        <li class="nav-item">
+
+                                            <a class="nav-link active" data-toggle="tab" href="#pd-desc">DIARIES</a></li> {% endif %}
+<!--                                        <li class="nav-item">-->
+
+<!--                                            <a class="nav-link" data-toggle="tab" href="#pd-tag">TAGS</a></li>-->
+                                        <li class="nav-item">
+
+                                            <a class="nav-link {% if not object_list %}active{% endif %}" id="view-review" data-toggle="tab" href="#pd-rev">VNV INSPIRATION
+
+                                                </a></li>
+
+
+
+<!--                                        <li class="nav-item">-->
+
+<!--                                            <a class="nav-link" data-toggle="tab" href="#pd-about">ABOUT</a></li>-->
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+
+                                    <!--====== Tab 1 ======-->
+                                    <div class="tab-pane active" id="pd-desc">
+
+                                                 <div class="row blog-m-init">
+                                                                {% for blog in object_list %}
+                                                                <div class="blog-m__element">
+                                                                    <div class="bp-mini bp-mini--img">
+                                                                        <div class="bp-mini__thumbnail">
+
+                                                                            <!--====== Image Code ======-->
+
+                                                                            <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="{% url 'blog-detail-view' blog.id %}">
+
+                                                                                <img class="aspect__img" src="{{blog.image.url}}" alt=""></a>
+                                                                            <!--====== End - Image Code ======-->
+                                                                        </div>
+                                                                        <div class="bp-mini__content">
+                                                                            <div class="bp-mini__stat">
+
+                                                                                <span class="bp-mini__stat-wrap">
+
+                                                                                    <span class="bp-mini__publish-date">
+
+                                                                                        <a href="">
+
+                                                                                            <span>{{blog.date.date}}</span></a></span></span>
+
+                                                                                <span class="bp-mini__stat-wrap">
+
+                                                                                    <span class="bp-mini__preposition">By</span>
+
+                                                                                    <span class="bp-mini__author">
+
+                                                                                        <a href="#">{{blog.user.user_full_name}}</a></span></span>
+
+                                                                                <span class="bp-mini__stat">
+
+                                                                                    <span class="bp-mini__comment">
+
+                                                                            </div>
+                                                                            <div class="bp-mini__category">
+
+<!--                                                                                <a href="">Learning</a>-->
+
+<!--                                                                                <a href="">News</a>-->
+
+<!--                                                                                <a href="">Health</a>-->
+                                                                            </div>
+
+                                                                            <span class="bp-mini__h1">
+
+                                                                                <a href="{% url 'blog-detail-view' blog.id %}" style="  overflow: hidden; width:100%;display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical;"># {{blog.title}}</a></span>
+                                                                            <p class="bp-mini__p" style="  overflow: hidden; width:100%;display: -webkit-box;-webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{blog.short_description}}</p>
+                                                                            <div class="blog-t-w">
+
+                                                                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="{% url 'blog-detail-view' blog.id %}">Read More</a>
+
+<!--                                                                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" href="">Culture</a>-->
+
+<!--                                                                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" href="">Place</a>-->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                {% endfor %}
+
+
+                                                            </div>
+
+
+                                    </div>
+
+                                     <div class="tab-pane active" id="pd-rev">
+                                         <div class="row blog-m-init">
+                                                               {% for blog in vnv %}
+                                                                <div class="blog-m__element">
+                                                                    <div class="bp-mini bp-mini--img">
+                                                                        <div class="bp-mini__thumbnail">
+
+                                                                            <!--====== Image Code ======-->
+
+                                                                            <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="{% url 'blog-detail-view' blog.id %}">
+
+                                                                                <img class="aspect__img" src="{{blog.image.url}}" alt=""></a>
+                                                                            <!--====== End - Image Code ======-->
+                                                                        </div>
+                                                                        <div class="bp-mini__content">
+                                                                            <div class="bp-mini__stat">
+
+                                                                                <span class="bp-mini__stat-wrap">
+
+                                                                                    <span class="bp-mini__publish-date">
+
+                                                                                        <a href="">
+
+                                                                                            <span>{{blog.date.date}}</span></a></span></span>
+
+                                                                                <span class="bp-mini__stat-wrap">
+
+                                                                                    <span class="bp-mini__preposition">By</span>
+
+                                                                                    <span class="bp-mini__author">
+
+                                                                                        <a href="#">Vnv Inspiration</a></span></span>
+
+                                                                                <span class="bp-mini__stat">
+
+                                                                                    <span class="bp-mini__comment">
+
+                                                                            </div>
+                                                                            <div class="bp-mini__category">
+
+<!--                                                                                <a href="">Learning</a>-->
+
+<!--                                                                                <a href="">News</a>-->
+
+<!--                                                                                <a href="">Health</a>-->
+                                                                            </div>
+
+                                                                            <span class="bp-mini__h1">
+
+                                                                                <a href="{% url 'blog-detail-view' blog.id %}" style="  overflow: hidden; width:100%;display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical;"># {{blog.title}}</a></span>
+                                                                            <p class="bp-mini__p" style="  overflow: hidden; width:100%;display: -webkit-box;-webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{blog.short_description}}</p>
+                                                                            <div class="blog-t-w">
+
+                                                                                <a class="gl-tag btn--e-transparent-hover-brand-b-2" href="{% url 'blog-detail-view' blog.id %}">Read More</a>
+
+<!--                                                                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" href="">Culture</a>-->
+
+<!--                                                                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" href="">Place</a>-->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                {% endfor %}
+
+
+                                                            </div>
+                                    </div>
+
+                                </div>
+</div>
+                </div>
+      </div>
+
+
+{% endblock content %}

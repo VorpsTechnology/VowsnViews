@@ -1,0 +1,170 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+  <div class="app-content">
+            <div class="u-s-p-y-60">
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="/">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <center style="margin-top:-2em;">
+                {% for message in messages %}
+                    <h3 class="alert alert-{{ message.tags }}">
+                         {{ message }}
+                    </h3>
+                {% endfor %}
+            </center>
+
+            <!--====== Section 2 ======-->
+             <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="about">
+                                    <div class="about__container">
+                                        <div class="about__info">
+                                            <h2 class="about__h2">Welcome to Vowsnviews Store!</h2>
+                                            <div class="about__p-wrap" style="margin-top: 2em; ">
+                                                <p class="about__p">{{tpp.contact |safe}}</p>
+                                            </div>
+
+                                            <a class="about__link btn--e-secondary" href="{% url 'product-list-view' %}" target="_blank"  style="background: #965B92;color: #fff;">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+
+
+            <!--====== Section 3 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                                <div class="contact-o u-h-100">
+                                    <div class="contact-o__wrap">
+                                        <div class="contact-o__icon"><i class="fas fa-phone-volume"></i></div>
+
+                                        <span class="contact-o__info-text-1">LET'S HAVE A CALL</span>
+
+                                        <span class="contact-o__info-text-2">(+91) 9313846800</span>
+
+                                        <!--<span class="contact-o__info-text-2">(+0) 900 901 902</span>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-lg-4 col-md-6 u-s-m-b-30">-->
+                            <!--    <div class="contact-o u-h-100">-->
+                            <!--        <div class="contact-o__wrap">-->
+                            <!--            <div class="contact-o__icon"><i class="fas fa-map-marker-alt"></i></div>-->
+
+                            <!--            <span class="contact-o__info-text-1">OUR LOCATION</span>-->
+
+                            <!--            <span class="contact-o__info-text-2">Some Location</span>-->
+
+                            <!--            <span class="contact-o__info-text-2">Some City</span>-->
+                            <!--        </div>-->
+                            <!--    </div>-->
+                            <!--</div>-->
+                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                                <div class="contact-o u-h-100">
+                                    <div class="contact-o__wrap">
+                                        <div class="contact-o__icon"><i class="far fa-clock"></i></div>
+
+                                        <span class="contact-o__info-text-1">WORK TIME</span>
+
+                                        <span class="contact-o__info-text-2">5 Days a Week</span>
+
+                                        <span class="contact-o__info-text-2">From 10 AM to 6 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 3 ======-->
+
+
+            <!--====== Section 4 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="contact-area u-h-100">
+                                    <div class="contact-area__heading">
+                                        <h2>Get In Touch</h2>
+                                    </div>
+                                    <form class="contact-f" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 u-h-100">
+                                                <div class="u-s-m-b-30">
+
+                                                    <label for="id_name"></label>
+
+                                                    <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name (Required)" required></div>
+                                                <div class="u-s-m-b-30" style="margin-top: -1.5em;">
+
+                                                    <label for="id_email"></label>
+
+                                                    <input class="input-text input-text--border-radius input-text--primary-style" type="email" id="id_email" name="email" placeholder="Email" ></div>
+                                                <div class="u-s-m-b-30" style="margin-top: -1.5em;">
+
+                                                    <label for="id_mobile"></label>
+
+                                                    <input class="input-text input-text--border-radius input-text--primary-style" type="tel" pattern="[789][0-9]{9}" id="id_mobile" name="mobile" placeholder="Mobile Number (Required)" required></div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 u-h-100" style="margin-top: 1.5em;">
+                                                <div class="u-s-m-b-30">
+
+                                                    <label for="id_description"></label><textarea class="text-area text-area--border-radius text-area--primary-style" name="description" id="id_description" placeholder="Compose a Message (Required)" required></textarea></div>
+                                            </div>
+                                            <div class="col-lg-12">
+
+                                                <button class="btn btn-danger" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;border-radius: 0.2em;padding: 0.7em 3em;" >Send Message</button></div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 4 ======-->
+        </div>
+
+{% endblock content %}

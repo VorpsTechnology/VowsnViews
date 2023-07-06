@@ -1,0 +1,805 @@
+{% extends "vendors/base.html" %}
+{% load home_extras %}
+{% load static %}
+{% load widget_tweaks %}
+<!--Using this messages for message display -->
+<!--<ul>-->
+<!--    {% for message in messages %}-->
+<!--    <li class="{{ message.tags }}">-->
+<!--         {{ message }}-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+{% block meta %}
+
+<title>{{object.meta_title}}</title>
+<meta name="description" content="{{object.meta_description}}">
+<meta name="author" content="">
+
+{% endblock meta %}
+
+
+{% block head %}
+
+<style>
+.t-color {
+    color: #965b92;
+}
+.no-inquiry-icon{
+    color: #aaaaaa;
+    font-size:10rem;
+    text-shadow:0.3rem 0.3rem #cccccc;
+}
+.action-btn {
+    cursor: pointer;
+    border: 1px solid #965b92;
+    text-align: center;
+    background-color: white;
+    color: #965b92;
+    padding: .300rem .50rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.action-btn:hover {
+    border: 1px solid #965b92;
+    background-color: #965b92;
+    color: white;
+}
+.faq{
+    border-top: solid 1px #dddddd;
+    padding:0.7rem 0.1rem 0.7rem 0.1rem;
+}
+
+@media only screen and (max-width: 1024px) {
+    .res-heading{
+        font-weight: 500;
+        font-size:1.6rem;
+    }
+    .no-inquiry-icon{
+        font-size:5rem;
+    }
+}
+</style>
+{% endblock head %}
+
+{% block data %}
+
+    {% if not faq %}
+    <div class="container">
+        <div class="w-100 text-center border p-lg-5 py-4 my-4 my-lg-5">
+<!--            <i class="fas fa-clipboard-list no-inquiry-icon"></i>-->
+            <img style="width: 8em" class="pb-3 pt-5" src="{% static 'vendors/images/faq_2.png' %}"/>
+            <div class="">
+                <p class="text-dark pt-4 mb-3" style='font-size:1.2rem;font-weight: 600'>You have not answered any FAQs yet.<p>
+                <a href="{% url 'faq-answers' %}" class="rounded mt-2 px-5 py-2" type="submit" style="color:#fff; background-color:#965B92;padding: 1em 3em;">Answer FAQs</a>
+            </div>
+        </div>
+    </div>    
+
+    {% else %}
+
+    <!-- FAQ Section -->
+    <div class="py-5 border">
+        <div class="container">
+            <div class="faq-section px-4" id='faqs'>
+                <div class="row mb-5">
+                    <h2 class="col-6 col-md-10 res-heading font-weight-bold ml-n2">FAQs</h2>
+                    <a href="{% url 'faq-update' %}" class="col-6 col-md-2 text-center mt-2 py-1 px-1 h-50 rounded nowrap" type="submit" style="color:#fff; background-color:#965B92;">Update FAQs</a>
+                </div>
+                {% with model=faq.last %}
+                <div class="w-100 text-dark">
+
+                    <!-- Question 1 -->
+                    {% if model.Q1 and model.ans1.all %}
+                        {% if model.ans1.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q1}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans1.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q1 and model.get_ans1_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q1}}</div>
+                        {% if model.get_ans1_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans1_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q1 and model.ans1.all.count == 0 %}
+
+                    {% elif model.Q1 and model.ans1 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q1}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans1}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 2 -->
+                    {% if model.Q2 and model.ans2.all %}
+                        {% if model.ans2.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q2}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans2.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q2 and model.get_ans2_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q2}}</div>
+                        {% if model.get_ans2_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans2_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q2 and model.ans2.all.count == 0 %}
+
+                    {% elif model.Q2 and model.ans2 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q2}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans2}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 3 -->
+                    {% if model.Q3 and model.ans3.all %}
+                        {% if model.ans3.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q3}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans3.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q3 and model.get_ans3_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q3}}</div>
+                        {% if model.get_ans3_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans3_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q3 and model.ans3.all.count == 0 %}
+
+                    {% elif model.Q3 and model.ans3 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q3}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans3}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 4 -->
+                    {% if model.Q4 and model.ans4.all %}
+                        {% if model.ans4.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q4}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans4.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q4 and model.get_ans4_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q4}}</div>
+                        {% if model.get_ans4_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans4_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q4 and model.ans4.all.count == 0 %}
+
+                    {% elif model.Q4 and model.ans4 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q4}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans4}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 5 -->
+                    {% if model.Q5 and model.ans5.all %}
+                        {% if model.ans5.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q5}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans5.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q5 and model.get_ans5_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q5}}</div>
+                        {% if model.get_ans5_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans5_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q5 and model.ans5.all.count == 0 %}
+
+                    {% elif model.Q5 and model.ans5 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q5}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans5}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 6 -->
+                    {% if model.Q6 and model.ans6.all %}
+                        {% if model.ans6.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q6}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans6.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q6 and model.get_ans6_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q6}}</div>
+                        {% if model.get_ans6_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans6_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q6 and model.ans6.all.count == 0 %}
+
+                    {% elif model.Q6 and model.ans6 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q6}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans6}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 7 -->
+                    {% if model.Q7 and model.ans7.all %}
+                        {% if model.ans7.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q7}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans7.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q7 and model.get_ans7_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q7}}</div>
+                        {% if model.get_ans7_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans7_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q7 and model.ans7.all.count == 0 %}
+
+                    {% elif model.Q7 and model.ans7 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q7}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans7}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 8 -->
+                    {% if model.Q8 and model.ans8.all %}
+                        {% if model.ans8.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q8}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans8.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q8 and model.get_ans8_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q8}}</div>
+                        {% if model.get_ans8_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans8_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q8 and model.ans8.all.count == 0 %}
+
+                    {% elif model.Q8 and model.ans8 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q8}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans8}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 9 -->
+                    {% if model.Q9 and model.ans9.all %}
+                        {% if model.ans9.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q9}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans9.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q9 and model.get_ans9_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q9}}</div>
+                        {% if model.get_ans9_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans9_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q9 and model.ans9.all.count == 0 %}
+
+                    {% elif model.Q9 and model.ans9 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q9}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans9}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 10 -->
+                    {% if model.Q10 and model.ans10.all %}
+                        {% if model.ans10.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q10}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans10.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q10 and model.get_ans10_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q10}}</div>
+                        {% if model.get_ans10_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans10_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q10 and model.ans10.all.count == 0 %}
+
+                    {% elif model.Q10 and model.ans10 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q10}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans10}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 11 -->
+                    {% if model.Q11 and model.ans11.all %}
+                        {% if model.ans11.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q11}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans11.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q11 and model.get_ans11_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q11}}</div>
+                        {% if model.get_ans11_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans11_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q11 and model.ans11.all.count == 0 %}
+
+                    {% elif model.Q11 and model.ans11 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q11}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans11}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 12 -->
+                    {% if model.Q12 and model.ans12.all %}
+                        {% if model.ans12.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q12}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans12.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q12 and model.get_ans12_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q12}}</div>
+                        {% if model.get_ans12_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans12_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q12 and model.ans12.all.count == 0 %}
+
+                    {% elif model.Q12 and model.ans12 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q12}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans12}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 13 -->
+                    {% if model.Q13 and model.ans13.all %}
+                        {% if model.ans13.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q13}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans13.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q13 and model.get_ans13_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q13}}</div>
+                        {% if model.get_ans13_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans13_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q13 and model.ans13.all.count == 0 %}
+
+                    {% elif model.Q13 and model.ans13 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q13}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans13}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 14 -->
+                    {% if model.Q14 and model.ans14.all %}
+                        {% if model.ans14.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q14}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans14.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q14 and model.get_ans14_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q14}}</div>
+                        {% if model.get_ans14_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans14_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q14 and model.ans14.all.count == 0 %}
+
+                    {% elif model.Q14 and model.ans14 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q14}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans14}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 15 -->
+                    {% if model.Q15 and model.ans15.all %}
+                        {% if model.ans15.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q15}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans15.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q15 and model.get_ans15_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q15}}</div>
+                        {% if model.get_ans15_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans15_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q15 and model.ans15.all.count == 0 %}
+
+                    {% elif model.Q15 and model.ans15 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q15}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans15}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 16 -->
+                    {% if model.Q16 and model.ans16.all %}
+                        {% if model.ans16.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q16}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans16.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q16 and model.get_ans16_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q16}}</div>
+                        {% if model.get_ans16_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans16_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q16 and model.ans16.all.count == 0 %}
+
+                    {% elif model.Q16 and model.ans16 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q16}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans16}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 17 -->
+                    {% if model.Q17 and model.ans17.all %}
+                        {% if model.ans17.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q17}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans17.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q17 and model.get_ans17_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q17}}</div>
+                        {% if model.get_ans17_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans17_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q17 and model.ans17.all.count == 0 %}
+
+                    {% elif model.Q17 and model.ans17 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q17}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans17}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 18 -->
+                    {% if model.Q18 and model.ans18.all %}
+                        {% if model.ans18.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q18}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans18.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q18 and model.get_ans18_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q18}}</div>
+                        {% if model.get_ans18_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans18_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q18 and model.ans18.all.count == 0 %}
+
+                    {% elif model.Q18 and model.ans18 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q18}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans18}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 19 -->
+                    {% if model.Q19 and model.ans19.all %}
+                        {% if model.ans19.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q19}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans19.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q19 and model.get_ans19_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q19}}</div>
+                        {% if model.get_ans19_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans19_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q19 and model.ans19.all.count == 0 %}
+
+                    {% elif model.Q19 and model.ans19 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q19}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans19}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Question 20 -->
+                    {% if model.Q20 and model.ans20.all %}
+                        {% if model.ans20.first %}
+                            <div class='row faq'>
+                                <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q20}}</div>
+                                    <!-- For ManytoMany -->
+                                    <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1 d-flex flex-wrap">
+                                        {% for choice in model.ans20.all %}
+                                            <div class="d-inline-block" style="flex:50%"><i class="fas fa-check t-color py-2"></i>&nbsp;{{choice}}</div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                        {% endif %}
+                    {% elif model.Q20 and model.get_ans20_display %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q20}}</div>
+                        {% if model.get_ans20_display %}
+                            <!-- For choices -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <i class="far fa-dot-circle t-color pb-1" style='font-size:0.9rem'></i>&nbsp;{{model.get_ans20_display}}
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% elif model.Q20 and model.ans20.all.count == 0 %}
+
+                    {% elif model.Q20 and model.ans20 %}
+                    <div class='row faq'>
+                        <div class="col-lg-7 px-md-0" style="font-weight:600;">{{model.Q20}}</div>
+                            <!-- For Other -->
+                            <div class="col-lg-5 pb-3 pt-3 pt-lg-0 pb-md-1">
+                                <span class="pt-1 d-inline-block">{{model.ans20}}</span>
+                            </div>
+                    </div>
+                    {% endif %}
+
+                </div><!--Row Ends-->
+
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock data %}

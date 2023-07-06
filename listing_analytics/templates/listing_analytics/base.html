@@ -1,0 +1,118 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+{% block content %}
+        <!--====== App Content ======-->
+</div>
+</div>
+<br>
+<br>
+<br>
+        <div class="u-s-p-b-60">
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+
+                                    <!--====== Dashboard Features ======-->
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                        <div class="dash__pad-1">
+
+                                            <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span>
+                                            <ul class="dash__f-list">
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-dashboard' %}">Analytics Listing Home</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-list' %}">Listing</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-draft-listing-list' %}">Vendor Listing  &nbsp;{% if listing_notification %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{draft_listing_count}}</span>{% endif %}</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'blank-listing-list' %}">Assign Listing</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-category-list' %}">Listing Category</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-parent-category-list' %}">Listing Parent Category</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-location-list' %}">Listing Location</a>
+                                                </li>
+
+                                                 <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-sub-location-list' %}">Listing Sub Location</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-listing-review-list' %}">Listing Review</a>
+                                                </li>
+
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-listing-contact' %}">Listing Contact</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-blog-list' %}">Blog Listing</a></a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'landing-list' %}">Landing Leads</a></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-9 col-md-12">
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                            {% block data %} {% endblock data %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+    </div>
+    <!--====== End - Main App ======-->
+<script src="{% static 'home/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'home/js/jquery/plugins.js' %}"></script>
+<script src="{% static 'home/js/jquery/scripts.js' %}"></script>
+{% block javascript %} {% endblock %}
+
+{% endblock content %}
+
+
+

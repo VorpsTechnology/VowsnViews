@@ -1,0 +1,138 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+
+        <!--====== App Content ======-->
+</div>
+</div>
+<br>
+<br>
+<br>
+        <div class="u-s-p-b-60">
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+
+                                    <!--====== Dashboard Features ======-->
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                        <div class="dash__pad-1">
+
+                                            <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span>
+                                            <ul class="dash__f-list">
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-dashboard' %}">Analytics Home</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-product-list' %}">All Products</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-parent-category-list' %}">All Parent Category's</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-category-list' %}">All Category's</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-order-list' %}">All Orders &nbsp;{% if mini_order_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{mini_order_count}}</span>{% endif %}</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-not-order-list' %}">All Cart (Not Order)</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-order-return' %}">Returns &nbsp;{% if return_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{return_count}}</span>{% endif %}</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-order-cancel' %}">Cancellations &nbsp;{% if cancel_count %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{cancel_count}}</span>{% endif %}</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-send-mail' %}">Send Bulk Mail</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-contact' %}">Contact &nbsp;{% if normal_contact %} <span class="" style="background: #965B92;color: #fff;padding: 0.1em 0.5em;border-radius: 50%;font-size: 0.8em;">{{normal_contact}}</span>{% endif %}</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+                                        <div class="dash__pad-1">
+                                            <ul class="dash__w-list">
+                                                <li>
+                                                    <div class="dash__w-wrap">
+
+                                                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
+                                                        {% if user.is_authenticated %}
+                                                        <span class="dash__w-text">{{ order_count }}  <span style="font-size:0.5em;">({{ mini_order_count }})</span></span>
+                                                        {% endif %}
+                                                        <span class="dash__w-name">Orders Placed</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="dash__w-wrap">
+
+                                                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
+                                                        {% if user.is_authenticated %}
+                                                        <span class="dash__w-text">{{ cancel_count }}</span>
+                                                        {% endif %}
+
+                                                        <span class="dash__w-name">Cancel Orders</span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="dash__w-wrap">
+
+                                                        <span class="dash__w-icon dash__w-icon-style-3"><i class="fas fa-times"></i></span>
+                                                        {% if user.is_authenticated %}
+                                                        <span class="dash__w-text">{{ return_count }}</span>
+                                                        {% endif %}
+
+                                                        <span class="dash__w-name">Return Orders</span></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-9 col-md-12">
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                            {% block data %} {% endblock data %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+    </div>
+    <!--====== End - Main App ======-->
+
+{% endblock content %}

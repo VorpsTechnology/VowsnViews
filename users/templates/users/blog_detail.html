@@ -1,0 +1,114 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+
+{% block meta %}
+
+    <title>{{object.meta_title}}</title>
+	<meta name="description" content="{{object.meta_description}}">
+	<meta name="author" content="">
+
+{% endblock meta %}
+
+
+{% block content %}
+
+<div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-90" style="margin-top: -5em;">
+
+                <!--====== Detail Post ======-->
+                <div class="detail-post">
+                    <div class="bp-detail">
+                        <div class="bp-detail__thumbnail">
+
+                            <!--====== Image Code ======-->
+                            <div class="aspect aspect--bg-grey aspect--1366-768">
+
+                                <img class="aspect__img" src="{{object.image.url}}" alt=""></div>
+                            <!--====== End - Image Code ======-->
+                        </div>
+                        <div class="bp-detail__info-wrap">
+                            <div class="bp-detail__stat">
+
+                                <span class="bp-detail__stat-wrap">
+
+                                    <span class="bp-detail__publish-date">
+
+                                        <a>
+
+                                            <span>{{object.date.date}}</span></a></span></span>
+
+                                <span class="bp-detail__stat-wrap">
+
+                                    <span class="bp-detail__author">
+
+                                        <a>{% if not object.is_vnv %}{{object.user.user_full_name}}{% else %}Vnv Inspiration{% endif %}</a></span></span>
+
+                                <span class="bp-detail__stat-wrap">
+
+                                    <span class="bp-detail__category">
+
+<!--                                        <a>Learning</a>-->
+
+<!--                                        <a>News</a>-->
+
+<!--                                        <a>Health</a></span></span>-->
+                            </div>
+
+                            <span class="bp-detail__h1">
+
+                                <a># {{object.title}}</a></span>
+                            <div class="blog-t-w">
+
+<!--                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" >Travel</a>-->
+
+<!--                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" >Culture</a>-->
+
+<!--                                <a class="gl-tag btn&#45;&#45;e-transparent-hover-brand-b-2" >Place</a>-->
+                            </div>
+                            <p style="text-align: justify;">{{object.description|safe}}</p><br>
+                            {% if object.youtube_embed_link %}
+                            <iframe src="{{object.youtube_embed_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            {% endif %}
+                            <div class="post-center-wrap">
+                                
+                                
+                                <ul class="bp-detail__social-list">
+<!--                                    <li>-->
+
+<!--                                        <a class="s-fb&#45;&#45;color" href="#"><i class="fab fa-facebook-f"></i></a></li>-->
+<!--                                    <li>-->
+
+<!--                                        <a class="s-tw&#45;&#45;color" href="#"><i class="fab fa-twitter"></i></a></li>-->
+<!--                                    <li>-->
+
+<!--                                        <a class="s-insta&#45;&#45;color" href="#"><i class="fab fa-instagram"></i></a></li>-->
+<!--                                    <li>-->
+
+<!--                                        <a class="s-wa&#45;&#45;color" href="#"><i class="fab fa-whatsapp"></i></a></li>-->
+<!--                                    <li>-->
+
+<!--                                        <a class="s-gplus&#45;&#45;color" href="#"><i class="fab fa-google-plus-g"></i></a></li>-->
+<!--                                </ul>-->
+                            </div>
+                            <div class="gl-l-r bp-detail__postnp">
+                                <div>
+
+<!--                                    <a>Previous Post</a></div>-->
+                                <div>
+
+<!--                                    <a>Next Post</a></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</div>
+</div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+{% block content %}
+
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Parent Category</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ object.parent_category }}</td>
+                      <td>{{ object.category }}</td>
+                      <td>{{ object.title }}</td>
+                      <td><a href="{% url 'admin-draft-listing-detail' object.id %}" class="btn btn-primary">Details</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+{% endblock content %}

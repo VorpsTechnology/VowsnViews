@@ -1,0 +1,182 @@
+{% extends "users/dashboard_base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+}
+</style>
+{% endblock head %}
+
+{% block data %}
+
+    <center style="margin-top:1em;">
+    {% for message in messages %}
+    <p class="alert alert-{{ message.tags }}">
+         {{ message }}
+    </p>
+    {% endfor %}
+</center>
+
+<div class="u-s-m-b-30">
+    <a class="dash__custom-link btn--e-brand-b-2"  data-modal="modal" data-modal-id="#edit-ship-address" style="background-color:#965B92;color:#fff;border-color:#965B92;width: 150px;" onMouseOver="this.style.background-color='#fff'">
+        <span style="color: #fff;"><i class="fas fa-plus u-s-m-r-8"></i> Add Budget</span></a></div>
+    <table width="100%" style="text-align: left;margin-top: 2em;">
+         {% if budget_list %}
+        <tr>
+            <th width="33.33%"><p align="left" style="color: #965B92;font-size: 1em;">Expense</p></th>
+            <th width="33.33%"><p align="center" style="color: #965B92;font-size: 1em;">Cost</p></th>
+            <th width="33.33%"><p align="center" style="color: #965B92;font-size: 1em;">Remove</p></th>
+        </tr>
+        {% endif %}
+         {% for budget in budget_list %}
+        <tr>
+            <td style="padding: 1em;"><p align="left">{{ budget.name }}</p></td>
+            <td style="padding: 1em;"><p align="center">{{ budget.amount }}</p></td>
+            <td style="padding: 1em;"><p align="center"><a href="{% url 'users-budget-delete' budget.id %}"><i class="fas fa-trash-alt"></i></a></p></td>
+        </tr>
+         {% empty %}
+        <h4><center>Create Budget List Here.</center></h4>
+    {% endfor %}
+         {% if budget_list %}
+             <tr>
+                <th style="padding: 1em;font-size: 1em;">Total</th>
+                 <th width="50%" style="padding: 1em;font-size: 1em;text-align: center">{{ budget_list.first.get_total }} /-</th>
+                <th></th>
+            </tr>
+         {% endif %}
+    </table>
+
+
+
+
+
+
+<div class="modal fade" id="edit-ship-address">
+        <div class="hide-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-right:10em;margin-top:0em;">
+            <div class="modal-content" style="width:60%;">
+                <div class="modal-body" style="width:170%;">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Add Budget</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">Expense</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Expense Name" required style="font-size:1em;padding: 1.5em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">Amount</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_amount" name="amount" placeholder="Amount" style="font-size:1em;padding: 1.5em;" required></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                                                                  <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 50%;padding: 0.7em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 50%;padding: 0.7em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+                                    <div class="show-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-top:3em;">
+            <div class="modal-content" style="margin-right:1em;">
+                <div class="modal-body">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2 class="font-weight: bold;">Add Budget</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                          <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">Expense</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Expense Name" required style="font-size:1em;padding: 1.5em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">Amount</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_amount" name="amount" placeholder="Amount" style="font-size:1em;padding: 1.5em;" required></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 100%;padding: 0.7em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 100%;padding: 0.7em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+
+                       </div>
+
+{% endblock data %}
+
+

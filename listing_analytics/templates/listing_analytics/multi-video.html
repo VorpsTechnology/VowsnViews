@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="{% static 'home/css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/utility.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/app.color2.css' %}">
+</head>
+<body>
+    <div class="app-content">
+        <div class="u-s-p-y-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shop-p">
+                            <div class="shop-p__toolbar u-s-m-b-30">
+                                <div class="shop-p__meta-wrap u-s-m-b-60">
+                                <div class="shop-p__tool-style">
+                                    <div class="tool-style__group u-s-m-b-8">
+                                        <span class="js-shop-grid-target "><a class="js-upload-photos">Choose a file</a></span>
+                                        <span>or drag it here.</span>
+                                        
+                                        
+                                           <input id="fileupload" type="file" name="file" multiple
+                                               style="display: none;"
+                                               data-url="{% url 'analytics-listing-video-add' listing_pk %}"
+                                               data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                                            </div>
+
+                                        <!-- <form method="post" enctype="multipart/form-data" style="margin-top:5em;">-->
+                                        <!--    {% csrf_token %}-->
+                                        <!--    <input id="fileupload" type="file" name="file" multiple style="display: none;">-->
+                                        <!--</form>-->
+
+                                </div>
+                            </div>
+                            <div class="shop-p__collection">
+                                <div class="row is-grid-active">
+
+                                    {% for photo in photos %}
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <div class="product-m" id="gallery" >
+                                            <div class="product-m__thumb">
+                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="">
+                                                    <video width="400" controls>
+                                                      <source src="{{ photo.file.url }}" type="video/mp4">
+                                                    </video>
+                                                </a>
+                                                <div class="product-m__add-cart">
+                                                    <a class="btn btn-danger" href="{% url 'analytics-listing-video-delete' listing_pk photo.id %}">Delete</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Uploading...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{% static 'home/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'home/js/jquery/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'home/js/jquery/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'home/js/jquery/jquery.fileupload.js' %}"></script>
+<script src="{% static 'home/js/jquery/basic-upload.js' %}"></script>
+
+
+</body>
+</html>

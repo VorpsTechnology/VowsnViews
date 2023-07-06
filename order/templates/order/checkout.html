@@ -1,0 +1,401 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load home_extras %}
+{% block content %}
+
+<div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="/">Checkout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+             <center style="margin-top:-2em;">
+                {% for message in messages %}
+                <h3 class="alert alert-{{ message.tags }}">
+                     {{ message }}
+                </h3>
+                {% endfor %}
+            </center>
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="checkout-msg-group">
+<!--                                    <div class="msg">-->
+<!--                                        <span class="msg__text">Have a coupon?-->
+<!--                                            <a class="gl-link" href="#have-coupon" data-toggle="collapse">Click Here to enter your code</a></span>-->
+<!--                                        <div class="collapse" id="have-coupon" data-parent="#checkout-msg-group">-->
+<!--                                            <div class="c-f u-s-m-b-16">-->
+<!--                                                <span class="gl-text u-s-m-b-16">Enter your coupon code if you have one.</span>-->
+<!--                                                <form class="c-f__form">-->
+<!--                                                    <div class="u-s-m-b-16">-->
+<!--                                                        <div class="u-s-m-b-15">-->
+
+<!--                                                            <label for="coupon"></label>-->
+
+<!--                                                            <input class="input-text input-text&#45;&#45;primary-style" type="text" id="coupon" placeholder="Coupon Code"></div>-->
+<!--                                                        <div class="u-s-m-b-15">-->
+
+<!--                                                            <button class="btn btn&#45;&#45;e-transparent-brand-b-2" type="submit">APPLY</button></div>-->
+<!--                                                    </div>-->
+<!--                                                </form>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+
+
+            <!--====== Section 3 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="checkout-f">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                <h1 class="checkout-f__h1">DELIVERY INFORMATION</h1>
+                                     <form class="dash-address-manipulation checkout-f__delivery" method="POST">
+                                        {% csrf_token %}
+                                        <div class="gl-inline">
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_street_address">STREET ADDRESS  *</label>
+                                                <textarea class="input-text input-text--primary-style" cols="20" rows="20" name="street_address" id="id_street_address" required placeholder="House Name and Street" style="padding-top:0.5em;">
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                         <div class="gl-inline">
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_country">COUNTRY *</label>
+                                               <input class="input-text input-text--primary-style" name="country" type="text" id="id_country" required placeholder="Country">
+                                            </div>
+                                        </div>
+
+                                        <div class="gl-inline">
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_state">STATE/PROVINCE *</label>
+                                               <input class="input-text input-text--primary-style" name="state" type="text" id="id_state" required placeholder="State/Province">
+                                            </div>
+
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_city">TOWN/CITY *</label>
+                                                <input class="input-text input-text--primary-style" type="text" id="id_city" name="city" placeholder="Town/City" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="gl-inline">
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_pin_code">ZIP/POSTAL CODE *</label>
+                                                <input class="input-text input-text--primary-style" type="number" id="id_pin_code" placeholder="Zip/Postal Code" name="pin_code" required>
+                                            </div>
+                                            
+                                            {% for field in address_form %}
+                                                {% if 'Default:' in field.label_tag %}
+                                                    <div class="u-s-m-b-30">
+                                                        <label class="gl-label">DEFAULT ADDRESS *</label>
+                                                        <div class="gl-inline">
+                                                            <span>Make Default Address</span>
+                                                            <div class="input-text" style="padding-top:1em;">{{ field }}</div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </div>
+                                        <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">SAVE</button>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h1 class="checkout-f__h1">ORDER SUMMARY</h1>
+
+                                    <!--====== Order Summary ======-->
+                                    <div class="o-summary">
+                                        <div class="o-summary__section u-s-m-b-30">
+                                            <div class="o-summary__item-wrap gl-scroll">
+                                                {% for cart in cart_query %}
+                                                    <div class="o-card">
+                                                    <div class="o-card__flex">
+                                                        <a class="o-card__img-wrap mb-3" href="{% url 'product-detail-view' cart.product.id %}">
+
+                                                            <img class="u-img-fluid" src="{{ cart.product.get_image }}" alt="" style="widht: 80px;height: 80px;margin-top: -0.5em;"></a>
+                                                        <div class="o-card__info-wrap">
+
+                                                            <span class="o-card__name">
+
+                                                                <a href="{% url 'product-detail-view' cart.product.id %}">{{ cart.product.title }}</a></span>
+
+                                                            <span class="o-card__quantity">Quantity x {{ cart.quantity }}</span>
+                            
+                                                            
+                                                             {% if cart.variation.all %}
+                                                                 {% for product in cart.variation.all %}
+                                                                    <ul class="table-p__variant-list">
+                                                                        <li>
+                                                                            <span > {{ product.category|capfirst }}: {{ product.title|capfirst }}</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                {% endfor %}
+                                                            {% endif %}
+
+                                                            <span class="o-card__price">{% currency request cart.get_final_price %}</span></div>
+                                                    </div>
+
+                                                    <a class="o-card__del far fa-trash-alt" href="{% url 'delete-cart' cart.id %}"></a>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="o-summary__section u-s-m-b-30">
+                                            <div class="o-summary__box">
+                                                <h1 class="checkout-f__h1">SHIPPING & BILLING</h1>
+                                                <div class="ship-b">
+                                                    <span class="ship-b__text">Ship to:</span>
+                                                    {% if order.address %}
+                                                        <div class="ship-b__box u-s-m-b-10">
+                                                            <p class="ship-b__p">{{ order.address.street_address }} - {{ order.address.state }}, {{ order.address.city }} - {{ order.address.pin_code }}</p>
+                                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                        </div>
+                                                    {% else %}
+                                                        {% for address in user.address.all %}
+                                                            {% if address.default is True %}
+                                                                <div class="ship-b__box u-s-m-b-10">
+                                                                    <p class="ship-b__p">{{ address.street_address }} - {{ address.state }}, {{ address.city }} - {{ address.pin_code }}</p>
+
+                                                                    <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+
+<!--                                                    <div class="ship-b__box">-->
+
+<!--                                                        <span class="ship-b__text">Bill to default billing address</span>-->
+
+<!--                                                        <a class="ship-b__edit btn&#45;&#45;e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a></div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="o-summary__section u-s-m-b-30">
+                                            <div class="o-summary__box">
+                                                <table class="o-summary__table">
+                                                    <tbody>
+                                                
+                                                        <tr>
+                                                            <td>SUBTOTAL</td>
+                                                            <td>{% currency request  order.get_sub_total %}</td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                            <td>SHIPPING</td>
+                                                            <td>{% currency request order.get_shipping_total %}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TAX</td>
+                                                            <td>{% currency request order.get_tax_total %}</td>
+                                                        </tr>
+                                                        
+                                                        
+                                                        <tr>
+                                                            <td>DISCOUNT</td>
+                                                            <td>{% currency request order.get_discounted_total %}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>GRAND TOTAL</td>
+                                                            <td>{% currency request order.get_total %}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="o-summary__section u-s-m-b-30 pb-4">
+                                            <div class="o-summary__box">
+                                                <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
+                                                {% if user.address.all.exists %}
+                                                   <form action="" method="POST" id="check_out">
+                                                        {% csrf_token %}
+                                                        <input type="text" name="payment_id" value="{{ order_id }}" style="display:none;">
+                                                        <input type="text" name="user_id" value="{{ user.id }}" style="display:none;">
+                                                        
+                                                        <button id="rzp-button1" style="background: #965B92;padding: 0.8em;width: 100%;color: #fff;border-radius: 0.5em;border: 0px;font-weight: bold;" type='submit'>Pay Now</button><br>
+                                                        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                                        
+                                                        
+                                                         <script>
+                                                        var options = {
+                                                            "key": "rzp_live_4oID8Dih3eYLng", // Enter the Key ID generated from the Dashboard
+                                                            "amount": "{{ amount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                                            "currency": "{{ order_currency }}",
+                                                            "image": "{% static 'home/images/vnvlogo.png' %}",
+                                                            "order_id": "{{ order_id }}",
+                                                            "name": "VowsnViews",
+                                                            "description": "VowsnViews",//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                                            "handler": function (response){
+                                                                document.getElementById("check_out").submit();
+                                                            },
+                                                            "prefill": {
+                                                                "name": "{{ user.user_full_name }}",
+                                                                "email": "{{ user.email }}",
+                                                                "contact": "{{ user.phone_number }}"
+                                                            },
+                                                            "theme": {
+                                                                "color": "#965B92"
+                                                            }
+                                                        };
+                                                        var rzp1 = new Razorpay(options);
+                                                        // rzp1.on('payment.failed', function (response){
+                                                        //         alert(response.error.code);
+                                                        //         alert(response.error.description);
+                                                        //         alert(response.error.source);
+                                                        //         alert(response.error.step);
+                                                        //         alert(response.error.reason);
+                                                        //         alert(response.error.metadata.order_id);
+                                                        //         alert(response.error.metadata.payment_id);
+                                                        // });
+                                                        document.getElementById('rzp-button1').onclick = function(e){
+                                                            rzp1.open();
+                                                            e.preventDefault();
+                                                        }
+                                                        </script>
+                                                        
+                                                        
+                                                        
+                                                  
+                                                       
+                                                        <!--<script-->
+                                                            <!--src="https://checkout.razorpay.com/v1/checkout.js"-->
+                                                        <!--    data-key="rzp_live_4oID8Dih3eYLng"-->
+                                                        <!--    data-amount="{{ amount }}"-->
+                                                        <!--    data-currency="{{ order_currency }}"-->
+                                                        <!--    data-order_id="{{ order_id }}"-->
+                                                        <!--    data-buttontext="Pay with Razorpay"-->
+                                                        <!--    data-name="VowsnViews"-->
+                                                        <!--    data-description="VowsnViews"-->
+                                                        <!--    data-image="{% static 'home/images/vnvlogo.png' %}"-->
+                                                        <!--    data-prefill.name="{{ user.user_full_name }}"-->
+                                                        <!--    data-prefill.email="{{ user }}"-->
+                                                        <!--    data-prefill.contact="{{ user.phone_number }}"-->
+                                                        <!--    data-theme.color="#965B92"-->
+                                                        <!--     >-->
+                                                        <!--</script>-->
+                                                        <input type="hidden" custom="Hidden Element" name="hidden">
+                                                        
+                                                    </form>
+                                                    <br>
+                                                    <a href="{% url 'order-pod' %}"><button style="background: #965B92;padding: 0.8em;width: 100%;color: #fff;border-radius: 0.5em;border: 0px;font-weight: bold;">Pay on delivery</button></a>                                                
+                                                {% else %}
+                                                    <h2>Add or select address!</h2>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== Shipping Address Add Modal ======-->
+        <div class="modal fade" id="edit-ship-address">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="checkout-modal2">
+                            <div class="u-s-m-b-30">
+                                <div class="dash-l-r">
+                                    <h1 class="gl-modal-h1">Shipping Address</h1>
+                                    <div class="dash__link dash__link--brand">
+
+                                </div>
+                            </div>
+                            <form class="checkout-modal2__form" method="post">
+                                {% csrf_token %}
+                                <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
+                                    <table class="dash__table-2">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Edit</th>
+                                                <th>Full Name</th>
+                                                <th>Address</th>
+                                                <th>Region</th>
+                                                <th>Phone Number</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for address in user.address.all %}
+                                            <tr>
+                                                <td>
+                                                <!--====== Radio Box ======-->
+                                                    <div class="radio-box">
+                                                        <input type="radio" id="address-1" name="active-address" checked value="{{ address.id }}">
+                                                        <div class="radio-box__state radio-box__state--primary">
+                                                            <label class="radio-box__label" for="address-1"></label>
+                                                        </div>
+                                                    </div>
+
+                                                <!--====== End - Radio Box ======-->
+                                                <td>
+                                                    <a class="address-book-edit btn--e-transparent-platinum-b-2" href="{% url 'users-address-update' address.id %}">Edit</a>
+                                                </td>
+                                                <td>{{ user.user_full_name }}</td>
+                                                <td>{{ address.street_address }}</td>
+                                                <td>{{ address.pin_code }} {{ address.city }}</td>
+                                                <td>{{ user.phone_number }}</td>
+                                                {% if address.default %}
+                                                <td>
+                                                    <div class="gl-text">Default Address</div>
+                                                </td>
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="gl-modal-btn-group">
+
+                                    <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">SAVE</button>
+
+                                    <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock content %}

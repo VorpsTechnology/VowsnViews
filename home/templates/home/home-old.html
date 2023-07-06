@@ -1,0 +1,43 @@
+{% extends "home/base.html" %}
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if not user.is_authenticated %}
+    <li><a href="{% url 'users-register' %}">Register</a></li>
+    <li><a href="{% url 'users-login' %}">Login</a></li>
+{% else %}
+{{ user.user_full_name}}'s Account
+    <li><a href="{% url 'users-update' user.id %}">User Update</a></li>
+    <br>
+
+    <li><a href="{% url 'order-all' %}">Order All</a></li>
+    <br>
+
+    <li><a href="{% url 'product-category-list-view' %}">Category</a></li>
+    <li><a href="{% url 'product-category-add' %}">Add Category</a></li>
+    <li><a href="{% url 'product-category-update' 5 %}">Update Category</a></li>
+    <li><a href="{% url 'product-category-delete' 3 %}">Delete Category</a></li>
+    <br>
+
+    <li><a href="{% url 'product-list-view' %}">Show Products</a></li>
+    <li><a href="{% url 'product-add' %}">Add Products</a></li>
+    <li><a href="{% url 'product-update' 3 %}">Update Products</a></li>
+    <li><a href="{% url 'product-delete' 5 %}">Delete Products</a></li>
+    <br>
+
+    <li><a href="{% url 'order-checkout' %}">Checkout</a></li>
+    <li><a href="{% url 'order-add-to-cart' 'test-product' %}">Add Products to cart</a></li>
+    <li><a href="{% url 'order-view-cart' %}">Cart</a></li>
+
+
+    <li><a href="{% url 'users-logout' %}">Logout</a></li>
+{% endif %}
+
+{% endblock content %}

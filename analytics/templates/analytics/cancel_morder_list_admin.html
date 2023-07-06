@@ -1,0 +1,222 @@
+{% extends "analytics/base.html" %}
+{% load crispy_forms_tags %}
+{% load products_extras %} <!--for filter list of data-->
+{% load widget_tweaks %}
+{% block head %}
+
+<style>
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+</style>
+
+{% endblock head %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+<div class="tool-style__group u-s-m-b-8">
+    <span class="js-shop-filter-target" data-side="#side-filter">Filters</span>
+</div>
+
+<div class="dash__pad-2">
+    <table width="100%">
+        <tr>
+            <th><p align="center" style="color: #000;font-size: 1em;">Image</p></th>
+            <th><p align="center" style="color: #000;font-size: 1em;">Products Name</p></th>
+            <th><p align="center" style="color: #000;font-size: 1em;">Cancel Reason</p></th>
+            <th><p align="center" style="color: #000;font-size: 1em;">Cancel Status</p></th>
+            <th><p align="center" style="color: #000;font-size: 1em;">Edit</p></th>
+            <th><p align="center" style="color: #000;font-size: 1em;">Read</p></th>
+        </tr>
+        {% for cancel in object_list %}
+            <tr>
+                <td style="padding: 1em;"><center><img src="{{ cancel.cancel_mini_order.cart.product.get_image }}" style="width: 50px;"></center></td>
+                <td style="padding: 1em;"><center><a href="{% url 'product-detail-view' cancel.cancel_mini_order.cart.product.id %}">{{ cancel.cancel_mini_order.cart.product.title }}</a></center></td>
+                <td style="padding: 1em;"><p align="center">{{ cancel.cancel_reason }}</p></td>
+                <td style="padding: 1em;"><p align="center">{{ cancel.cancel_status }}</p></td>
+                <td style="padding: 1em;"><p align="center"><a href="{% url 'admin-order-cancel-detail' cancel.cancel_mini_order.id %}"><i class="fas fa-edit"></i></a></p></td>
+                <td style="padding: 1em;"><p align="center">{% if not cancel.read %}<a href="{% url 'admin-cancel-read' cancel.id %}"><i class="fas fa-eye"></i></a>{% else %}<i class="fas fa-check"></i>{% endif %}</p></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="u-s-p-y-60">
+    <ul class="shop-p__pagination">
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <li class="is-active"><a href="{% filter_url 1 'page' request.GET.urlencode %}">First</a></li>
+                <li class="is-active"><a href="{% filter_url page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="is-active"><a href="{% filter_url page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                <li class="is-active"><a href="{% filter_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</div>
+
+<form method="get">
+    <div class="shop-a" id="side-filter" style="font-size:1.1em;">
+        <div class="shop-a__wrap">
+            <div class="shop-a__inner gl-scroll">
+                <div class="shop-w-master">
+                    <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
+                        <span>FILTERS</span>
+                    </h1>
+                    <div class="uk-card-body" style="margin-top:-2.5em;">
+                        <button class="uk-button uk-button-default uk-width-1-1" type="submit"><span class="uk-margin-xsmall-right" uk-icon="icon: search; ratio: .75;"></span>Search</button>
+                        <br><br>
+                        <button class="uk-button uk-button-default uk-width-1-1" type="reset"><span class="uk-margin-xsmall-right" uk-icon="icon: close; ratio: .75;"></span>Reset all filters</button>
+                    </div>
+
+                    <div class="shop-w-master__sidebar">
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">USER NAME</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap" id="s-name">
+                                        <div class="shop-w__form-p-wrap">
+                                            <div style="margin: 0em 0.2em;">
+
+                                                <input class="input-text input-text--primary-style" type="text" id="id_user" list="objectlist"  placeholder="Search by product name" name="note" style="padding:0.5em 3em 0.5em 1em;width:110%;font-size:0.8em;"></div>
+                                                <datalist id="objectlist">
+                                                    {% for object in object_list %}
+                                                        <option value="{{object.user}}">{{object.user}}</option>
+                                                    {% endfor %}
+                                                </datalist>
+                                            <div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">DATES</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap collapse show" id="j-manufacturer" style="margin: 0em 0 0em 0;">
+                                    <ul class="shop-w__list-2">
+                                         <div>
+                                            <div class="uk-inline"><span class="uk-form-icon uk-text-xsmall" for="id_start_date">from</span>
+                                            <input class="uk-input" type="date" name="start_date" step="1" id="id_start_date" placeholder="0.0" min="1.0">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                      <div class="uk-inline"><span class="uk-form-icon uk-text-xsmall" for="id_end_date">to</span>
+                                        <input class="uk-input" type="date" name="end_date" id="id_end_date">
+                                      </div>
+                                    </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">CANCEL STATUS</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap collapse show" id="s-manufacturer" style="margin: 0em 0 0em 0;">
+                                    <ul class="shop-w__list-2">
+                                        {% for field in filter.form.visible_fields %}
+                                          <div class="form-group">
+                                              {% if 'Cancel status:' in field.label_tag %}
+              <!--                                  {{ field.label_tag }}-->
+                                                {% render_field field class="form-control" %}
+                                                {% if field.help_text %}
+                                                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                              {% endif %}
+                                        </div>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">CANCEL GRANTED</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap collapse show" id="n-manufacturer" style="margin: 0em 0 0em 0;">
+                                    <ul class="shop-w__list-2">
+                                        {% for field in filter.form.visible_fields %}
+                                          <div class="form-group">
+                                              {% if 'Cancel granted:' in field.label_tag %}
+              <!--                                  {{ field.label_tag }}-->
+                                                {% render_field field class="form-control" %}
+                                                {% if field.help_text %}
+                                                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                              {% endif %}
+                                        </div>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-s-m-b-30">
+                            <div class="shop-w">
+                                <div class="shop-w__intro-wrap">
+                                    <h1 class="shop-w__h">CANCEL REASON</h1>
+
+                                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                </div>
+                                <div class="shop-w__wrap collapse show" id="m-manufacturer" style="margin: 0em 0 0em 0;">
+                                    <ul class="shop-w__list-2">
+                                        {% for field in filter.form.visible_fields %}
+                                          <div class="form-group">
+                                              {% if 'Cancel reason:' in field.label_tag %}
+              <!--                                  {{ field.label_tag }}-->
+                                                {% render_field field class="form-control" %}
+                                                {% if field.help_text %}
+                                                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                              {% endif %}
+                                        </div>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+{% endblock data %}

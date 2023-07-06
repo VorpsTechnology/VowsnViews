@@ -1,0 +1,164 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+
+        <div class="app-content">
+
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+<!--                <div class="section__content">-->
+<!--                    <div class="container">-->
+<!--                        <div class="breadcrumb">-->
+<!--                            <div class="breadcrumb__wrap">-->
+<!--                                <ul class="breadcrumb__list">-->
+<!--                                    <li class="has-separator">-->
+
+<!--                                        <a href="/">Home</a></li>-->
+<!--                                    <li class="is-marked">-->
+
+<!--                                        <a href="">Signin</a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+<!--                <div class="section__intro u-s-m-b-60">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-lg-6">-->
+<!--&lt;!&ndash;                                <div class="section__text-wrap">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <img src="{% static 'home/images/Vnvlogo.png' %}" style="width: 20%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-6">-->
+<!--                                -->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content" >
+                    <div class="container">
+                        <div class="row row--center">
+                            <div class="col-lg-7 col-md-8 u-s-m-b-30" style="background: #fff;">
+                                <div class="l-f-o">
+                                    <div class="l-f-o__pad-box">
+
+                                        <img src="{% static 'home/images/vnvlogo.png' %}" style="width: 30%;margin-left: -1em;">
+
+                                        <h1 class="gl-h1">SIGN IN</h1>
+
+                                        <span class="gl-text u-s-m-b-30">If you have an account with us, please log in.</span>
+                                        <form class="l-f-o__form" method="POST">
+                                            {% csrf_token %}
+                                                
+                                               {% if form.errors %}
+                                                <div class="alert alert-danger  alert-error">
+                                                    {% for field in form %}
+                                                      {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                           <p style="color: red;">{{ error }}</p>
+                                                        {% endfor %}
+                                                      {% endif %}
+                                                    {% endfor %}
+                                                  {% if form.non_field_errors %}
+                                                    <p style="color: red;">{{ form.non_field_errors }}</p>
+                                                  {% endif %}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if messages %}
+                                                <span>
+                                                    {% for message in messages %}
+                                                    <p {% if message.tags %} class="alert alert-{{ message.tags }} mb-5"{% endif %} style="padding: 10px;margin-bottom: 0.5em;margin-top: 1em;">{{ message }}</p>
+                                                    {% endfor %}
+                                                </span>
+                                            {% endif %}
+                                                
+                                                <div class="u-s-m-b-30" style="margin-top: 1em;">
+
+                                                <label class="gl-label" for="id_email" >E-MAIL *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="id_email" name="email" placeholder="Enter E-mail" required></div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="id_password">PASSWORD *</label>
+
+                                                <input class="input-text input-text--primary-style" type="password" id="id_password" name="password" placeholder="Enter Password" required></div>
+
+                                            
+
+                                            <div class="gl-inline">
+                                                <div class="u-s-m-b-30">
+
+                                                    <button class="btn btn--e-transparent-brand-b-2" type="submit">LOGIN</button></div>
+                                                <div class="u-s-m-b-30">
+                                                    <a class="gl-link" href="{% url 'password_reset' %}">Forgot Password?</a>
+                                                </div>
+                                            </div>
+                                            <div class="u-s-m-b-30">
+
+                                                <!--====== Check Box ======-->
+                                                <div class="check-box">
+
+                                                    <input type="checkbox" id="remember-me">
+                                                    <div class="check-box__state check-box__state--primary">
+
+                                                        <label class="check-box__label" for="remember-me">Remember Me</label></div>
+                                                </div>
+                                                <!--====== End - Check Box ======-->
+                                            </div>
+                                        </form>
+
+                                        <h1 class="gl-h1">I'M NEW CUSTOMER</h1>
+
+                                        <span class="gl-text u-s-m-b-30">By creating an account with our store, you will be able to move through the checkout process faster, store shipping addresses, view and track your orders in your account and more.</span>
+                                        <div class="u-s-m-b-15">
+
+                                            <a class="l-f-o__create-link btn--e-transparent-brand-b-2 mb-3" href="{% url 'users-register' %}">CREATE AN ACCOUNT</a>
+                                            <a class="l-f-o__create-link btn--e-transparent-brand-b-2" href="{% url 'vendor-register' %}">BECOME A VENDOR</a></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <img src="{% static 'home/images/banner/desitnation_wedding.jpg' %}" style="width: 100%;height: 800px;object-fit: cover;">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+        <!--====== Main Footer ======-->
+
+    </div>
+    <!--====== End - Main App ======-->
+
+
+
+
+
+{% endblock content %}<!-- This templates was made by Colorlib (https://colorlib.com) -->

@@ -1,0 +1,98 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+            <div class="u-s-p-y-60">
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="/">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="">My Account</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+
+            <div class="u-s-p-b-60">
+                <div class="section__content">
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                        <div class="dash__pad-1">
+
+                                            <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span>
+                                            <ul class="dash__f-list">
+                                                <!-- <li>-->
+                                                <!--    <a class="dash-active" href="{% url 'profile' %}">My Profile</a>-->
+                                                <!--</li>-->
+                                                  <li>
+                                                    <a class="dash-active" href="{% url 'user-account' %}">Manage Account</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'users-address-list' %}">Address Book</a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'product-favorite-list' %}">Wishlist</a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'order-all' %}">Store Order</a>
+                                                </li>
+
+<!--                                                <li>-->
+<!--                                                    <a class="dash-active" href="">My Payment Options</a>-->
+<!--                                                </li>-->
+
+                                                 <li>
+                                                    <a class="dash-active" href="{% url 'password_change' %}">Change Password</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-9 col-md-12">
+                                      {% block b_data %} {% endblock b_data %}
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                                {% block data %} {% endblock data %}
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+
+    </div>
+    <!--====== End - Main App ======-->
+
+{% endblock content %}

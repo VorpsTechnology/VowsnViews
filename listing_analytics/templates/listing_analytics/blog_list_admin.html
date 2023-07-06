@@ -1,0 +1,160 @@
+{% extends "listing_analytics/base.html" %}
+{% load products_extras %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+            <!--====== Section 1 ======-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shop-p">
+                                <div class="shop-p__toolbar u-s-m-b-30">
+                                    <div class="shop-p__meta-wrap u-s-m-b-60">
+
+<!--                                        <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>-->
+<!--                                        <div class="shop-p__meta-text-2">-->
+
+<!--                                            <span>Related Searches:</span>-->
+
+<!--                                            <a class="gl-tag btn&#45;&#45;e-brand-shadow" href="#">men's clothing</a>-->
+
+<!--                                            <a class="gl-tag btn&#45;&#45;e-brand-shadow" href="#">mobiles & tablets</a>-->
+
+<!--                                            <a class="gl-tag btn&#45;&#45;e-brand-shadow" href="#">books & audible</a></div>-->
+<!--                                    </div>-->
+                                    <div class="shop-p__tool-style">
+                                        <div class="tool-style__group u-s-m-b-8">
+
+                                            <!--<span class="js-shop-filter-target" data-side="#side-filter">Filters</span>-->
+
+                                            <!--<span class="js-shop-grid-target is-active">Grid</span>-->
+
+                                            <!--<span class="js-shop-list-target">List</span>-->
+                                            <a href="{% url 'admin-blog-add'%}"><span class="js-shop-list-target">Add Diaries</span></a>
+                                        </div>
+                                    </div>
+                                        <form>
+                                            <div class="tool-style__form-wrap">
+<!--                                                <div class="u-s-m-b-8"><select class="select-box select-box&#45;&#45;transparent-b-2">-->
+<!--                                                        <option>Show: 8</option>-->
+<!--                                                        <option selected>Show: 12</option>-->
+<!--                                                        <option>Show: 16</option>-->
+<!--                                                        <option>Show: 28</option>-->
+<!--                                                    </select></div>-->
+<!--                                                <div class="u-s-m-b-8"><select class="select-box select-box&#45;&#45;transparent-b-2">-->
+<!--                                                        <option selected>Sort By: Newest Items</option>-->
+<!--                                                        <option>Sort By: Latest Items</option>-->
+<!--                                                        <option>Sort By: Best Selling</option>-->
+<!--                                                        <option>Sort By: Best Rating</option>-->
+<!--                                                        <option>Sort By: Lowest Price</option>-->
+<!--                                                        <option>Sort By: Highest Price</option>-->
+<!--                                                    </select></div>-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="shop-p__collection">
+                                    <div class="row is-grid-active">
+
+                                        {% for listing in object_list %}
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb" style="height: 180px;">
+
+                                                    <a class="aspect aspect- aspect--square u-d-block" href="{% url 'listing-detail-view' listing.id %}" style="height: 180px;">
+
+                                                        <img class="aspect__img" src="{{ listing.image.url }}" alt="" style="height: 180px;object-fit: cover;"></a>
+                                                    <div class="product-m__add-cart">
+
+                                                        <a href="{% url 'blog-detail-view' listing.id %}" class="btn--e-brand" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">View Detail</a>
+                                                    </div>
+
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="">{{ listing.category }}</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="{% url 'listing-detail-view' listing.id %}">{{ listing.title }} - </a></div>
+                                                    <div class="product-m__rating gl-rating-style">
+<!--                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>-->
+<!--                                                        <span class="product-m__review">(23)</span>-->
+                                                    </div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+
+                                                        </div>
+                                                        <div class="product-m__wishlist">
+                                                            <a class="far fa-trash-alt" href="{% url 'admin-blog-delete' listing.id %}" data-tooltip="tooltip" data-placement="top" title="Delete Listing" style="margin-right: 1em;"></a>
+                                                            <a class="fas fa-edit" href="{% url 'admin-blog-update' listing.id %}" data-tooltip="tooltip" data-placement="top" title="Edit Listing" margin-left: -2em;></a>
+                                                            <!--<a class="fas fa-plus" href="{% url 'analytics-listing-image-add' listing.id %}" data-tooltip="tooltip" data-placement="top" title="Add Images Listing" ></a>-->
+                                                            <!--<a class="fas fa-plus" href="{% url 'analytics-listing-video-add' listing.id %}" data-tooltip="tooltip" data-placement="top" title="Add Video Listing" ></a>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="u-s-p-y-60">
+
+                                    <!--====== Pagination ======-->
+                                    <ul class="shop-p__pagination">
+                                    {% if is_paginated %}
+                                      {% if page_obj.has_previous %}
+                                        <li class="is-active"><a href="{% filter_url 1 'page' request.GET.urlencode %}">First</a></li>
+                                        <li class="is-active"><a href="{% filter_url page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+                                      {% endif %}
+
+                                      {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                          <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                          <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                                        {% endif %}
+                                      {% endfor %}
+
+                                      {% if page_obj.has_next %}
+                                        <li class="is-active"><a href="{% filter_url page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                                        <li class="is-active"><a href="{% filter_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+                                      {% endif %}
+
+                                    {% endif %}
+<!--                                        <li class="is-active">-->
+
+<!--                                            <a href="shop-grid-full.html">1</a></li>-->
+<!--                                        <li>-->
+
+<!--                                            <a href="shop-grid-full.html">2</a></li>-->
+<!--                                        <li>-->
+
+<!--                                            <a href="shop-grid-full.html">3</a></li>-->
+<!--                                        <li>-->
+
+<!--                                            <a href="shop-grid-full.html">4</a></li>-->
+<!--                                        <li>-->
+
+<!--                                            <a class="fas fa-angle-right" href="shop-grid-full.html"></a></li>-->
+                                    </ul>
+                                    <!--====== End - Pagination ======-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+        <!--====== Side Filters ======-->
+       
+        <!--====== End - Side Filters ======-->
+{% endblock data %}

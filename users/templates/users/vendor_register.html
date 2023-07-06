@@ -1,0 +1,292 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .textarea-input {
+        width: 100%;
+        min-height: 5rem;
+        padding-top: 0.8rem;
+        font-size: 12px;
+    }
+
+    hr {
+        width: 10%;
+    }
+    
+
+</style>
+
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-60">
+
+    </div>
+
+    <div class="u-s-p-b-60">
+
+        <div class="section__content">
+            <div class="container">
+                <div class="u-s-m-b-30" style="background: #fff;">
+                    <div class="l-f-o">
+                        <div class="l-f-o__pad-box">
+                            <div class="text-center">
+                                <img src="{% static 'home/images/vnvlogo.png' %}" style="width: 150px">
+                                <h1 class="gl-h1">REGISTER AS VENDOR</h1>
+                            </div>
+                            
+                            <div class="container my-4 pl-3">
+                              <div class="stepper-wrapper">
+                                  <div class="stepper-item">
+                                    <div class="step-counter">1</div>
+                                    <div class="step-name">Register</div>
+                                  </div>
+                                  <div class="stepper-item">
+                                    <div class="step-counter">2</div>
+                                    <div class="step-name">Add Listing</div>
+                                  </div>
+                                  <div class="stepper-item active">
+                                    <div class="step-counter">3</div>
+                                    <div class="step-name">Faq</div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            {% if user_form.errors %}
+                                    <div class="col-12 alert alert-warning  alert-error m-3">
+                                        {% for field in user_form %}
+                                        {% if field.errors %}
+                                        {% for error in field.errors %}
+                                        <p style="color: black;">{{ error }}</p>
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        {% if user_form.non_field_errors %}
+                                        <p style="color: red;">{{ user_form.non_field_errors }}</p>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+
+                            <div class="form-group">
+                                <form class="row" id="form" enctype="multipart/form-data" method="POST">
+                                    <hr>
+                                    {% csrf_token %}
+                                    <!-- User Form -->
+                                    <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase"
+                                        style="font-size: small;">User Details</h6>
+
+
+                                    <div class="col-12 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_user_full_name">NAME *</label>
+                                        <input class="input-text input-text--primary-style" type="text"
+                                            id="id_user_full_name" name="UserForm-user_full_name"
+                                            placeholder="Full Name" required>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_UserForm-email">E-MAIL *</label>
+                                        <input class="input-text input-text--primary-style" type="email"
+                                            id="id_UserForm-email" name="UserForm-email" placeholder="Enter E-mail"
+                                            required>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_UserForm-phone_number">PHONE NUMBER
+                                            *</label>
+                                        <input class="input-text input-text--primary-style" type="tel" pattern="[789][0-9]{9}"
+                                            name="UserForm-phone_number" required id="id_UserForm-phone_number"
+                                            placeholder="Phone"><br><small class="helptext ml-1">Provide a mobile number
+                                            without +91</small></td>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_UserForm-password1">PASSWORD *</label>
+                                        <input class="input-text input-text--primary-style" type="password"
+                                            id="id_UserForm-password1" pattern="(?=.*\d)(?=.*[a-z]).{8,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have lowercase,number & 8 characters' : ''); if(this.checkValidity()) form.id_UserForm-password2.pattern = this.value;" name="UserForm-password1"
+                                            placeholder="Enter Password" required>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_UserForm-password2">PASSWORD CONFIRM
+                                            *</label>
+                                        <input class="input-text input-text--primary-style" type="password"
+                                            id="id_UserForm-password2" pattern="(?=.*\d)(?=.*[a-z]).{8,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password' : '');" name="UserForm-password2"
+                                            placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="col-12 d-flex align-items-center justify-content-center">
+                                        <hr class="col-12">
+                                    </div>
+
+                                    <!-- Vendor Form -->
+                                    <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase"
+                                        style="font-size: small;">Vendor Details</h6>
+
+
+
+
+
+
+                                    <div class="col-12 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_user_full_name">BRAND NAME *</label>
+                                        <input class="input-text input-text--primary-style" type="text"
+                                            id="id_user_full_name" name="VendorForm-brand_name"
+                                            placeholder="Enter Brand Name" required>
+                                    </div>
+
+                                    <div class="col-12 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_user_full_name">DESCRIPTION *</label>
+                                        <textarea name="VendorForm-description"
+                                            class="form_control textarea-input input-text input-text--primary-style"
+                                            rows="3" placeholder="Description"></textarea>
+                                    </div>
+
+                                    <div class="col-12 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_user_full_name">WEBSITE LINK </label>
+                                        <input class="input-text input-text--primary-style" type="text"
+                                            id="id_user_full_name" name="VendorForm-website_link"
+                                            placeholder="Enter Website Url">
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+                                        <label class="gl-label ml-1" for="id_user_full_name">LISTING PARENT CATEGORY
+                                            *</label>
+                                        <select class="custom-select input-text--primary-style ml-1" id="parentCategory"
+                                            name="VendorForm-listing_parent_category">
+                                            <option selected>----------</option>
+                                            {% for item in parent_listing %}
+                                            <option value="{{ item.id }}">{{ item.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 u-s-m-b-30">
+
+                                        <label class="gl-label ml-1" for="id_user_full_name">LISTING CATEGORY *</label>
+                                        <select class="custom-select input-text--primary-style" id="listingCategory"
+                                            name="VendorForm-listing_sub_category">
+                                            <option selected>----------</option>
+                                        </select>
+
+                                    </div>
+
+                                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                                    <script>
+                                        $(document).on('change', 'select#parentCategory', function () {
+                                            var url = "{% url 'get-parent-category' %}";
+                                            var id = $(this).val();
+
+                                            $.ajax({
+                                                type: "GET",
+                                                url: url,
+                                                data: {
+                                                    'id': id,
+                                                },
+                                                success: function (data) {
+                                                    $('#listingCategory').html(data);
+                                                }
+
+                                            });
+                                        });
+                                    </script>
+<!--                                    <div class="col-12 col-lg-6 u-s-m-b-30">-->
+<!--                                        <label class="gl-label ml-1" for="id_VendorForm-service_price_lower">SERVICE-->
+<!--                                            PRICE LOWER *</label>-->
+<!--                                        <input class="input-text input-text&#45;&#45;primary-style" type="number"-->
+<!--                                            id="id_VendorForm-service_price_lower" name="VendorForm-service_price_lower"-->
+<!--                                            placeholder="Enter lower price" required>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="col-12 col-lg-6 u-s-m-b-30">-->
+<!--                                        <label class="gl-label ml-1" for="id_VendorForm-service_price_higher">SERVICE-->
+<!--                                            PRICE HIGHER *</label>-->
+<!--                                        <input class="input-text input-text&#45;&#45;primary-style" type="number"-->
+<!--                                            id="id_VendorForm-service_price_higher"-->
+<!--                                            name="VendorForm-service_price_higher" placeholder="Enter higher price"-->
+<!--                                            required>-->
+<!--                                    </div>-->
+
+                                 <!--<div class="col-12 col-lg-6 u-s-m-b-30">-->
+                                       <!--====== Check Box ======-->
+                                 <!--      <div class="check-box">-->
+                                 <!--          <input type="checkbox" id="listing_history" name="is_listing_on">-->
+                                 <!--          <div class="check-box__state check-box__state--primary">-->
+                                 <!--              <label class="check-box__label pl-2" for="remember-me">If Listing already present on website check this box !</label>-->
+                                 <!--          </div>-->
+                                 <!--      </div>-->
+                                       <!--====== End - Check Box ======-->
+                                 <!--</div>-->
+                                 
+                                 <div class="col-12 col-lg-6 u-s-m-b-30" style="display: flex;">
+                                       <!--====== Check Box ======-->
+                                       <div class="check-box">
+                                           <input type="checkbox" required>
+                                           <div class="check-box__state check-box__state--primary">
+                                               <label class="check-box__label pl-2" for="remember-me">I Accept </label>
+                                           </div>
+                                       </div>
+                                       <a style="color: #965B92;font-weight: 700;font-size: 12px;" href="{% url 'vendor-policy' %}" class="ml-1" >Vendor Policy</a>
+                                       <!--====== End - Check Box ======-->
+                                 </div>
+
+                                    <div class="col-12">
+                                        <button class="w-100 btn btn--e-transparent-brand-b-2" form="form"
+                                            type="submit" style="border-color:#965B92;">Next</button>
+                                    </div>
+                                </form>
+                                
+                                <p align="center" class="py-5"><a data-toggle="modal" data-target="#exampleModal">Need Registration Video Tutorial ?</a></p>
+                                
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" align="center">Vendor Registration Video Tutorial</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/crk5eJZWd7A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                      </div>
+                                     
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 2 ======-->
+</div>
+<!--====== End - App Content ======-->
+
+
+<!--====== Main Footer ======-->
+
+</div>
+<!--====== End - Main App ======-->
+
+
+
+
+
+{% endblock content %}
+<!-- This templates was made by Colorlib (https://colorlib.com) -->

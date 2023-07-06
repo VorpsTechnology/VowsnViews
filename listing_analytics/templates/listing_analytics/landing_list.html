@@ -1,0 +1,106 @@
+{% extends "listing_analytics/base.html" %}
+{% load crispy_forms_tags %}
+{% load products_extras %}
+{% load widget_tweaks %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+
+{% block head %}
+
+<style>
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+</style>
+
+{% endblock head %}
+
+<div class="tool-style__group u-s-m-b-8">
+    <span class="js-shop-filter-target" data-side="#side-filter">Filters</span>
+</div>
+
+<div class="dash__pad-2" style="overflow-x: auto;">
+<table width="100%">
+    <tr>
+        <th><p align="center" style="color: #000;font-size: 1em;">Name</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Email</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Category</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Subcategory</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Phone Number</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Budget</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">City</p></th>
+        <th><p align="center" style="color: #000;font-size: 1em;">Delete</p></th>
+    
+<!--        <th><p align="center" style="color: #000;font-size: 1em;">Delete</p></th>-->
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td style="padding: 1em;"><p align="center">{{ object.name }}</p></td>
+        <td style="padding: 1em;"><p align="center">{{ object.email }}</p></td>
+        <td style="padding: 1em;"><p align="center">{% for text in object.listing_parent_category.all %}{{text.title}},{% endfor %}</p></td>
+        <td style="padding: 1em;"><p align="center">{% for text in object.listing_sub_category.all %}{{text.title}},{% endfor %}</p></td>
+        <td style="padding: 1em;"><p align="center">{{ object.mobile }}</p></td>
+        <td style="padding: 1em;"><p align="center">{{ object.budget }}</p></td>
+        <td style="padding: 1em;"><p align="center">{{ object.city }}</p></td>
+        
+        <td style="padding: 1em;"><p align="center"><a href="{% url 'landing-delete' object.id %}"><i class="fas fa-trash"></i></a></p></td>
+        {% comment %}
+<!--        <td style="padding: 1em;"><p align="center"><a href="{% url 'admin-product-category-delete' category.id %}"><i class="fas fa-trash-alt"></i></a></p></td>-->
+        {% endcomment %}
+    </tr>
+
+     <!-- Decline Modal -->
+                        <div class="modal fade" id="DescriptionModal{{object.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog  modal-dialog-centered" role="document">
+                                <div class="modal-content rounded">
+                                    <div class="modal-header">
+                                        <h5 class="h5 modal-title" id="exampleModalLabel">Description</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <h6 class="p-3">{{ object.description|safe }}</h6>
+                                </div>
+                            </div>
+                        </div>
+
+    {% endfor %}
+</table>
+</div>
+
+<div class="u-s-p-y-60">
+    <ul class="shop-p__pagination">
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <li class="is-active"><a href="{% filter_url 1 'page' request.GET.urlencode %}">First</a></li>
+                <li class="is-active"><a href="{% filter_url page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="is-active"><a href="{% filter_url num 'page' request.GET.urlencode %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="is-active"><a href="{% filter_url page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                <li class="is-active"><a href="{% filter_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</div>
+
+
+
+{% endblock data %}

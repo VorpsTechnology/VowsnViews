@@ -1,0 +1,198 @@
+{% extends "vendors/base.html" %}
+{% load home_extras %}
+{% load widget_tweaks %}
+<!--Using this messages for message display -->
+<!--<ul>-->
+<!--    {% for message in messages %}-->
+<!--    <li class="{{ message.tags }}">-->
+<!--         {{ message }}-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+{% block meta %}
+{% endblock meta %}
+
+{% block data %}
+<style>
+.t-color {
+    color: #965b92;
+}
+{% comment %} .action-btn {
+    cursor: pointer;
+    border: 1px solid #965b92;
+    text-align: center;
+    background-color: white;
+    color: #965b92;
+    padding: .300rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.action-btn:hover {
+    border: 1px solid #965b92 !important;
+    background-color: #965b92;
+    color: white;
+} {% endcomment %}
+.no-inquiry-icon{
+    color: #aaaaaa;
+    font-size:10rem;
+    text-shadow:0.3rem 0.3rem #cccccc;
+    {% comment %} text-shadow: -1px -1px 0 #784474, 1px -1px 0 #784474, -1px 1px 0 #784474, 1px 1px 0 #784474; {% endcomment %}
+    transform:rotateZ(-30deg);
+    padding:2rem;
+}
+.inquiry-table-wrapper{
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.2rem;
+    border-radius: 0.2rem;
+    overflow: auto;
+}
+.inquiry-table{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+    padding: 1rem;
+    border: solid 2px whitesmoke;
+}
+.inquiry-caption {
+  caption-side: top;
+  padding:0.5rem;
+  color:#333333;
+}
+.inquiry-th{
+    color: black;
+    padding: 0.4rem;
+}
+.inquiry-tr{
+    border-bottom: solid 2px whitesmoke;
+    transition: all 0.2s;
+}
+.inquiry-td{
+    padding: 0.6rem;
+}
+.inquiry-td.inquiry-th{
+    background-color: #965B92;
+    color: white;
+}
+.inquiry-th,.inquiry-td{
+    max-width: 10rem;
+    width: auto;
+    margin: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modal-open {
+  {% comment %} overflow: inherit; {% endcomment %}
+}
+
+@media only screen and (max-width: 1024px) {
+    .no-inquiry-icon{
+        font-size:5rem;
+    }
+    .inquiry-table-wrapper{
+        font-size:0.9rem;
+    }
+    .inquiry-caption {
+        padding:1rem;
+        text-align: left;
+    }
+    .inquiry-caption{
+        padding:0.2rem;
+    }
+    .res-heading{
+        font-weight: 500;
+        font-size:1.6rem;
+    }
+}
+</style>
+
+
+
+{% if contact_list %}
+
+<div class="inquiry-table-wrapper rounded mt-2 mb-lg-5 mt-5 pt-4 mb-4 p-3 border ">
+    <div class="border-bottom mb-2">
+    <h3 class="pl-3 pb-3 res-heading font-weight-bold font-size-20" align="center">Inquiries</h3>
+
+    </div>
+    <table class="inquiry-table border-0 mb-3">
+        <thead>
+            <tr class="inquiry-tr border-bottom">
+                <th scope="col" class="inquiry-th text-left px-3">Name</th>
+                <th scope="col" class="inquiry-th text-left">Mobile</th>
+                <th scope="col" class="inquiry-th text-left">Date</th>
+                <th scope="col" class="inquiry-th text-left">Requested For Call</th>
+                <th scope="col" class="inquiry-th text-left">Seen</th>
+                <th scope="col" class="inquiry-th">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inquiry in contact_list %}
+            <tr class="inquiry-tr border-bottom">
+                <td class="inquiry-td text-left px-3" style="min-width:5rem;">{{ inquiry.name }}</td>
+                <td class="inquiry-td text-left" style="min-width:5rem;">{{ inquiry.mobile}}</td>
+                <td class="inquiry-td text-left" style="text-align:center; min-width:5rem;">{{ inquiry.date}}</td>
+                <td class="inquiry-td text-left" style="text-align:center; min-width:5rem;text-align: center;">{% if inquiry.request_call %}Yes{% else %}No{% endif %}</td>
+                <td class="inquiry-td text-left" style="text-align:center; min-width:5rem;">{% if inquiry.read %}<i class="fa fa-check"></i>{% else %}<a href="{% url 'contact-seen-update' inquiry.id %}"><i class="fa fa-eye"></i></a>{% endif %}</td>
+                <td class="inquiry-td" style="text-align:center; min-width:5rem;">
+                    <button class="rounded btn btn-outline-dark" data-toggle="modal" data-target="#inquiry_modal_{{inquiry.id}}"  type="submit">Details</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+
+<div class="w-100 text-center border p-lg-5 py-4 mt-4 my-lg-5 ">
+    <i class="fas fa-envelope-open-text no-inquiry-icon" style="color:#965B92;"></i>
+    <div class="">
+        <p class="text-dark p-2 " style='font-size:1.2rem;font-weight: 600;'>You have not received any inquiries yet.<p>
+<!--        <p class="font-weight-normal text-normal text-dark p-2 mb-3" style='font-size:1.2rem'>Want more inquiries?<p>-->
+    </div>
+</div>
+
+{% endif %}
+
+
+{% for inquiry in contact_list %}
+    <div class="modal fade" id="inquiry_modal_{{inquiry.id}}" tabindex="-1" role="dialog" aria-labelledby="inquiryModalLabel{{inquiry.id}}"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content p-2" style="border-radius: 0.5rem;">
+                <div class="modal-header">
+                    <h4 class="font-weight-bold text-uppercase">Inquiry Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-dark p-4">
+                    <div class='row'>
+                        <span class="col-3 font-weight-bold d-inline my-2">Name:</span>
+                        <div class="col-9 my-2 ">{{inquiry.name}}</div>
+                        <span class="col-3 font-weight-bold d-inline my-2">Email:</span>
+                        <div class="col-9 my-2 ">{{inquiry.email}}</div>
+                        <span class="col-3 font-weight-bold d-inline my-2">Date:</span>
+                        <div class="col-9 my-2 ">{{inquiry.date}}</div>
+                        <span class="col-3 font-weight-bold d-inline my-2">Mobile:</span>
+                        <div class="col-9 my-2 ">{{inquiry.mobile}}</div>
+                        <span class="col-12 col-lg-3 font-weight-bold d-inline my-2">Description:</span>
+                        <div class="col-12 col-lg-9 my-2 text-justify">{{inquiry.description}}</div>
+                        <span class="col-12 col-lg-3 font-weight-bold d-inline my-2">Request a Call:</span>
+                        <div class="col-12 col-lg-9 my-2 text-justify">{{inquiry.request_call}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+{% endblock data %}

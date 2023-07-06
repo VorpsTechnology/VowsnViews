@@ -1,0 +1,846 @@
+{% extends "home/base.html" %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+
+{% block content %}
+{{form.media}}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    input[type=file]::file-selector-button,
+    .popbtn {
+        cursor: pointer;
+        border: 1px solid #333333;
+        background-color: white;
+        color: #333333;
+        padding: .300rem .50rem;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    input[type=file]::file-selector-button:hover,
+    .popbtn:hover {
+        border: 1px solid #333333;
+        background-color: #333333;
+        color: white;
+    }
+
+    .savebtn {
+        text-shadow:none;
+        cursor: pointer;
+        border: 2px solid #965B92 !important;
+        height:100% !important;
+        background-color: white;
+        color: #965B92;
+        padding: 1rem .50rem;
+        font-size: 1rem;
+        font-weight:normal;
+        line-height: 1.5;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    .savebtn:hover {
+        text-shadow:none;
+        border: 1px solid #965B92;
+        background-color: #965B92;
+        color: white;
+    }
+
+    .pf-modal-dialog{
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    .close-btn{
+        position:absolute;
+        top:0;
+        right:0.7rem;
+        z-index:20;
+        font-size:3rem;
+        text-align:right;
+    }
+    .lr-icon{
+        position:absolute;
+        display:block;
+        font-size:3rem;
+        cursor:pointer;
+        min-height:100%;
+        width:4rem;
+        transition:all 0.3s;
+        background: rgba(0,0,0,0.2)
+    }
+    .lr-left{
+        top:0;
+        left:0;
+    }
+    .lr-right{
+        top:0;
+        right:0;
+    }
+    .lr-icon:hover{
+        color:white;
+    }
+    
+    @media only screen and (max-width: 1024px) {
+        .modal-dialog{
+            max-width: 100vw;
+            max-height: 100vh;
+        }
+        .close-btn{
+            width:2rem;
+            font-size:2rem;
+            color:white;
+            right:0.2rem;
+        }
+        .lr-icon{
+            font-size:1rem;
+            width:2rem;
+            color:white;
+        }
+    }
+</style>
+<div class="container mb-5" style="margin-top: 5em;">
+<div class="form-group shadow-0 border py-5 px-3">
+    
+    <div class="container my-4 pl-3">
+        <div class="stepper-wrapper">
+            <div class="stepper-item completed">
+                <div class="step-counter">1</div>
+                <div class="step-name">Register</div>
+            </div>
+            <div class="stepper-item">
+                <div class="step-counter">2</div>
+                <div class="step-name">Add Listing</div>
+            </div>
+            <div class="stepper-item">
+                <div class="step-counter">3</div>
+                <div class="step-name">Faq</div>
+            </div>
+         </div>
+    </div>
+    
+    
+  <h2 class="u-s-m-b-30 mb-1" align="center" style="font-weight: bold;">Create your Listing</h2>
+    <p align="center" class="border-bottom pb-5 mb-3">Add your listing details to proceed further</p>
+    <form method="POST" id="listing-form" enctype="multipart/form-data" action="" name="listing_form">
+        <div class="row">
+            {% csrf_token %}
+
+            {% if form.errors%}
+            <div class="col-lg-12 u-s-m-b-30">
+                <div class="col-12 alert alert-danger  alert-error">
+                    {% for field in form %}
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                    <p style="color: red;">{{ form.non_field_errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {% if 'safe' in message.tags %} {{ message|safe }} {% else %} {{ message }}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <h6 class="col-lg-12 u-s-m-b-15 text-muted font-weight-bold text-uppercase" style="font-size: small;">Details</h6>
+            {% comment %} {% if request.get_full_path != '/vendors/add/listing/' %}
+                <p class="col-lg-2 u-s-m-b-15 text-dark">
+                    <span class="nowrap" style="cursor:pointer" data-toggle="modal" data-target="#areaModal"><i class="far fa-edit"></i> Area</span>
+                    &emsp;&emsp;
+                    <span class="nowrap" style="cursor:pointer" data-toggle="modal" data-target="#pricingModal"><i class="far fa-edit"></i> Pricing</span>
+                </p>
+            {% endif %} {% endcomment %}
+
+            <div class="col-lg-12 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_title">TITLE *</label>
+            <input class="col-12 input-text input-text--primary-style" name="title" type="text" id="id_title"
+                placeholder="Title" value="{{form.title.value|default_if_none:''}}" required>
+            </div>
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_location">LOCATION *</label>
+            <select id="id_location" name='location' class="custom-select input-text--primary-style">
+                {% for val,item in form.location.field.choices %}
+                <option value="{{ val }}" {% if form.location.value == val %} selected {% endif %} >{{ item }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-lg-6 u-s-m-b-30" id="sub_location_div" style="display: none;">
+            <label class="gl-label ml-1" for="id_sub_location">SUB-LOCATION *</label>
+            <select id="id_sub_location" name="sub_location" class="custom-select input-text--primary-style">
+                {% for val,item in form.sub_location.field.choices %}
+                <option value="{{ val }}" {% if form.sub_location.value == val %} selected {% endif %} >{{ item }}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+            <script>
+                $(document).ready(function (){
+                    value = $('#id_location').find(":selected").val();
+                    console.log(value);
+                    url = "{% url 'get-sub-location' %}";
+                   $.ajax({
+                       url: url,
+                       type: 'get',
+                       data: {
+                           'id': value,
+                       },
+                       success: function (data)
+                       {
+                           get_sub_location(data['sub_location']);
+                           //console.log();
+                       }
+                   })
+                });
+
+                $('#id_location').on('change', function (){
+                   location_id = this.value;
+                   url = "{% url 'get-sub-location' %}";
+                   $.ajax({
+                       url: url,
+                       type: 'get',
+                       data: {
+                           'id': location_id,
+                       },
+                       success: function (data)
+                       {
+                           get_sub_location(data['sub_location']);
+                           //console.log();
+                       }
+                   })
+                });
+
+                function get_sub_location(data)
+                {
+                    if(Object.keys(data).length <= 0)
+                    {
+                        $('#sub_location_div').hide();
+                    }
+                    else {
+                        $('#sub_location_div').show();
+
+                        var location_data = $('#id_sub_location');
+                        console.log(data, "Aniket");
+                        location_data.empty();
+                        $.each(data, function (key, value) {
+                            location_data.append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                }
+            </script>
+
+
+            <div class="col-lg-12 u-s-m-b-15">
+            <label class="gl-label ml-1" for="id_address">ADDRESS *</label>
+            <textarea class="col-12 form_control input-text input-text--primary-style" id="id_address" placeholder="Address"
+                rows="3" name="address"
+                style="padding-top:0.8rem;min-height: 5rem;">{{form.address.value|default_if_none:''}}</textarea>
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center">
+            <hr class="col-12">
+            </div>
+
+            <!-- More Information -->
+            <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Information</h6>
+            <div class="col-lg-12 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_short_description">SHORT DESCRIPTION</label>
+            <input class="col-12 input-text input-text--primary-style" name="short_description" type="text"
+                id="id_short_description" placeholder="Short Description"
+                value="{{form.short_description.value|default_if_none:''}}">
+                {% comment %} {{form.short_description}} {% endcomment %}
+            </div>
+
+
+            <div class="col-lg-12 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_description">DESCRIPTION</label>
+            <textarea class="col-12 form_control input-text input-text--primary-style" type="text" id="id_description"
+                placeholder="Description" name="description"
+                style="padding-top:0.8rem;min-height: 5rem;">{{form.description.value|default_if_none:''}}</textarea>
+                {% comment %} {{form.description}} {% endcomment %}
+            </div>
+            <div class="col-lg-12 u-s-m-b-15">
+            <label class="gl-label ml-1" for="id_more_info">MORE INFO *</label>
+            <textarea class="col-12 input-text input-text--primary-style" name="more_info" type="text" id="id_more_info"
+                placeholder="More Info"
+                style="padding-top:0.8rem;min-height: 5rem;">{{form.more_info.value|default_if_none:''}}</textarea>
+                {% comment %} {{form.more_info}} {% endcomment %}
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center">
+            <hr class="col-12">
+            </div>
+
+            <!-- Pricing -->
+            <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Pricing</h6>
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_low_price">LOW PRICE</label>
+            <input class="col-12 input-text input-text--primary-style" name="low_price" type="number" id="id_low_price"
+                placeholder="Low Price" value="{{form.low_price.value|default_if_none:''}}">
+            </div>
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_high_price">HIGH PRICE</label>
+            <input class="col-12 input-text input-text--primary-style" name="high_price" type="number" id="id_high_price"
+                placeholder="High Price" value="{{form.high_price.value|default_if_none:''}}">
+            </div>
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_pre_low_price">PRE LOW PRICE TEXT</label>
+            <input class="col-12 input-text input-text--primary-style" name="pre_low_price_text" type="text"
+                id="id_pre_low_price" placeholder="Pre-Low Price Text"
+                value="{{form.pre_low_price_text.value|default_if_none:''}}">
+                <p class="ml-1 mb-0 mt-1">Eg. only, for, etc.</p>
+            </div>
+
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_post_low_price">POST LOW PRICE TEXT</label>
+            <input class="col-12 input-text input-text--primary-style" name="post_low_price_text" type="text"
+                id="id_post_low_price" placeholder="Post-Low Price Text"
+                value="{{form.post_low_price_text.value|default_if_none:''}}">
+                <p class="ml-1 mb-0 mt-1">Eg. Per day, Veg only, Taxes include, etc.</p>
+            </div>
+
+            <div class="col-lg-6 u-s-m-b-30">
+            <label class="gl-label ml-1" for="id_pre_high_price">PRE HIGH PRICE TEXT</label>
+            <input class="col-12 input-text input-text--primary-style" name="pre_high_price_text" type="text"
+                id="id_pre_high_price" placeholder="Pre-High Price Text"
+                value="{{form.pre_high_price_text.value|default_if_none:''}}">
+                <p class="ml-1 mb-0 mt-1">Eg. only, for, etc.</p>
+            </div>
+
+            <div class="col-lg-6 u-s-m-b-15">
+            <label class="gl-label ml-1" for="id_post_high_price">POST HIGH PRICE TEXT</label>
+            <input class="col-12 input-text input-text--primary-style" name="post_high_price_text" type="text"
+                id="id_post_high_price" placeholder="Post-High Price Text"
+                value="{{form.post_high_price_text.value|default_if_none:''}}">
+                <p class="ml-1 mb-0 mt-1">Eg. Per day, Veg only, Taxes include, etc.</p>
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center">
+            <hr class="col-12">
+            </div>
+
+            <!-- IMAGE LINKS -->
+            <h6 class="col-12 u-s-m-b-30 mb-2 text-muted font-weight-bold text-uppercase" style="font-size: small;">Media</h6>
+            <p class="col-12 u-s-m-b-30" style="font-weight: 500;">Note: Upload image minimum size of 700X500 (WxH) for better visibility.</p>
+
+            <div class="col-lg-12 u-s-m-b-15">
+            <div class="col-lg-5 d-inline-block pl-0">
+                <label class=" gl-label  mb-1 ml-1 text-muted" for="id_image_1">IMAGE MAIN* :</label>
+                <input class="input-file mb-2" type="file" accept="image/*" name="image_main" id="id_image_1">
+            </div>
+
+            <div class="col-lg-5 d-inline-block pl-0">
+                <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_2">IMAGE #2:</label>
+                <input class="input-file mb-2" type="file" accept="image/*" name="image_2" id="id_image_2">
+            </div>
+
+            <div class="col-lg-5 d-inline-block pl-0">
+                <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_3">IMAGE #3:</label>
+                <input class="input-file mb-2" type="file" accept="image/*" name="image_3" id="id_image_3">
+            </div>
+
+            <div class="col-lg-5 d-inline-block pl-0">
+                <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_4">IMAGE #4:</label>
+                <input class="input-file mb-2" type="file" accept="image/*" name="image_4" id="id_image_4">
+            </div>
+
+
+            <div class="col-lg-5 d-inline-block pl-0">
+                <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_5">IMAGE #5:</label>
+                <input class="input-file mb-2" type="file" accept="image/*" name="image_5" id="id_image_5">
+            </div>
+
+            </div>
+
+            <!-- VIDEO LINKS -->
+            <div class="col-lg-12  u-s-m-b-30">
+            <label class="gl-label g-inline mb-1 ml-1 text-muted" for="id_video_1">VIDEO LINK:</label>
+            <input class="col-12 input-text input-text--primary-style" name="video_1" type="url" id="id_video_1"
+                placeholder="Video Link" style="font-size: 12px;" value="{{form.video_1.value|default_if_none:''}}">
+            </div>
+
+
+            <!-- Venue Listing Form -->
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <hr class="col-12">
+            </div>
+            <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Venue Details
+            </h6>
+
+            <div class="col-lg-6 u-s-m-b-30">
+                <label class="gl-label ml-1" for="id_catering_policy">CATERING POLICY</label>
+                <input class="col-12 input-text input-text--primary-style" type="text" name="catering_policy"
+                    id="id_catering_policy" placeholder="Catering Policy" value="{{form.catering_policy.value|default_if_none:''}}">
+            </div>
+            <div class="col-lg-6 u-s-m-b-30">
+                <label class="gl-label ml-1" for="id_decor_policy">DECOR POLICY</label>
+                <input class="col-12 input-text input-text--primary-style" type="text" name="decor_policy"
+                    id="id_decor_policy" placeholder="Decor Policy" value="{{form.decor_policy.value|default_if_none:''}}">
+            </div>
+            <div class="col-lg-6 u-s-m-b-30">
+                <label class="gl-label ml-1" for="id_alcohol_policy">ALCOHOL POLICY</label>
+                <input class="col-12 input-text input-text--primary-style" type="text" name="alcohol_policy"
+                    id="id_alcohol_policy" placeholder="Alcohol Policy" value="{{form.alcohol_policy.value|default_if_none:''}}">
+            </div>
+            <div class="col-lg-6 u-s-m-b-15">
+                <label class="gl-label ml-1" for="id_dj_policy">DJ POLICY</label>
+                <input class="col-12 input-text input-text--primary-style" type="text" name="dj_policy" id="id_dj_policy"
+                    placeholder="DJ Policy" value="{{form.dj_policy.value|default_if_none:''}}">
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <hr class="col-12">
+            </div>
+        </div>
+
+        <!-- Area Details -->
+        <div class="row control-area-visibility">
+            <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Area Details</h6>
+            <div class="col-12">
+                <div id="area-details-render" class="row">
+
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <hr class="col-12">
+            </div>
+        </div>
+        <!-- Area Details end -->
+
+        <!-- Addition Pricing Details -->
+        <div class="row control-pricing-visibility">
+            <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Pricing Details</h6>
+            <div class="col-12">
+                <div id="pricing-details-render" class="row mx-3">
+
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <hr class="col-12">
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            function check_visibility(){
+                if(!$(".control-area-visibility").find("#inputAreaFormRow").length){
+                    $(".control-area-visibility").hide()
+                }else{$(".control-area-visibility").show()}
+                if(!$(".control-pricing-visibility").find("#inputPricingFormRow").length){
+                    $(".control-pricing-visibility").hide()
+                }else{$(".control-pricing-visibility").show()}
+            }
+            check_visibility();
+        </script>
+
+        <input type="hidden" name="form_name" value="VenueForm">
+
+        <!-- Area Form & Pricing Form -->
+        {% if request.get_full_path == '/vendors/add/listing/' %}
+            <div class="w-100 my-3">
+                <div class="w-100 d-flex align-items-center justify-content-around">
+                    <button type="button" class="w-100 d-inline mx-2 popbtn" data-toggle="modal" data-target="#areaModal">
+                        Add Area Details
+                    </button>
+                    <button type="button" class="w-100 d-inline mx-2 popbtn" data-toggle="modal"
+                        data-target="#pricingModal">
+                        Add Additional Pricing
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+        <!-- Endblock -->
+
+        <div class="w-100 mt-5">
+            <button class="w-100 btn btn--e-transparent-brand-b-2" id="submit" type="submit"
+                style="border-color:#965B92; color:#965B92;">Submit</button>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $('#listing-form').on('submit', function(){
+                $('#submit').text('');
+               $('#submit').append(`<span class="spinner-border spinner-border-sm" id="submit-spinner" role="status" aria-hidden="true"></span>
+                `);
+            });
+        </script>
+    </form>
+</div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!--   Form for creating area  -->
+        <div class="modal fade out" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="areaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content" style="border-radius: 0.5rem;">
+                    <div class="modal-header">
+                        <h6 class="text-muted font-weight-bold text-uppercase">Area Details
+                        </h6>
+                        <button type="button" class="close" id="area_modal_close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <form id="areaForm" name="areaForm" method="post" enctype="multipart/form-data">
+                            <div class="row p-4">
+                                <div class="col-lg-12 u-s-m-b-15">
+                                    <label class="gl-label ml-1" for="id_seating_type">SEATING TYPE *</label>
+                                    <select id="id_seating_type_input" name="seating_type"
+                                        class="custom-select input-text--primary-style" required="true">
+                                        {% if area_form %}
+                                            {% for val,itm in area_form.seating_type.field.choices %}
+                                            <option value="{{ val }}" >{{ itm }}</option>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-6 u-s-m-b-15">
+                                    <label class="gl-label ml-1"  >SEATING SPACE *</label>
+                                    <input class="col-12 input-text input-text--primary-style" name="seating_space" type="number"
+                                        id="id_seating_space_input" placeholder="Seating Space" required>
+                                </div>
+                                <div class="col-lg-6 u-s-m-b-15">
+                                    <label class="gl-label ml-1">FLOATING SPACE *</label>
+                                    <input class="col-12 input-text input-text--primary-style" name="floating_space" type="number"
+                                        id="id_floating_space_input" placeholder="Floating Space" required>
+                                </div>
+                                <div class="col-lg-12 u-s-m-b-15">
+                                    <label class="gl-label ml-1">ADDITIONAL TEXT</label>
+                                    <textarea class="col-12 form_control input-text input-text--primary-style"
+                                        name="additional_text" type="text" id="id_additional_info_input" placeholder="Additional Info"
+                                        style="padding-top:0.8rem;min-height: 5rem;"></textarea>
+                                </div>
+                                <div class="col-lg-12 d-inline-block">
+                                    <label class=" gl-label g-inline mb-1 ml-1" for="id_image">AREA IMAGE</label>
+                                    <input class="input-file mb-2" type="file" accept="image/*" name="image" id="id_image_input">
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <button type="submit" id="areaFormSubmit" class="col-12 savebtn p-1" form="areaForm">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade px-0" tabindex="-1" role="dialog" aria-labelledby="AreaImages" aria-hidden="true" id="area-img-modal">
+            <div class="modal-dialog pf-modal-dialog modal-dialog-centered p-0 m-0">
+                <div class="modal-content" style="background:#00000000">
+                    <div class="p-0 m-0" style="position:relative">
+                        <div class="close-btn">
+                            <a class="text-light" data-dismiss="modal" aria-label="Close">
+                                <span class="font-weight-bold" aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center p-0 lr-icon lr-left" id="next-area-img" onclick="prevAreaImg(this)"><i class="fas fa-chevron-left"></i></div>
+                        
+                        <div class="text-center" style="width:100vw; height:auto; max-height:100vh;overflow-y:hidden">
+                            <img src="" id="modalAreaImg" class="align-self-center" style="max-height:100vh; height:auto; width:auto; object-fit:contain;">
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center p-0 lr-icon lr-right" id="prev-area-img" onclick="nextAreaImg(this)"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        {
+            const imgLinks = [];
+            function update_modal_images(){
+                let pfimages = document.getElementsByClassName("area-img");
+                imgLinks.length=0;
+                for (let img of pfimages){
+                    imgLinks.push(img.getAttribute('src'));
+                }
+            }
+            
+            function openAreaImg(e){
+                const modalImg = document.getElementById("modalAreaImg");
+                currImgLink = e.getAttribute('src');
+                modalImg.setAttribute('src', currImgLink);
+            }
+            function prevAreaImg(e){
+                const modalImg = document.getElementById("modalAreaImg");
+                const currImgNo = imgLinks.indexOf(modalImg.getAttribute('src'));
+                let prevImg = (currImgNo-1)%imgLinks.length;
+                prevImg = prevImg < 0 ? imgLinks.length-1 : prevImg;
+                modalImg.setAttribute('src', imgLinks[prevImg]);
+            }
+            function nextAreaImg(e){
+                const modalImg = document.getElementById("modalAreaImg");
+                const currImgNo = imgLinks.indexOf(modalImg.getAttribute('src'));
+                let nextImg = (currImgNo+1)%imgLinks.length;
+                nextImg = nextImg < imgLinks.length ? nextImg : 0;
+                modalImg.setAttribute('src', imgLinks[nextImg]);
+            }
+        }
+        </script>
+
+        <script>
+            let type;
+        $('#areaFormSubmit').on('click', function(e){
+        e.preventDefault();
+        let seating_type = $('#id_seating_type_input').val();
+        let seating_space = $('#id_seating_space_input').val();
+        let floating_space = $('#id_floating_space_input').val();
+        let additional_info = $('#id_additional_info_input').val();
+        if(seating_space === '' || floating_space === '')
+            return false;
+        let image = $('#id_image_input').get(0).files[0];
+        type = $('#id_image_input').get(0).files[0].type;
+        if(!type.includes('image/'))
+        {
+            console.log("False3");
+            return false;
+        }
+        let url = "{% url 'add-area' %}";
+        let form = $('#areaForm');
+        let modal_close = $('#area_modal_close');
+        let modal = $('#areaModal');
+        let backdrop = $('.modal-backdrop').hide();
+        modal_close.click();
+        backdrop.hide();
+        let form_data = new FormData();
+        form_data.append("image", image);
+        form_data.append("seating_type", seating_type);
+        form_data.append("seating_space", seating_space);
+        form_data.append("floating_space", floating_space);
+        form_data.append("additional_info", additional_info);
+        $.ajax({
+
+            url : url,
+            type : "POST",
+            data : form_data,
+            contentType: false,
+            processData: false,
+            success: function (area){
+                console.log(area['area_id']);
+                form.trigger("reset");
+
+                populate_area_data(area['area_id'],area['seating_type'],area['seating_space'], area['floating_space'], area['additional_text'], area['image']);
+            },
+        });
+
+        });
+
+        function populate_area_data(area_id,seating_type,seating_space, floating_space, additional_text, image)
+        {
+            area_block = $('#area-details-render');
+            {% comment %} html = '<h4 class="col-12 h4 pl-3">Area Detail </h4>';
+            html += '<input type="hidden" value="'+ area_id +'" name="area_data[]">';
+            html += '<div class="col-lg-12 u-s-m-b-15">';
+            html += '    <label class="gl-label ml-1" for="id_seating_type">SEATING TYPE *</label>';
+            html += '<select id="id_seating_type" name="seating_type"';
+            html += '        class="custom-select input-text--primary-style" disabled>';
+            html += '<option value="'+ seating_type  +'">' +seating_type+'</option>';
+            html += '    </select>';
+            html += '</div>';
+            html += '<div class="col-lg-6 u-s-m-b-15">';
+            html += '    <label class="gl-label ml-1" for="id_seating_space">SEATING SPACE *</label>';
+            html += '    <input class="col-12 input-text input-text--primary-style" name="seating_space" type="number"';
+            html += '        id="id_seating_space" placeholder="Seating Space" value="' +seating_space+'" disabled>';
+            html += '</div>';
+            html += '<div class="col-lg-6 u-s-m-b-15">';
+            html += '    <label class="gl-label ml-1" for="id_floating_space">FLOATING SPACE *</label>';
+            html += '    <input class="col-12 input-text input-text--primary-style" name="floating_space" type="number"';
+            html += '        id="id_floating_space" placeholder="Floating Space" value="' +floating_space+'" disabled>';
+            html += '</div>';
+            html += '<div class="col-lg-12 u-s-m-b-15">';
+            html += '    <label class="gl-label ml-1" for="id_additional_info">ADDITIONAL TEXT</label>';
+            html += '    <textarea class="col-12 form_control input-text input-text--primary-style"';
+            html += '        name="additional_text" type="text" id="id_additional_info" disabled placeholder="Additional Info"';
+            html += '        style="padding-top:0.8rem;min-height: 5rem;">' +additional_text+'</textarea>';
+            html += '</div>';
+            html += '<div class="col-lg-12 d-inline-block mb-4">';
+            html += '    <label class=" gl-label g-inline mb-1 ml-1" for="id_image">AREA IMAGE</label>';
+            html += '    <img src="' +image+'" height="100" width="100">';
+            html += '</div>'; {% endcomment %}
+
+            let seatLocation;
+            if(seating_type=='Indoor'){
+                seatLocation = "resort.png";
+            }else if(seating_type=='Outdoor'){
+                seatLocation = "coffee-shop.png";
+            }
+
+            html = `
+                    <div class="col-6 col-md-4 mb-5 text-center" id="inputAreaFormRow">
+                        <input type="hidden" value="${area_id}" name="area_data[]">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                {% comment %} <i class="fas fa-hotel text-dark" style="font-size:2rem; line-height:2rem"></i> {% endcomment %}
+                                <img src="${ image }" style="max-height=2.5em; max-width:2.5em;" class="area-img"  data-toggle="modal" data-target="#area-img-modal" onclick="openAreaImg(this)">
+                                <p class='small d-block text-dark font-weight-bold'>${seating_type}</p>
+                            </div>
+                            <div class="col-lg-9 text-lg-left">
+                                <div class="row">
+                                    <div class="col-12 p-0">
+                                        <span class='small text-dark font-weight-bold'>${seating_space} Seating | ${floating_space} Floating</span>
+                                    </div>
+                                    <div class="col-12 p-0">
+                                        <p class='small font-weight-bold'>${additional_text}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <button type="button" class="w-100 d-inline popbtn" id="removeAreaRow">
+                                        Delete Area
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            `
+            area_block.append(html);
+            check_visibility();
+            update_modal_images()
+        }
+        $(document).on('click', '#removeAreaRow', function () {
+            $(this).closest('#inputAreaFormRow').remove();
+            check_visibility()
+            update_modal_images()
+        });
+        </script>
+       <!--  Area Add form End -->
+
+        <!-- Form for creating additional pricing -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <div class="modal fade" id="pricingModal" tabindex="-1" role="dialog" aria-labelledby="pricingModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content" style="border-radius: 0.5rem;">
+                    <div class="modal-header">
+                        <h6 class="text-muted font-weight-bold text-uppercase">Pricing Details
+                        </h6>
+                        <button type="button" id="pricing_modal_close" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <form name="pricingForm" id="pricingForm">
+                            <div class="row p-4">
+                                <div class="col-12 u-s-m-b-15">
+                                    <label class="gl-label ml-1" for="id_pricing_title">PRICING TITLE *</label>
+                                    <input class="col-12 input-text input-text--primary-style" name="pricing_title" type="text"
+                                        id="id_pricing_title_input" placeholder="Pricing Title" value="{{form.additional_pricing.pricing_title|default_if_none:''}}" required>
+                                </div>
+                                <div class="col-12 u-s-m-b-15">
+                                    <label class="gl-label ml-1" for="id_cost">COST</label>
+                                    <input class="col-12 input-text input-text--primary-style" name="cost" type="number"
+                                        id="id_cost_input" placeholder="Cost">
+                                </div>
+                                <div class="col-12 u-s-m-b-15">
+                                    <label class="gl-label ml-1" for="id_suffix">SUFFIX</label>
+                                    <input class="col-12 input-text input-text--primary-style" name="suffix" type="text"
+                                        id="id_suffix_input" placeholder="Suffix" value="{{form.additional_pricing.suffix|default_if_none:''}}">
+                                </div>
+
+                            <div class="col-12 mt-2">
+                                <button type="button" id="pricingFormSubmit"  class="col-12 savebtn p-1">Save</button>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        $('#pricingFormSubmit').on('click', function(){
+            //alert("Form submitted");
+            let pricing_title = $('#id_pricing_title_input').val();
+            let cost = $('#id_cost_input').val();
+            let suffix = $('#id_suffix_input').val();
+            if(cost === '' || suffix === '')
+                return false;
+            let url = "{% url 'add-pricing' %}";
+            let form = $('#pricingForm');
+            let modal_close = $('#pricing_modal_close');
+            let modal = $('#pricingModal');
+            let backdrop = $('.modal-backdrop').hide();
+            modal_close.click();
+            backdrop.hide();
+            $.ajax({
+                data : {
+                    'pricing_title' : pricing_title,
+                    'cost': cost,
+                    'suffix' : suffix,
+
+                },
+                url : url,
+                success: function (pricing){
+                    console.log("Success");
+                    form.trigger("reset");
+
+                    populate_pricing_data(pricing['pricing_id'],pricing['pricing_title'],pricing['cost'], pricing['suffix']);
+                },
+            });
+
+        });
+
+        function populate_pricing_data(id,pricing_title,cost, suffix)
+        {
+            pricing_block = $('#pricing-details-render');
+            {% comment %} html = '<h4 class="col-12 h4 pl-3">Additional Pricing Detail</h4>';
+            html +='<input type="hidden" value="'+ id +'" name="pricing_data[]">';
+            html +='<div class="col-4 u-s-m-b-15">';
+            html +='<label class="gl-label ml-1" for="id_pricing_title">PRICING TITLE *</label>';
+            html +='<input class="col-12 input-text input-text--primary-style" name="pricing_title" type="text"';
+            html +='    id="id_pricing_title" placeholder="Pricing Title" value="'+pricing_title+'" disabled>';
+            html +='</div>';
+            html +='<div class="col-4 u-s-m-b-15">';
+            html +='    <label class="gl-label ml-1" for="id_cost">COST</label>';
+            html +='    <input class="col-12 input-text input-text--primary-style" name="cost"  type="number"';
+            html +='        id="id_cost" placeholder="Cost" disabled value="'+cost+'">';
+            html +='</div>';
+            html +='<div class="col-4 u-s-m-b-15">';
+            html +='    <label class="gl-label ml-1" for="id_suffix">SUFFIX</label>';
+            html +='    <input class="col-12 input-text input-text--primary-style" name="suffix" type="text"';
+            html +='        id="id_suffix" placeholder="Suffix" disabled value="'+suffix+'">';
+            html +='</div>'; {% endcomment %}
+
+            html = `
+                <div class="col-6 col-md-4 col-lg-3 px-2 mb-4 text-center" id="inputPricingFormRow">
+                    <div class="row px-0 mx-0">
+                        <div class="col-12  px-0 mx-0">
+                            <input type="hidden" value="${id}" name="pricing_data[]">
+                            <span class='small text-dark font-weight-bold'>${pricing_title}</span>
+                            <p class='small'>₹ ${cost} ${suffix}</p>
+                        </div>
+                        <div class="col-12  px-0 mx-0 mt-2">
+                            <button type="button" class="w-100 px-0 popbtn" id="deletePricing">
+                                    Delete Pricing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `
+            pricing_block.append(html);
+            check_visibility();
+        }
+        $(document).on('click', '#deletePricing', function () {
+            $(this).closest('#inputPricingFormRow').remove();
+            check_visibility();
+        });
+        </script>
+</div>
+{% endblock content %}

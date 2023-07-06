@@ -1,0 +1,530 @@
+{% extends "users/account_base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block data %}
+
+
+
+<h3 style="margin-bottom: -0.5em;">Order Details</h3>
+</div></div>
+<div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+    <div class="dash__pad-2">
+        <div class="dash-l-r">
+        <div>
+            <div class="manage-o__text-2 u-c-secondary">Order #{{ object.order_ref_number }}</div>
+            <div class="manage-o__text u-c-silver">Placed on {{ object.ordered_date_time }}</div>
+        </div>
+        <div>
+            <div class="manage-o__text-2 u-c-silver">Total:
+                <span class="manage-o__text-2 u-c-secondary">₹{{ object.get_total }}</span>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+        {% for mini_order in object.mini_order.all%}
+        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+            <div class="dash__pad-2">
+                <div class="manage-o">
+            <div class="manage-o__header u-s-m-b-30">
+                <div class="manage-o__icon"><i class="fas fa-box u-s-m-r-5"></i>
+
+                    <span class="manage-o__text">Package {{ forloop.counter }}</span>
+                    
+                
+                    
+                    </div>
+            </div>
+                {% if mini_order.order_status == 'Delivered' %}
+                    <div class="manage-o__text u-c-secondary">Delivered on {{ mini_order.delivered_time }}</div>
+                {% endif %}
+
+                <div>
+                    {% if mini_order.ordered == True and mini_order.order_status == 'Delivered' or mini_order.order_status == 'RETURNED' %}
+
+                        {% if mini_order.is_return_window and  mini_order.return_requested == False %}
+                        <div class="dash-l-r">
+                            <a href="{% url 'order-mini-return' mini_order.id %}">Request Return</a>
+                        </div>
+                        {% endif %}
+
+                        {% if mini_order.return_requested == True %}
+                            {% if mini_order.returnminiorder_set.all %}
+                                {% for return in mini_order.returnminiorder_set.all %}
+                                    <span style="color:red;"> {{ return.return_status }}</span>
+                                    <div class="manage-o__timeline">
+                                        <div class="timeline-row">
+                                        {% if return.return_status == 'Processing Return Request' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Return Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Item Received by Vendor</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Return Granted</span>
+                                        </div>
+                                    </div>
+                                        {% elif return.return_status == 'Item Received by Vendor' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Return Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Item Received by Vendor</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Return Granted</span>
+                                        </div>
+                                    </div>
+                                        {% elif return.return_status == 'Return Granted' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Return Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Item Received by Vendor</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i--finish">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Return Granted</span>
+                                        </div>
+                                    </div>
+                                        {% elif return.return_status == 'Return Denied' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Return Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Item Received by Vendor</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i--finish">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Return Denied</span>
+                                        </div>
+                                    </div>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+
+                    {% elif mini_order.ordered == True %}
+                        {% if mini_order.cancel_requested == False %}
+                        <div class="dash-l-r">
+                            <a href="{% url 'order-mini-cancel' mini_order.id %}">Request Cancel</a>
+                        </div>
+                        {% endif %}
+
+                        {% if mini_order.cancel_requested == True %}
+                           {% if mini_order.cancelminiorder_set.all %}
+                                {% for cancel in mini_order.cancelminiorder_set.all %}
+                                    <span style="color:red;">{{ cancel.cancel_status }}</span>
+                                    <div class="manage-o__timeline">
+                                        <div class="timeline-row">
+                                        {% if cancel.cancel_status == 'Processing Cancel Request' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Cancel Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Cancel Granted</span>
+                                        </div>
+                                    </div>
+                                        {% elif cancel.cancel_status == 'Cancel Granted' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Cancel Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i--finish">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">Cancel Granted</span>
+                                        </div>
+                                    </div>
+                                        {% elif cancel.cancel_status == 'Cancel Denied' %}
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text">Processing Cancel Request</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                                <div class="timeline-step">
+                                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                                        <span class="timeline-circle"></span></div>
+
+                                                    <span class="timeline-text"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 u-s-m-b-30">
+                                        <div class="timeline-step">
+                                            <div class="timeline-l-i timeline-l-i--finish">
+
+                                                <span class="timeline-circle"></span></div>
+
+                                            <span class="timeline-text">CANCEL Denied</span>
+                                        </div>
+                                    </div>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+            </div>
+<!--                    <span class="manage-o__text">-->
+<!--                        {% if not mini_order.order_status == 'Delivered' %}-->
+<!--                            {% if mini_order.cancel_requested %}-->
+<!--                                {{mini_order.cancel_mini_order.cancel_status}}-->
+<!--                                <a href="">Cancel Requested</a>-->
+<!--                            {% endif %}-->
+<!--                        {% elif mini_order.return_requested %}-->
+<!--                                {{mini_order.return_mini_order.return_status}}-->
+<!--                                <a href="">Return Requested</a>-->
+<!--s                        {% endif %}-->
+<!--                    </span>-->
+                    <div class="manage-o__timeline">
+                        <div class="timeline-row">
+                            {% if mini_order.return_requested is True or  mini_order.cancel_requested is True %}
+                                <span></span>
+                            {% elif mini_order.order_status == 'Delivered' %}
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Preparing</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Shipped</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Delivered</span>
+                                    </div>
+                                </div>
+                            {% elif mini_order.order_status == 'Shipping' %}
+                                 <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Preparing</span>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Shipped</span>
+                                    </div>
+                                </div>
+                                 <div class="col-lg-4 u-s-m-b-30">
+                                                        <div class="timeline-step">
+                                                            <div class="timeline-l-i timeline-l-i">
+
+                                                                <span class="timeline-circle"></span></div>
+
+                                                            <span class="timeline-text">Delivered</span>
+                                                        </div>
+                                                    </div>
+                            {% elif mini_order.order_status == 'Preparing' %}
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Preparing</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Shipped</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">Delivered</span>
+                                    </div>
+                                </div>
+                            {% elif mini_order.order_status == 'RETURNED' %}
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">RETURNED</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text"></span>
+                                    </div>
+                                </div>
+                            {% elif mini_order.order_status == 'CANCELED' %}
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text">CANCELED</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--finish">
+
+                                            <span class="timeline-circle"></span></div>
+
+                                        <span class="timeline-text"></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="manage-o__description">
+                        <div class="description__container">
+                            <a href="{% url 'product-detail-view' mini_order.cart.product.id %}" >
+                               <img src="{{  mini_order.cart.product.get_image }}" alt="" style="width: auto;height: 150px;border-radius: 10%;object-fit: cover;"></a>
+                            <div class="description-title"><a href="{% url 'product-detail-view' mini_order.cart.product.id %}"> {{ mini_order.cart.product.title }}</a></div>
+                        </div>
+                        <div class="description__info-wrap">
+                            <div>
+
+                                <span class="manage-o__text-2 u-c-silver">Quantity:
+
+                                    <span class="manage-o__text-2 u-c-secondary">{{ mini_order.cart.quantity }}</span></span></div>
+                            <div>
+
+                                <span class="manage-o__text-2 u-c-silver">Total:
+
+                                    <span class="manage-o__text-2 u-c-secondary">₹{{  mini_order.cart.get_final_price }}</span></span><br>
+                                    
+                                
+                                    </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row">
+        <div class="col-lg-6">
+        <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Shipping Address</h2>
+                <h2 class="dash__h2 u-s-m-b-8">{{ object.user.user_full_name }}</h2>
+
+                <span class="dash__text-2" style="margin-top: 0em;">{{ order.address.street_address }} - {{ order.address.state }}, {{ order.address.city }} - {{ order.address.pin_code }}</span>
+
+                <span class="dash__text-2">{{ object.user.phone_number }}</span>
+            </div>
+        </div>
+        <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Billing Address</h2>
+                <h2 class="dash__h2 u-s-m-b-8">{{ object.user.user_full_name }}</h2>
+
+                <span class="dash__text-2" style="margin-top: 0em;">{{ order.address.street_address }} - {{ order.address.state }}, {{ order.address.city }} - {{ order.address.pin_code }}</span>
+
+                <span class="dash__text-2">{{ object.user.phone_number }}</span>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+        <div class="dash__box dash__box--bg-white dash__box--shadow u-h-100">
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Subtotal</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹{{ object.get_sub_total }}</div>
+                </div>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Shipping Fee</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹0.0</div>
+                </div>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Tax</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹{{ order.get_tax_total }}</div>
+                </div>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Discount</div>
+                    <div class="manage-o__text-2 u-c-secondary">- ₹{{ object.get_discounted_total }}</div>
+                </div><hr>
+
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Total</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹{{ object.get_total }}</div>
+                </div>
+
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Paid method </div>
+                    <div class="manage-o__text-2 u-c-secondary">{{ order.payment.payment_method  }}</div>
+                </div><br><br><br>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary"> </div>
+                    <div class="manage-o__text-2 u-c-secondary"><a href="{% url 'order-invoice' object.id %}">Invoice</a></div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+{% endblock data %}

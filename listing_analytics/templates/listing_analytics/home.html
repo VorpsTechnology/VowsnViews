@@ -1,0 +1,34 @@
+{% extends "listing_analytics/base.html" %}
+{% load products_extras %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+
+<div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">Total Contact Listing</h3>
+            <h2 class="uk-card-title">{{ contact_total }}</h2>
+        </div>
+    </div>
+
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">Today Contact Listing</h3>
+            <h2 class="uk-card-title">{{ contact_today }}</h2>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock data %}

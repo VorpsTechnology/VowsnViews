@@ -1,0 +1,284 @@
+{% extends "analytics/base.html" %}
+{% load home_extras %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+        <div class="app-content">
+            <div class="u-s-p-t-90" style="padding:0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="pd u-s-m-b-30">
+                                <div class="slider-fouc pd-wrap">
+                                    <div id="pd-o-initiate">
+                                         {% if object.image_main %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_main.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_main.url }}" data-zoom-image="{{ object.image_main.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_2 %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_2.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_2.url }}" data-zoom-image="{{ object.image_2.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_3 %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_3.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_3.url }}" data-zoom-image="{{ object.image_3.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_4 %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_4.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_4.url }}" data-zoom-image="{{ object.image_4.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_5 %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_5.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_5.url }}" data-zoom-image="{{ object.image_5.url }}" alt=""></div>
+                                        {% endif %}
+                                        
+                                        
+                                         {% if object.image_main_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_main_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_main_link }}" data-zoom-image="{{ object.image_main_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_2_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_2_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_2_link }}" data-zoom-image="{{ object.image_2_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_3_link %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_3_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_3_link }}" data-zoom-image="{{ object.image_3_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_4_link %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_4_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_4_link }}" data-zoom-image="{{ object.image_4_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_5_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_5_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_5_link }}" data-zoom-image="{{ object.image_5_link }}" alt=""></div>
+                                        {% endif %}
+                                    </div>
+
+
+                                    <span class="pd-text">Click for larger zoom</span>
+                                </div>
+                                <div class="u-s-m-t-15">
+                                    <div class="slider-fouc">
+                                        <div id="pd-o-thumbnail">
+                                              {% if object.image_main %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_main.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_main.url }}" data-zoom-image="{{ object.image_main.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_2 %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_2.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_2.url }}" data-zoom-image="{{ object.image_2.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_3 %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_3.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_3.url }}" data-zoom-image="{{ object.image_3.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_4 %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_4.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_4.url }}" data-zoom-image="{{ object.image_4.url }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_5 %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_5.url }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_5.url }}" data-zoom-image="{{ object.image_5.url }}" alt=""></div>
+                                        {% endif %}
+                                        
+                                        
+                                         {% if object.image_main_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_main_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_main_link }}" data-zoom-image="{{ object.image_main_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_2_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_2_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_2_link }}" data-zoom-image="{{ object.image_2_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_3_link %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_3_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_3_link }}" data-zoom-image="{{ object.image_3_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_4_link %}
+
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_4_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_4_link }}" data-zoom-image="{{ object.image_4_link }}" alt=""></div>
+                                        {% endif %}
+
+                                        {% if object.image_5_link %}
+                                            <div class="pd-o-img-wrap" data-src="{{ object.image_5_link }}">
+
+                                                <img class="u-img-fluid" src="{{ object.image_5_link }}" data-zoom-image="{{ object.image_5_link }}" alt=""></div>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--====== End - Product Detail Zoom ======-->
+                        </div>
+                        <div class="col-lg-7">
+
+                            <!--====== Product Right Side Details ======-->
+                            <div class="pd-detail">
+                                <div>
+
+                                    <span class="pd-detail__name">{{ object.title }}</span></div>
+                                <div>
+                                    <div class="pd-detail__inline">
+                                         {% if object.variation_set.all %}
+                                             <span class="pd-detail__price">{% currency request object.discount_price %}</span>
+                                            <span class="pd-detail__discount">({{ discount_percent }}% OFF)</span><del class="pd-detail__del">{% currency request object.price %}</del>
+                                         {% else %}
+                                            <span class="pd-detail__price">{% currency request object.discount_price %}</span>
+
+                                            <span class="pd-detail__discount">({{ discount_percent }}% OFF)</span><del class="pd-detail__del">{% currency request object.price %}</del>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    {% if reviews %}
+                                    <div class="pd-detail__rating gl-rating-style">
+                                        {% for rating in '12345'|make_list %}
+                                            {% if average_review >= forloop.counter%}
+                                                <i class="fas fa-star"></i>
+                                                {% if int_average_review == forloop.counter and average_review > forloop.counter %}
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="pd-detail__review u-s-m-l-4">
+                                            <a data-click-scroll="#view-review">{{ average_review }} of {{ review_count }} Reviews</a>
+                                        </span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        {% if object.stock_no <= 10 %}
+                                            <span class="pd-detail__left">Only {{ object.stock_no }} left</span></div>
+                                        {% endif %}
+                                </div>
+                                <div class="u-s-m-b-15">
+
+                                    <span class="pd-detail__preview-desc">{{ object.short_description|safe }}</span></div>
+                                <div class="u-s-m-b-15">
+                                {% if object.variation_set.all %}
+                                    <div class="u-s-m-b-15">
+                                        {% if object.variation_set.colors%}
+                                            <div class="u-s-m-b-15">
+                                            <span class="pd-detail__label u-s-m-b-8">Color:</span>
+                                            <div class="pd-detail__color" id="color">
+                                                {% for color in object.variation_set.colors %}
+                                                    <div class="color__radio">
+                                                        {% if color.color_code %}
+                                                            <label class="color__radio-label" style="background-color: {{ color.color_code }}"></label>
+                                                            {% if not object.variation_set.sizes %}
+                                                            <br>
+                                                            <label class="color__radio-label">{% currency request color.discount_price %}</label>
+                                                            {% endif %}
+                                                            <br><label class="color__radio-label"><a href="{% url 'admin-variation-update' color.id %}">Update</a></label>
+                                                            <br><label class="color__radio-label"><a href="{% url 'admin-variation-delete' object.id color.id %}">Delete</a></label>
+
+                                                        {% else %}
+                                                            <label class="color__radio-label">{{ color.title }}</label>
+                                                            {% if not object.variation_set.sizes %}
+                                                                <br>
+                                                                <label class="color__radio-label">{% currency request color.discount_price %}</label>
+                                                            {% endif %}
+                                                            <br><label class="color__radio-label"><a href="{% url 'admin-variation-update' color.id %}">Update</a></label>
+                                                            <br><label class="color__radio-label"><a href="{% url 'admin-variation-delete' object.id color.id %}">Delete</a></label>
+
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+
+    <!--                                                    <div class="color__radio">-->
+    <!--                                                        <input type="radio" id="folly" name="color">-->
+    <!--                                                        <label class="color__radio-label" for="folly" style="background-color: #FF0055"></label>-->
+    <!--                                                    </div>-->
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if object.variation_set.sizes %}
+                                            <div class="u-s-m-b-15">
+                                            <span class="pd-detail__label u-s-m-b-8">Size:</span>
+                                            <div class="pd-detail__size" id="size">
+
+                                                {% for size in object.variation_set.sizes %}
+                                                    <div class="size__radio">
+                                                        <label class="size__radio-label">{{ size.title }}</label>
+                                                        <br>
+                                                        <label class="color__radio-label">{% currency request size.discount_price %}</label>
+                                                        <br><label class="color__radio-label"><a href="{% url 'admin-variation-update' size.id %}">Update</a></label>
+                                                        <br><label class="color__radio-label"><a href="{% url 'admin-variation-delete' object.id size.id %}">Delete</a></label>
+                                                    </div>
+                                                {% endfor %}
+
+                                        </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                <div class="pd-detail-inline-2">
+                                    <div class="u-s-m-b-15 pd-detail__form">
+                                        <a href="{% url 'admin-variation-add' product.id %}"><button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Add Variations</button></a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!--====== End - Product Right Side Details ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock data %}

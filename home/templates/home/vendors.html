@@ -1,0 +1,403 @@
+{% extends "home/base.html" %}
+{% load home_extras %}
+{% load static %}
+
+{% block meta %}
+
+<!--<title>VowsnViews inhouse service is a one place for all your needs</title>-->
+<!--<meta name="description" content=" Get best deals from inhouse services on VowsnViews. Get personal assistance in your budget and plan your wedding with us & know latest fashion stylist, outfit ideas, decorations & more">-->
+
+{% endblock meta %}
+
+{% block head %}
+
+<style>
+.collapsibles {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsibles:hover {
+  background-color: #fff;
+}
+
+.contents {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #fff;
+}
+</style>
+
+{% endblock head %}
+
+{% block content %}
+
+
+    <div class="container" style="margin-top: 6em;margin-bottom: 3em;">
+
+        <div class="pd-breadcrumb u-s-m-b-30" style="margin-top: -3em;">
+                                <ul class="pd-breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="/">Home</a></li>
+                                    <li class="has-separator">
+
+                                        <a href="{% url 'listing-list-view' %}">Vendor's</a></li>
+
+                                </ul>
+                            </div>
+
+<h2 style="color: #000;font-weight: bold;margin-top: 0em;margin-bottom: 1em;" align="left">Wedding Category</h2>
+<!--<p align="left" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>-->
+
+<div class="row">
+    {% for object in parent_category_list %}
+    <div class="col-lg-4" style="padding: 0.5em;">
+        <div class="uk-card uk-card-default uk-card-body" style="padding: 0em;margin: 1em 0em;border-radius: 0.5em;">
+            <a href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&parent_category={{object.id}}&vendor_name=" style="color: #965B92;fon-size: 1em;font-weight: bold;margin-bottom: 1em;"><img src="{{object.image.url}}" style="height: 270px;width: 100%;object-fit: cover;border-radius: 0.5em;"></a>
+            <h4 class="collapsible" style="margin: 1em;font-weight: bold;color: #965B92;">{{object.title}}  <i class="fas fa-chevron-down"></i></h3>
+
+<!--            <button type="button" class="collapsible">Open Collapsible</button>-->
+            <div class="content" style="padding: 1em 1em 1em 1em;display: none;">
+              {% for objects in object.listingcategory_set.all %}
+                <a href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&category={{objects.id}}&vendor_name="><h4 style="font-weight: ;">{{objects.title}}</h4></a><hr>
+              {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+        <h2 style="color: #000;font-weight: bold;margin-top: 5em;margin-bottom: 0em;" align="left">Top Venue</h2>
+
+
+    </div>
+
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in choreographer %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 2em;" align="left">Top Photographers</h2>
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in photographer %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+<h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 3em;" align="left">Wedding Makeup Artists</h2>
+
+        <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in makeup_list %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 2em;" align="left">Top Food & Catering Services</h2>
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in food %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 2em;" align="left">Top Planning Decor</h2>
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in planning_decor %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 2em;" align="left">Top Entertainment, Music & Dance</h2>
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in music %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% if invites %}
+<h2 class="container" style="color: #000;font-weight: bold;margin-top: 3em;margin-bottom: 2em;" align="left">Top Invites & Gifts</h2>
+
+<div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="3">
+                            {% for product in invites %}
+                                <div class="u-s-m-b-30" style="padding: 0em;" onclick="window.location.href='{% url 'listing-detail-view' product.id %}'">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey  u-d-block" href="{% url 'listing-detail-view' product.id %}" style="height: 270px;">
+
+                                                        <img class="aspect__img" src="{{ product.get_image }}" alt="" style="height: 270px;object-fit: cover;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'listing-detail-view' product.id %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                         {% if product.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;width: 50%;text-align: center;margin: 2em 2em;">{{product.label}}</span>
+                                                {% endif %}
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'listing-detail-view' product.id %}">{{ product.title }}</a></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endif %}
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+{% endblock content %}

@@ -1,0 +1,344 @@
+{% extends "home/base.html" %} {% load static %} {% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+
+{% block content %}
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  input[type=file]::file-selector-button {
+    cursor: pointer;
+    border: 1px solid #343a40;
+    background-color: white;
+    color: #343a40;
+    padding: .300rem .50rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  input[type=file]::file-selector-button:hover {
+    border: 1px solid #343a40;
+    background-color: #343a40;
+    color: white;
+  }
+</style>
+
+<div class="container mb-5" style="margin-top: 5em;">
+<div class="form-group shadow-0 border py-5 px-3">
+    
+    {% if request.get_full_path != "/vendors/list/update/" %}
+    <div class="container my-4 pl-3">
+        <div class="stepper-wrapper">
+            <div class="stepper-item completed">
+                <div class="step-counter">1</div>
+                <div class="step-name">Register</div>
+            </div>
+            <div class="stepper-item">
+                <div class="step-counter">2</div>
+                <div class="step-name">Add Listing</div>
+            </div>
+            <div class="stepper-item">
+                <div class="step-counter">3</div>
+                <div class="step-name">Faq</div>
+            </div>
+         </div>
+    </div>
+    {% endif %}
+    
+    
+  {% if request.get_full_path == "/vendors/list/update/" %}
+  <h2 class="u-s-m-b-30 mb-1" align="center" style="font-weight: bold;">Update your Listing</h2>
+  {% else %}
+  <h2 class="u-s-m-b-30 mb-1" align="center" style="font-weight: bold;">Create your Listing</h2>
+  {% endif %}
+    <p align="center" class="border-bottom pb-5">Add your listing details to proceed further</p>
+  <form method="POST" class="row shadow-0" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase mt-4" style="font-size: small;">Details</h6>
+    <div class="col-lg-12 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_title">TITLE *</label>
+      <input class="col-12 input-text input-text--primary-style" name="title" type="text" id="id_title"
+        placeholder="Title" value="{{form.title.value|default_if_none:''}}" required>
+    </div>
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_location">LOCATION *</label>
+      <select id="id_location" name='location' class="custom-select input-text--primary-style">
+        {% for val,item in form.location.field.choices %}
+        <option value="{{ val }}" {% if form.location.value == val %} selected {% endif %} >{{ item }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-lg-6 u-s-m-b-30" id="sub_location_div" style="display: none;">
+      <label class="gl-label ml-1" for="id_sub_location">SUB-LOCATION</label>
+      <select id="id_sub_location" name="sub_location" class="custom-select input-text--primary-style">
+        {% for val,item in form.sub_location.field.choices %}
+        <option value="{{ val }}" {% if form.sub_location.value == val %} selected {% endif %} >{{ item }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+            <script>
+                $(document).ready(function (){
+                    value = $('#id_location').find(":selected").val();
+                    console.log(value);
+                    url = "{% url 'get-sub-location' %}";
+                   $.ajax({
+                       url: url,
+                       type: 'get',
+                       data: {
+                           'id': value,
+                       },
+                       success: function (data)
+                       {
+                           get_sub_location(data['sub_location']);
+                           //console.log();
+                       }
+                   })
+                });
+
+                $('#id_location').on('change', function (){
+                   location_id = this.value;
+                   url = "{% url 'get-sub-location' %}";
+                   $.ajax({
+                       url: url,
+                       type: 'get',
+                       data: {
+                           'id': location_id,
+                       },
+                       success: function (data)
+                       {
+                           get_sub_location(data['sub_location']);
+                           //console.log();
+                       }
+                   })
+                });
+
+                function get_sub_location(data)
+                {
+                    if(Object.keys(data).length <= 0)
+                    {
+                        $('#sub_location_div').hide();
+                    }
+                    else {
+                        $('#sub_location_div').show();
+
+                        var location_data = $('#id_sub_location');
+                        console.log(data, "Aniket");
+                        location_data.empty();
+                        $.each(data, function (key, value) {
+                            location_data.append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                }
+            </script>
+
+    <div class="col-lg-12 u-s-m-b-15">
+      <label class="gl-label ml-1" for="id_address">ADDRESS *</label>
+      <textarea class="col-12 form_control input-text input-text--primary-style" id="id_address" placeholder="Address"
+        rows="3" name="address"
+        style="padding-top:0.8rem;min-height: 5rem;">{{form.address.value|default_if_none:''}}</textarea>
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <hr class="col-12">
+    </div>
+
+    <!-- More Information -->
+    <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Information</h6>
+    <div class="col-lg-12 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_short_description">SHORT DESCRIPTION</label>
+      <input class="col-12 input-text input-text--primary-style" name="short_description" type="text"
+        id="id_short_description" placeholder="Short Description"
+        value="{{form.short_description.value|default_if_none:''}}">
+    </div>
+    <div class="col-lg-12 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_description">DESCRIPTION</label>
+      <textarea class="col-12 form_control input-text input-text--primary-style" type="text" id="id_description"
+        placeholder="Description" name="description"
+        style="padding-top:0.8rem;min-height: 5rem;">{{form.description.value|default_if_none:''}}</textarea>
+    </div>
+    <div class="col-lg-12 u-s-m-b-15">
+      <label class="gl-label ml-1" for="id_more_info">MORE INFO *</label>
+      <textarea class="col-12 input-text input-text--primary-style" name="more_info" type="text" id="id_more_info"
+        placeholder="More Info"
+        style="padding-top:0.8rem;min-height: 5rem;">{{form.more_info.value|default_if_none:''}}</textarea>
+    </div>
+<!--    <div class="col-lg-12 u-s-m-b-30">-->
+<!--      <label class="gl-label ml-1" for="id_slug">SLUG *</label>-->
+<!--      <input class="col-12 input-text input-text&#45;&#45;primary-style" name="slug" type="text" id="id_slug" placeholder="Slug"-->
+<!--        value="{{form.slug.value|default_if_none:''}}">-->
+<!--    </div>-->
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <hr class="col-12">
+    </div>
+
+    <!-- Pricing -->
+    <h6 class="col-12 u-s-m-b-30 text-muted font-weight-bold text-uppercase" style="font-size: small;">Pricing</h6>
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_low_price">LOW PRICE</label>
+      <input class="col-12 input-text input-text--primary-style" name="low_price" type="number" id="id_low_price"
+        placeholder="Low Price" value="{{form.low_price.value|default_if_none:''}}">
+    </div>
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_post_low_price">PRICE FOR</label>
+      <input class="col-12 input-text input-text--primary-style" name="post_low_price_text" type="text"
+        id="id_post_low_price" placeholder="Post-Low Price Text"
+        value="{{form.post_low_price_text.value|default_if_none:''}}">
+      <p class="ml-1 mb-0 mt-1">Eg. per day, veg only, taxes include, etc.</p>
+    </div>
+<!--    <div class="col-lg-4 u-s-m-b-30">-->
+<!--      <label class="gl-label ml-1" for="id_price_for">PRICE FOR</label>-->
+<!--      <input class="col-12 input-text input-text&#45;&#45;primary-style" name="price_for" type="text" id="id_price_for"-->
+<!--        placeholder="Price For" value="{{form.price_for.value|default_if_none:''}}">-->
+<!--    </div>-->
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_high_price">HIGH PRICE</label>
+      <input class="col-12 input-text input-text--primary-style" name="high_price" type="number" id="id_high_price"
+        placeholder="High Price" value="{{form.high_price.value|default_if_none:''}}">
+    </div>
+    <div class="col-lg-6 u-s-m-b-15">
+      <label class="gl-label ml-1" for="id_post_high_price">PRICE FOR</label>
+      <input class="col-12 input-text input-text--primary-style" name="post_high_price_text" type="text"
+        id="id_post_high_price" placeholder="Post-High Price Text"
+        value="{{form.post_high_price_text.value|default_if_none:''}}">
+      <p class="ml-1 mb-0 mt-1">Eg. per day, veg only, taxes include, etc.</p>
+    </div>
+
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_pre_low_price">PRE LOW PRICE TEXT</label>
+      <input class="col-12 input-text input-text--primary-style" name="pre_low_price_text" type="text"
+        id="id_pre_low_price" placeholder="Pre-Low Price Text"
+        value="{{form.pre_low_price_text.value|default_if_none:''}}">
+      <p class="ml-1 mb-0 mt-1">Eg. only, for, etc.</p>
+    </div>
+
+    <div class="col-lg-6 u-s-m-b-30">
+      <label class="gl-label ml-1" for="id_pre_high_price">PRE HIGH PRICE TEXT</label>
+      <input class="col-12 input-text input-text--primary-style" name="pre_high_price_text" type="text"
+        id="id_pre_high_price" placeholder="Pre-High Price Text"
+        value="{{form.pre_high_price_text.value|default_if_none:''}}">
+      <p class="ml-1 mb-0 mt-1"></p>
+      <p class="ml-1 mb-0 mt-1">Eg. only, for, etc.</p>
+    </div>
+
+
+
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <hr class="col-12">
+    </div>
+
+    <!-- IMAGE LINKS -->
+    <h6 class="col-12 u-s-m-b-30 mb-2 text-muted font-weight-bold text-uppercase" style="font-size: small;">Media</h6>
+    <p class="col-12 u-s-m-b-30" style="font-weight: 500;">Note: Upload image minimum size of 700X500 (WxH) for better visibility.</p>
+    <div class="col-lg-12 u-s-m-b-15 mb-3">
+      <div class="col-lg-5 d-inline-block pl-0">
+        <label class=" gl-label  mb-1 ml-1 text-muted" for="id_image_1">IMAGE MAIN* :</label>
+<!--        <input class="input-file mb-2" type="file" accept="image/*" name="image_main" id="id_image_1">-->
+        {{form.image_main}}
+      </div>
+
+      <div class="col-lg-5 d-inline-block pl-0 mb-3">
+        <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_2">IMAGE #2:</label>
+<!--        <input class="input-file mb-2" type="file" accept="image/*" name="image_2" id="id_image_2">-->
+        {{form.image_2}}
+      </div>
+
+      <div class="col-lg-5 d-inline-block pl-0 mb-3">
+        <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_3">IMAGE #3:</label>
+<!--        <input class="input-file mb-2" type="file" accept="image/*" name="image_3" id="id_image_3">-->
+        {{form.image_3}}
+      </div>
+
+      <div class="col-lg-5 d-inline-block pl-0 mb-3">
+        <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_4">IMAGE #4:</label>
+<!--        <input class="input-file mb-2" type="file" accept="image/*" name="image_4" id="id_image_4">-->
+        {{form.image_4}}
+      </div>
+
+
+      <div class="col-lg-5 d-inline-block pl-0 mb-3">
+        <label class=" gl-label g-inline mb-1 ml-1 text-muted" for="id_image_5">IMAGE #5:</label>
+<!--        <input class="input-file mb-2" type="file" accept="image/*" name="image_5" id="id_image_5">-->
+        {{form.image_5}}
+      </div>
+
+    </div>
+
+    <!-- VIDEO LINKS -->
+    <div class="col-lg-12  u-s-m-b-30">
+      <label class="gl-label g-inline mb-1 ml-1 text-muted" for="id_video_1">VIDEO LINK:</label>
+      <input class="col-12 input-text input-text--primary-style" name="video_1" type="url" id="id_video_1"
+        placeholder="Video Link" style="font-size: 12px;" value="{{form.video_1.value|default_if_none:''}}">
+    </div>
+
+
+
+
+
+
+    <input type="hidden" name="form_name" value="ListingForm">
+
+    <div class="col-12">
+      <button class="col-12  btn btn--e-transparent-brand-b-2" type="submit"
+        style="border-color:#965B92; color:#965B92;" id="submit">Submit</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+            $('#listing-form').on('submit', function(){
+                $('#submit').text('');
+               $('#submit').append(`<span class="spinner-border spinner-border-sm" id="submit-spinner" role="status" aria-hidden="true"></span>
+                `);
+            });
+        </script>
+    {% comment %}
+    <script>
+      $(document).on('change', 'select#parentCategory', function () {
+        var url = "{% url 'listing-category' %}";
+        var id = $(this).val();
+        console.log(id);
+        $.ajax({
+          url: url,
+          data: {
+            id: id,
+          },
+          dataType: 'json',
+          success: function (json) {
+            console.log(json);
+            $('#listingCategory').empty();
+            $.each(json, function (i, value) {
+              $('#listingCategory').append(
+                $('<option>').text(value).attr('value', value)
+              );
+            });
+          },
+        });
+      });
+
+      $(document).on('change', 'select#listingCategory', function () {
+        var url = "{% url 'listing-form' %}";
+        var id = $(this).val();
+        console.log(id);
+        $.ajax({
+          url: url,
+          data: {
+            id: id,
+          },
+          success: function (data) {
+            console.log(data);
+            $('#listing_form').html(data);
+          },
+        });
+      });
+    </script>
+    {% endcomment %}
+  </form>
+</div>
+
+</div>
+{% endblock content %}

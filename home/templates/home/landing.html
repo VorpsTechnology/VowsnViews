@@ -1,0 +1,837 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>VowsnViews</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'home/images/vnvlogo.png' %}" rel="icon">
+  <link href="{% static 'home/landing/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'home/landing/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!-- For Custom Range Slider -->
+  <link rel="stylesheet" href="{% static 'home/landing/assets/css/rSlider.css' %}">
+  <script src="{% static 'home/landing/assets/js/rSlider.js' %}"></script>
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'home/landing/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Appland - v4.7.0
+  * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+<style>
+  #regForm {
+  background-color: #ffffff;
+  margin: 30px auto;
+  font-family: Raleway;
+}
+
+body {
+    font-family: raleway;
+}
+
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  border: solid 2px #f89e9e;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+  max-height: 20rem;
+  overflow-x:hidden;
+  overflow-y: auto;
+  padding: .6rem;
+  text-align: left;
+}
+
+.tab_heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: .7rem;
+}
+
+button {
+  color: #ffffff;
+  border: none;
+  padding: 10px 21px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+#nextBtn {
+  background-color: #965b92;
+}
+
+#nextBtn:disabled {
+  background-color: #7c8180;
+}
+
+#nextBtn:disabled:hover {
+  opacity: unset;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #965b92;
+}
+
+.custom-collapse{
+  display: block !important;
+  height: 0px;
+  max-height: 14rem;
+  overflow: hidden;
+  transition: all .3s;
+}
+
+#hero::before {
+  background-color: #965b9227;
+}
+
+.highlight-option{
+  font-weight: 500;
+  background-color: #965b92;
+  color: white;
+}
+
+.highlight-option-2{
+  font-weight: 700;
+  background-color: white;
+  color: black;
+}
+
+.arrow{
+  width: 20px; 
+  height:20px;
+  background-color: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .5s;
+}
+
+.highlight-option-2 .arrow{
+  transform: rotateZ(90deg);
+}
+
+/* Range Slider */
+#budgets_container{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.budget_wrap{
+}
+.budget_name{
+  margin-left: .6rem;
+  margin-bottom: 1.7rem;
+}
+.budget_slider{
+  margin: .8rem 2.6rem .8rem 1.7rem;
+}
+
+.rs-tooltip::before{
+    content: '₹';
+}
+.rs-container{
+  width:200px;
+}
+@media (min-width: 1000px) {
+  #hero {
+    height: 100%;
+    position: fixed;
+  }
+  .tab {
+    display: none;
+    max-height: 20rem;
+    overflow-x:hidden;
+    overflow-y: auto;
+  }
+}
+@media (min-width: 700px) {
+  .rs-container{
+    width: 360px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+  {% if messages %}
+  <div id="id_snackbar" class="snackbar" style="position: absolute; bottom:0; left: 1rem;">
+    {% for message in messages %}
+      <div  class="alert {% if message.tags %} alert-{{message.tags}} {% else %} alert-primary {% endif %}">
+          {{message}}
+      </div>
+    {% endfor %}
+    </div>
+  {% endif %}
+  <script>
+      function mySnackbar() {
+        const snackbar = document.getElementById("id_snackbar");
+        setTimeout(function(){ snackbar?.remove() }, 3000);
+      }
+      mySnackbar()
+  </script>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <img src="{% static 'home/images/vnvlogo.png' %}" style="width: 100%;max-height: 90px;" class="img-fluid" alt="">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="{% static 'home/landing/assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+<!--          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>-->
+<!--          <li><a class="nav-link scrollto" href="#features">App Features</a></li>-->
+<!--          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>-->
+<!--          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>-->
+<!--          <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>-->
+<!--          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>-->
+<!--            <ul>-->
+<!--              <li><a href="#">Drop Down 1</a></li>-->
+<!--              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Drop Down 1</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 2</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 3</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 4</a></li>-->
+<!--                  <li><a href="#">Deep Drop Down 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li><a href="#">Drop Down 2</a></li>-->
+<!--              <li><a href="#">Drop Down 3</a></li>-->
+<!--              <li><a href="#">Drop Down 4</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>-->
+          <li><a class="getstarted scrollto" style="background-color: #965b92;" href="/">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center" style="height: 100%;">
+
+    <div class="container" style="top: 50%;">
+      <div class="row">
+        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
+          <div>
+            <h1 style="color: #965b92;">Vowsnviews</h1>
+            <h4 style="font-size: 13px;line-height: 1.4;">Vow’s n View’s is an Indian Wedding Planning Website where you can find suitable and best wedding vendors in your budget at a single place. From booking a venue for your wedding till your honeymoon bookings we are here to serve you with numerous inspirational ideas for making your day special.</h2>
+<!--            <a href="#" class="download-btn"><i class="bx bxl-play-store"></i> Google Play</a>-->
+<!--            <a href="#" class="download-btn"><i class="bx bxl-apple"></i> App Store</a>-->
+          </div>
+        </div>
+        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img px-0 px-md-auto" data-aos="fade-up" style="height: 100%;">
+          <div class="p-3 shadow" style="background: #fff;border-radius: 0.5em;top: 50%;height: 100%; max-height: 700px;">
+              
+            {% if messages %}
+            
+            <strong class="tab_heading pt-5" style="font-size: 20px">Thank You for Submission.</strong>
+            
+            <p align="center" class= "tab_heading pb-3" >We will get in touch with you shortly.</p>
+            
+            <center><a href="/" class="btn btn-primary px-3 mb-5" style="background-color: #965b92;border: none;"> Visit Website </a></center>
+            
+            {% else %}
+
+            <form id="regForm" action="{% url 'landing' %}" method="post" style="width: 100%; height:100%;">
+                {% csrf_token %}
+                <!-- One "tab" for each step in the form: -->
+
+                <div class="tab"><strong class="tab_heading">What are the services you require?</strong>
+                    <div class="row mt-4" id="tab1-container">
+                        {% for val, itm in form.listing_parent_category.field.choices %}
+                        <div class="col-12 col-md-6 col-lg-12 col-xl-6 mb-4 option-wrapper">
+                          <label class="w-100 p-2 mb-1 border px-3" for="id_parent_category_{{val}}">
+                            <input type="checkbox" hidden name="listing_parent_category" value="{{val}}" id="id_parent_category_{{val}}">
+                            <span class="d-flex justify-content-between" onclick="event.stopPropagation()" style="font-size: 13px;font-weight: 500;">
+                              <span>{{ itm }}</span>
+                              <span class="arrow">&#10151;</span>
+                            </span>
+                          </label>
+                          <div class="custom-collapse w-100 px-3" data-id="{{val}}"></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="tab">
+                  <strong class="tab_heading mb-4">What is your budget for categories?</strong>
+                  <div id="budgets_container">
+                  </div>
+                </div>
+
+                <div class="tab">
+                  <strong class="tab_heading">When do you need these services?</strong>
+                  <div class="row mt-4" id="tab3-container">
+                    {% for val, itm in form.wedding_date.field.choices %}
+                    <div class="col-12 mb-3">
+                      <label class="w-100 p-2 border" for="id_wedding_date_{{forloop.counter}}">
+                        <input type="radio" hidden name="wedding_date" value="{{val}}" id="id_wedding_date_{{forloop.counter}}" required>
+                        <span class="d-block text-center" style="font-size: 13px;font-weight: 500;">{{ itm }}</span>
+                      </label>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="tab">
+                  <p><strong class="tab_heading">Please enter your contact details.</strong></p>
+                  <p><input required type="text" placeholder="Name*" class="form-control" name="name"></p>
+                  <p><input required type="email" placeholder="E-mail*" class="form-control" name="email"></p>
+                  <p><input required type="number" placeholder="Phone number*" class="form-control" name="mobile"></p>
+                  <p><input required type="text" placeholder="City*" class="form-control" name="city"></p>
+                </div>
+                <div style="overflow:auto;">
+                  <div class="mt-4 d-flex">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" style="margin-left: auto;" id="nextBtn" disabled onclick="nextPrev(1);">Next</button>
+                  </div>
+                </div>
+<!--                 Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;display: none;">
+                  <span class="step"></span>
+                  <span class="step"></span>
+                  <span class="step"></span>
+                  <span class="step"></span>
+                </div>
+              </form>
+              
+              {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    const landingForm = document.getElementById("regForm");
+    landingForm.submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+  nextBtnStateSetter()
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (!y[i].checkValidity()) {
+      // add an "invalid" class to the field:
+      y[i].classList.add('invalid');
+      // and set the current valid status to false
+      valid = false;
+    } else {
+      y[i].classList.remove('invalid')
+    }
+    if (y[i].name === 'mobile'){
+      if (y[i].value.length != 10){
+          alert('Phone number should be 10 digits long.')
+          y[i].classList.add('invalid');
+          valid = false;
+      }else if ([0,1,2,3,4,5].includes(parseInt(y[i].value.charAt(0)))){
+          alert('Invalid phone number.')
+          y[i].classList.add('invalid');
+          valid = false;
+      }
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].classList.add("finish");
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+// Checks nextBtn state and whether it should be disable or not
+const page_arr = [
+    [
+      "input[name='listing_parent_category']",
+      "input[name='listing_sub_category']",
+    ],
+    [
+      "input[name='budget']",
+    ],
+    [
+      "input[name='wedding_date']"
+    ],
+    [
+      "input[name='name']",
+      "input[name='email']",
+      "input[name='mobile']",
+      "input[name='city']",
+    ]
+]
+// Fires on input event to unlock next btn
+function unlockNextBtn(unlock, nextBtnId='nextBtn'){
+  if(unlock){
+    document.getElementById(nextBtnId).removeAttribute('disabled');
+  }
+  else{
+    document.getElementById(nextBtnId).setAttribute('disabled', '');
+  }
+  // console.log('unlockNextBtn')
+}
+function tab1ValidityChecker(element) {
+  plistCatEls = document.querySelectorAll(`${page_arr[0][0]}:checked`);
+  
+  let isFilled =  false;
+  for (let pCatEl of plistCatEls){
+    optionWrapper = pCatEl.closest('div.option-wrapper')
+    const subCategoryCheckedEls = optionWrapper.querySelectorAll(`${page_arr[0][1]}:checked`);
+    const subCategoryEls = optionWrapper.querySelectorAll(`${page_arr[0][1]}`);
+    if (checkSubCategoryValidity(subCategoryEls)){
+      isFilled = true;
+      break;
+    } else {
+      isFilled = false;
+    }
+  }
+  function checkSubCategoryValidity(subCategoryEls) {
+    let flag = false;
+    if (subCategoryEls.length === 0){
+      // incase no subcategories
+      flag = true;
+      return flag
+    }
+    for (let sCatEl of subCategoryEls){
+      if (sCatEl.checked){
+        // if atleast one sub category selected then allow
+        flag = true;
+        break;
+      } else {
+        flag = false;
+      }
+    }
+    return flag;
+  }
+  unlockNextBtn(isFilled);
+  if(isFilled)
+    generateSubCategoriesForm()
+}
+function nextBtnStateSetter() {
+  if (currentTab === 0){
+    return
+  } else if (currentTab === 1){
+    // need this for range sliders ?
+    window.dispatchEvent(new Event('resize'));
+    unlockNextBtn(true)
+  } else if (currentTab === 2){
+    const x = document.querySelector(page_arr[currentTab]).checkValidity();
+    unlockNextBtn(x)
+  } else {
+    return
+  }
+}
+function highlightChecker(element) {
+  const type = element.type;
+  const lbl = element.closest('label');
+  if (type==='checkbox'){
+    if(element.checked){
+      if (element.name==='listing_parent_category')
+        lbl.classList.add('highlight-option-2');
+      else
+        lbl.classList.add('highlight-option');
+    } else {
+      if (element.name==='listing_parent_category')
+        lbl.classList.remove('highlight-option-2');
+      else
+        lbl.classList.remove('highlight-option');
+    }
+  } else if (type==='radio'){
+    inputEls = document.querySelectorAll(`input[name='${element.name}']`)
+    for (const inputEl of inputEls){
+      inputEl.closest('label').classList.remove('highlight-option')
+    }
+    if (element.checked){
+      lbl.classList.add('highlight-option')
+    }
+  }
+  // console.log('highlightChecker')
+}
+function fetchSubCategories(element) {
+  const url = `{% url 'get-parent-category-landing' %}?id=${element.value}`;
+  let html = '';
+  $.ajax({
+      type: "GET",
+      url: url,
+      success: function (data) {
+        sub_list_cat = data['data']
+        // console.log(sub_list_cat)
+        for (let category of sub_list_cat){
+          html += `
+            <label class="w-100 p-2 border mb-1" for="id_sub_category_${category.id}">
+              <input type="checkbox" hidden name="listing_sub_category" value="${category.id}" id="id_sub_category_${category.id}">
+              <span class="d-block text-center" style="font-size: 13px;font-weight: 500;">${category.title}</span>
+            </label>
+          `
+        }
+        const collapseBox = document.querySelector(`.custom-collapse[data-id="${element.value}"]`)
+        // if (!collapseBox.querySelector(`[name='listing_sub_category']`))
+          collapseBox.innerHTML = html;
+        // subcategories are filled dynamically and hence check for DOM nodes only in success callback
+        tab1ValidityChecker(element)
+      }
+  });
+  // console.log('fetchSubCategories')
+}
+function collapseTransition(element) {
+  const collapseBox = document.querySelector(`.custom-collapse[data-id="${element.value}"]`);
+  if (element.checked){
+    collapseBox.style.height = '100%';
+  } else {
+    collapseBox.style.height = '0px';
+  }
+}
+function generateSubCategoriesForm() {
+  // all selected subcategories
+  const subCategories = document.querySelectorAll(`${page_arr[0][1]}:checked`);
+  const objects = [...subCategories]?.map((category)=>{
+    let obj = {}
+    obj.prefix = category.value;
+    obj.name = category.closest('label').querySelector('span').innerText;
+    return obj;
+  })
+  const budgetContainer = $('#budgets_container');
+  budgetContainer.empty();
+  let html = ''
+  for (let object of objects){
+    const default_min = 1000;
+    const default_max = 50000;
+    html = `
+      <div class="budget_wrap mb-2">
+        <p class="budget_name">${object.name}</p>
+        <div class="budget_slider">
+          <input type="checkbox" name="prefix_array" value="${object.prefix}" hidden checked />
+          <input type="hidden" name="${object.prefix}-listing_sub_category" value="${object.prefix}" required/>
+          <input type="hidden" name="${object.prefix}-min_price" value="${default_min}" required/>
+          <input type="hidden" name="${object.prefix}-max_price" value="${default_max}" required/>
+          <input type="hidden" id="${object.prefix}-rangeSlider"/>
+        </div>
+      </div>
+    `
+    budgetContainer.append(html);
+    let mySlider = new rSlider({
+      target: `#${object.prefix}-rangeSlider`,
+      values: {min: 1000, max: 100000},
+      step: 1000,
+      range: true,
+      tooltip: true,
+      scale: false,
+      labels: false,
+      set: [default_min, default_max],
+      onChange: (values)=>{
+        updateBudgetRange(values, object.prefix)
+      },
+    });
+  }
+  if (budgetContainer.is(':empty'))
+    budgetContainer.html(`<em>No sub categories found.</em>`)
+}
+function updateBudgetRange(values, prefix) {
+  const [min, max] = values.split(',').map((n)=>parseInt(n))
+  $(`[name=${prefix}-min_price]`).val(min);
+  $(`[name=${prefix}-max_price]`).val(max);
+}
+document.getElementById('tab1-container').addEventListener('click',(e)=>{
+  if (e.target && e.target.name === "listing_parent_category"){
+    const inputEl = e.target;
+    highlightChecker(inputEl);
+    fetchSubCategories(inputEl);
+    collapseTransition(inputEl);
+  }
+  if (e.target && e.target.name === "listing_sub_category"){
+    const inputEl = e.target;
+    highlightChecker(inputEl);
+    tab1ValidityChecker(inputEl);
+  }
+})
+document.getElementById('tab3-container').addEventListener('change', (e)=>{
+  if (e.target && e.target.name === "wedding_date"){
+    console.log(e.target)
+    const inputEl = e.target;
+    highlightChecker(inputEl);
+    unlockNextBtn(inputEl.checkValidity());
+  }
+})
+</script>
+
+  <main id="main">
+
+    <!-- ======= Contact Section ======= -->
+<!--    <section id="contact" class="contact">-->
+<!--      <div class="container" data-aos="fade-up">-->
+
+<!--        <div class="section-title">-->
+<!--          <h2>Contact</h2>-->
+<!--          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+
+<!--          <div class="col-lg-6">-->
+<!--            <div class="row">-->
+<!--              <div class="col-lg-6 info">-->
+<!--                <i class="bx bx-map"></i>-->
+<!--                <h4>Address</h4>-->
+<!--                <p>A108 Adam Street,<br>New York, NY 535022</p>-->
+<!--              </div>-->
+<!--              <div class="col-lg-6 info">-->
+<!--                <i class="bx bx-phone"></i>-->
+<!--                <h4>Call Us</h4>-->
+<!--                <p>+1 5589 55488 55<br>+1 5589 22548 64</p>-->
+<!--              </div>-->
+<!--              <div class="col-lg-6 info">-->
+<!--                <i class="bx bx-envelope"></i>-->
+<!--                <h4>Email Us</h4>-->
+<!--                <p>contact@example.com<br>info@example.com</p>-->
+<!--              </div>-->
+<!--              <div class="col-lg-6 info">-->
+<!--                <i class="bx bx-time-five"></i>-->
+<!--                <h4>Working Hours</h4>-->
+<!--                <p>Mon - Fri: 9AM to 5PM<br>Sunday: 9AM to 1PM</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-6">-->
+<!--            <form action="forms/contact.php" method="post" role="form" class="php-email-form" data-aos="fade-up">-->
+<!--              <div class="form-group">-->
+<!--                <input placeholder="Your Name" type="text" name="name" class="form-control" id="name" required>-->
+<!--              </div>-->
+<!--              <div class="form-group mt-3">-->
+<!--                <input placeholder="Your Email" type="email" class="form-control" name="email" id="email" required>-->
+<!--              </div>-->
+<!--              <div class="form-group mt-3">-->
+<!--                <input placeholder="Subject" type="text" class="form-control" name="subject" id="subject" required>-->
+<!--              </div>-->
+<!--              <div class="form-group mt-3">-->
+<!--                <textarea placeholder="Message" class="form-control" name="message" rows="5" required></textarea>-->
+<!--              </div>-->
+<!--              <div class="my-3">-->
+<!--                <div class="loading">Loading</div>-->
+<!--                <div class="error-message"></div>-->
+<!--                <div class="sent-message">Your message has been sent. Thank you!</div>-->
+<!--              </div>-->
+<!--              <div class="text-center"><button type="submit">Send Message</button></div>-->
+<!--            </form>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </section>&lt;!&ndash; End Contact Section &ndash;&gt;-->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+<!--  <footer id="footer">-->
+
+<!--    <div class="footer-newsletter">-->
+<!--      <div class="container">-->
+<!--        <div class="row justify-content-center">-->
+<!--          <div class="col-lg-6">-->
+<!--            <h4>Join Our Newsletter</h4>-->
+<!--            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>-->
+<!--            <form action="" method="post">-->
+<!--              <input type="email" name="email"><input type="submit" value="Subscribe">-->
+<!--            </form>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="footer-top">-->
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+
+<!--          <div class="col-lg-3 col-md-6 footer-contact">-->
+<!--            <h3>Appland</h3>-->
+<!--            <p>-->
+<!--              A108 Adam Street <br>-->
+<!--              New York, NY 535022<br>-->
+<!--              United States <br><br>-->
+<!--              <strong>Phone:</strong> +1 5589 55488 55<br>-->
+<!--              <strong>Email:</strong> info@example.com<br>-->
+<!--            </p>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-3 col-md-6 footer-links">-->
+<!--            <h4>Useful Links</h4>-->
+<!--            <ul>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-3 col-md-6 footer-links">-->
+<!--            <h4>Our Services</h4>-->
+<!--            <ul>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>-->
+<!--              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--          <div class="col-lg-3 col-md-6 footer-links">-->
+<!--            <h4>Our Social Networks</h4>-->
+<!--            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>-->
+<!--            <div class="social-links mt-3">-->
+<!--              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>-->
+<!--              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>-->
+<!--              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>-->
+<!--              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>-->
+<!--              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="container py-4">-->
+<!--      <div class="copyright">-->
+<!--        &copy; Copyright <strong><span>Appland</span></strong>. All Rights Reserved-->
+<!--      </div>-->
+<!--      <div class="credits">-->
+<!--        &lt;!&ndash; All the links in the footer should remain intact. &ndash;&gt;-->
+<!--        &lt;!&ndash; You can delete the links only if you purchased the pro version. &ndash;&gt;-->
+<!--        &lt;!&ndash; Licensing information: https://bootstrapmade.com/license/ &ndash;&gt;-->
+<!--        &lt;!&ndash; Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/ &ndash;&gt;-->
+<!--        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </footer>&lt;!&ndash; End Footer &ndash;&gt;-->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'home/landing/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'home/landing/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'home/landing/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'home/landing/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'home/landing/assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'home/landing/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

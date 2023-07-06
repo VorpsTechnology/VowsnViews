@@ -1,0 +1,286 @@
+{% extends "users/dashboard_base.html" %}
+{% load static %}
+
+{% block head %}
+
+<style>
+    .round {
+  position: relative;
+}
+
+.round label {
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 50px;
+  position: absolute;
+  width: 50px;
+}
+
+.round label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 18px;
+  opacity: 1;
+  position: absolute;
+  top: 20px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+</style>
+
+{% endblock head %}
+
+{% block data %}
+
+
+<!--<center style="margin-top:1em;">-->
+<!--    {% for message in messages %}-->
+<!--    <h3 class="alert alert-{{ message.tags }}">-->
+<!--         {{ message }}-->
+<!--    </h3>-->
+<!--    {% endfor %}-->
+<!--</center>-->
+
+<table width="100%" style="border: 0px solid #ddd;">
+    <tr>
+        <th width="60%" style="border-bottom: 0px;margin-left: -1em;">
+             <a class="dash__custom-link btn--e-brand-b-2" style="background-color:#965B92;color:#fff;border-color:#965B92;width: 150px;" onMouseOver="this.style.background-color='#fff'" data-modal="modal" data-modal-id="#edit-ship-address" >
+
+            <span style="color: #fff;"><i class="fas fa-plus u-s-m-r-8"></i> Add Task</span></a>
+        </th>
+<!--        <th style="border-bottom: 0px;"><a href=""> <p align="center" style="color: #1e87f0;font-size: 1em;margin-top: 0.5em;" id="todo">To Do</p></a></th>-->
+<!--        <th style="border-bottom: 0px;"><a href=""><p align="center" style="color: #1e87f0;font-size: 1em;margin-top: 0.5em;" id="done">Done</p></a></th>-->
+    </tr>
+</table>
+
+
+<!--<h5 style="font-weight: bold;color: #000;margin-top: 2em;">From 10 to 12 Months</h5>-->
+
+<div style="overflow-x:auto;">
+<table width="100%" >
+    {% if task_list %}
+        <tr>
+            <th width="15%" ><p align="center" style="color: #000;font-size: 1em;margin-top: 1em;">To Do</p></th>
+            <th width="70"><p align="center" style="color: #000;font-size: 1em;margin-top: 1em;">Task</p></th>
+            <th width="15%"><p align="center" style="color: #000;font-size: 1em;margin-top: 1em;">Delete</p></th>
+        </tr>
+    {% endif %}
+
+    {% for task in task_list %}
+        <tr>
+            <td style="padding: 1em;">
+                  <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">
+                    <input type="checkbox" id="{{task.id}}" onchange="window.location.href='{% url 'users-checklist-delete' task.id %}'"/>
+                    <label for="{{task.id}}"></label>
+                  </div></center>
+            </td>
+            <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 0em;"> {{ task.name }} <p style="color: grey;">{{ task.category }}</p> </h4></td>
+            <td style="padding: 1em;"><p align="center"><a href="{% url 'users-checklist-delete' task.id %}"><i class="fas fa-trash-alt"></i></a></p></td>
+        </tr>
+    {% empty %}
+        <center><h4 style="margin-top: 2em;">Create Checklist Here.</h4></center>
+    {% endfor %}
+
+<!--    <tr>-->
+<!--        <td style="padding: 1em;">-->
+<!--              <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">-->
+<!--                <input type="checkbox" id="checkbox" />-->
+<!--                <label for="checkbox"></label>-->
+<!--              </div></center>-->
+<!--        </td>-->
+<!--        <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 1em;">Check if your wedding date is on an auspicious day <p style="color: grey;">Planning</p> </h4></td>-->
+<!--        <td style="padding: 1em;"><p align="center"><a href=""><i class="fas fa-trash-alt"></i></a></p></td>-->
+<!--    </tr>-->
+
+<!--    <tr>-->
+<!--        <td style="padding: 1em;">-->
+<!--              <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">-->
+<!--                <input type="checkbox" id="checkbox" />-->
+<!--                <label for="checkbox"></label>-->
+<!--              </div></center>-->
+<!--        </td>-->
+<!--        <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 1em;">Check if your wedding date is on an auspicious day <p style="color: grey;">Planning</p> </h4></td>-->
+<!--        <td style="padding: 1em;"><p align="center"><a href=""><i class="fas fa-trash-alt"></i></a></p></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--    <td style="padding: 1em;">-->
+<!--          <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">-->
+<!--            <input type="checkbox" id="checkbox" />-->
+<!--            <label for="checkbox"></label>-->
+<!--          </div></center>-->
+<!--    </td>-->
+<!--    <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 1em;">Check if your wedding date is on an auspicious day <p style="color: grey;">Planning</p> </h4></td>-->
+<!--    <td style="padding: 1em;"><p align="center"><a href=""><i class="fas fa-trash-alt"></i></a></p></td>-->
+<!--</tr>-->
+<!--    <tr>-->
+<!--    <td style="padding: 1em;">-->
+<!--          <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">-->
+<!--            <input type="checkbox" id="checkbox" />-->
+<!--            <label for="checkbox"></label>-->
+<!--          </div></center>-->
+<!--    </td>-->
+<!--    <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 1em;">Check if your wedding date is on an auspicious day <p style="color: grey;">Planning</p> </h4></td>-->
+<!--    <td style="padding: 1em;"><p align="center"><a href=""><i class="fas fa-trash-alt"></i></a></p></td>-->
+<!--</tr>-->
+<!--    <tr>-->
+<!--    <td style="padding: 1em;">-->
+<!--          <center style="margin-right: 3em;margin-top: -1.5em;"><div class="round">-->
+<!--            <input type="checkbox" id="checkbox" />-->
+<!--            <label for="checkbox"></label>-->
+<!--          </div></center>-->
+<!--    </td>-->
+<!--    <td style="padding: 1em;"><h4 align="left" style="color: #000;font-size: 1.2em;margin-top: 1em;">Check if your wedding date is on an auspicious day <p style="color: grey;">Planning</p> </h4></td>-->
+<!--    <td style="padding: 1em;"><p align="center"><a href=""><i class="fas fa-trash-alt"></i></a></p></td>-->
+<!--</tr>-->
+</table>
+</div>
+
+<div class="modal fade" id="edit-ship-address">
+    <div class="hide-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-right:10em;margin-top:5em;">
+            <div class="modal-content" style="width:60%;">
+                <div class="modal-body" style="width:170%;">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Task</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">NAME</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name of task" required style="font-size:1em;padding: 1.5em;" required></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <label class="gl-label" for="id_name">CATEGORY</label>
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="category" id="id_category" name="category" placeholder="Category" style="font-size:1em;padding: 1.5em;" required></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                                                                  <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 50%;padding: 0.5em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 50%;padding: 0.5em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+    <div class="show-mobile">
+<div class="modal-dialog modal-dialog-centered" style="margin-top:0em;">
+<div class="modal-content" style="margin-right:1em;">
+<div class="modal-body">
+<div class="checkout-modal2">
+<div class="u-s-m-b-30">
+<div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+<div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+</div>
+</div>
+<div class="checkout-modal2__form">
+<div class="u-s-m-b-15">
+    <div class="pd-detail__inline">
+        <div class="section__content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact-area u-h-100">
+                            <br>
+                            <div class="contact-area__heading">
+                                <h2>Task</h2>
+                            </div>
+                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                        <div class="u-s-m-b-30">
+                                            <label class="gl-label" for="id_name">NAME</label>
+                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name of task" required style="font-size:1em;padding: 1.5em;"></div>
+                                        <div class="u-s-m-b-30">
+                                            <label class="gl-label" for="id_name">CATEGORY</label>
+                                            <input class="input-text input-text--border-radius input-text--primary-style" type="category" id="id_category" name="category" placeholder="Category" style="font-size:1em;padding: 1.5em;"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button class="btn btn--e-transparent-brand-b-2" type="submit" style="width: 100%;padding: 0.5em;border: 3px solid red;border-radius: 0.5em;background: red;color: #fff;">+ ADD</button>
+                                        <button class="btn btn--e-transparent-brand-b-2" type="button" data-dismiss="modal" style="width: 100%;padding: 0.5em;border: 2px solid black;border-radius: 0.5em;margin-top: 1em;">CANCEL</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+{% endblock data %}

@@ -1,0 +1,316 @@
+{% load crispy_forms_tags %}
+{% if ListingForm %}
+{% if form is None %}
+<div class="form-group col-md-6 mb-0">
+            <label>Please select Category</label>
+              </div>
+{% endif %}
+{% if form is not None %}
+              
+<input type="hidden" name="formName" value="ListingForm">
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.location|as_crispy_field }}
+              </div>
+              
+              <div class="form-group col-md-6 mb-0">
+                {{ form.sub_location|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.title|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.low_price|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.high_price|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-0">
+                {{ form.price_for|as_crispy_field }}
+              </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.pre_low_price_text|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.post_low_price_text|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.pre_high_price_text|as_crispy_field }}
+              </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ form.post_high_price_text|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-group col-md-6 mb-0">
+                {{ form.additional_text|as_crispy_field }}
+              </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.meta_title|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.meta_description|as_crispy_field }}
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.short_description|as_crispy_field }}
+
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.description|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.more_info|as_crispy_field }}
+              </div>
+            </div>
+
+            
+
+            <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.label|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.is_in_house_listing|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.is_verified|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.slug|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-12 mb-0">
+                {{ form.address|as_crispy_field }}
+              </div>
+            </div>
+
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_main|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_2|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_3|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_4|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_5|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_main_link|as_crispy_field }}
+              </div>
+            </div>
+
+             <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_2_link|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_3_link|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_4_link|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.image_5_link|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_1|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_2|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_3|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_4|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_5|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_6|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_7|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_8|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_9|as_crispy_field }}
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.video_10|as_crispy_field }}
+              </div>
+            </div>
+            {% endif %}
+{% endif %}
+{% if VenueForm %}
+
+            <input type="hidden" name="formName" value="VenueForm">
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ area.seating_type|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ area.seating_space|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-group col-md-12 mb-0">
+                {{ venue.title|as_crispy_field }}
+              </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ area.floating_space|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ area.additional_text|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ venue.catering_policy|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ venue.decor_policy|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ venue.alcohol_policy|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ venue.dj_policy|as_crispy_field }}
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ pricing.title|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ pricing.cost|as_crispy_field }}
+              </div>
+            </div>
+
+              <div class="form-group col-md-6 mb-0">
+                {{ venue.location|as_crispy_field }}
+              </div>
+              
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0">
+                {{ pricing.suffix|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-12 mb-0">
+                {{ venue.slug|as_crispy_field }}
+              </div>
+            </div>
+
+{% endif %}

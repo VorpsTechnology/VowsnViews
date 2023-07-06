@@ -1,0 +1,732 @@
+{% extends "home/base.html" %}
+{% load home_extras %}
+{% load static %}
+
+{% block meta %}
+
+<!--<title>VowsnViews inhouse service is a one place for all your needs</title>-->
+<!--<meta name="description" content=" Get best deals from inhouse services on VowsnViews. Get personal assistance in your budget and plan your wedding with us & know latest fashion stylist, outfit ideas, decorations & more">-->
+
+{% endblock meta %}
+
+{% block head %}
+<style>
+
+.overlay-image {
+ position: relative;
+ width: 100%;
+}
+/* Original image */
+.overlay-image .image {
+ display: block;
+ width: 100%;
+ height: auto;
+}
+/* Original text overlay */
+.overlay-image .text {
+ color: #fff;
+ font-size: 30px;
+ line-height: 1.5em;
+ text-shadow: 2px 2px 2px #000;
+ text-align: center;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ width: 100%;
+}
+
+.overlay-image .normal {
+ transition: .5s ease;
+}
+.overlay-image .normal {
+ opacity: 0;
+}
+.overlay-image .hover {
+ background-color: rgba(0,0,0,0.5);
+}
+
+.overlay-image .hover {
+ position: absolute;
+ top: 0;
+ height: 100%;
+ width: 100%;
+ opacity: 1;
+ transition: .5s ease;
+}
+/* New overlay appearance on hover */
+.overlay-image:hover .hover {
+ opacity: 1;
+}
+
+.containers {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 95%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.bottoms {
+  position: absolute;
+  top: 92%;
+  left: 27%;
+  transform: translate(-50%, -50%);
+}
+
+</style>
+{% endblock head %}
+{% block content %}
+<center style="margin-top:3em;">
+    {% for message in messages %}
+    <h3 class="alert alert-{{ message.tags }}">
+         {{ message }}
+    </h3>
+    {% endfor %}
+</center>
+
+<div class="app-content" style="margin-top:3em;">
+
+
+<!--                     <div class="container" style="margin-top: 3em;margin-bottom: 3em;">-->
+<!--                          <div class="row">-->
+<!--                            <div class="col-sm">-->
+<!--                                 <div>-->
+<!--                                     <div class="uk-card uk-card-default uk-card-body" style="margin-top: 1em;">-->
+<!--                                         <center><i class="far fa-handshake" style="color: #965B92;font-size: 3em;"></i></center>-->
+<!--                                         <h5 style="color: #935990;margin-top: 1em;font-weight: bold;" align="center">Personal Assistance</h5>-->
+<!--                                         <p style="margin-top: 0.5em;" align="center">We will connect with you through Email, Phone & personal Meeting. </p><br>-->
+<!--                                     </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm">-->
+<!--                                 <div>-->
+<!--                                     <div class="uk-card uk-card-default uk-card-body" style="margin-top: 1em;">-->
+<!--                                         <center><i class="fas fa-rupee-sign" style="color: #965B92;font-size: 3em;"></i></center>-->
+<!--                                         <h5 style="color: #935990;margin-top: 1em;font-weight: bold;" align="center">Budget</h5>-->
+<!--                                         <p style="margin-top: 0.5em;" align="center">Recognising the budget for your wedding & Planning to meet your desire in your budget </p><br>-->
+<!--                                     </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                             <div class="col-sm">-->
+<!--                                 <div>-->
+<!--                                     <div class="uk-card uk-card-default uk-card-body"  style="padding-left: 1em;padding-right: 1em;margin-top: 1em;">-->
+<!--                                         <center><i class="fas fa-magic" style="color: #965B92;font-size: 3em;"></i></center>-->
+<!--                                         <h5 style="color: #935990;margin-top: 1em;font-weight: bold;" align="center">Fulfil your wishes</h5>-->
+<!--                                         <p style="margin-top: 0.5em;padding:1em;" align="center">we will provide you with our top-notch in house services which are in your budget </p>-->
+<!--                                     </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                               <div class="col-sm">-->
+<!--                                 <div>-->
+<!--                                     <div class="uk-card uk-card-default uk-card-body"  style="padding-left: 1em;padding-right: 1em;margin-top: 1em;">-->
+<!--                                         <center><i class="fas fa-glass-cheers" style="color: #965B92;font-size: 3em;"></i></center>-->
+<!--                                         <h5 style="color: #935990;margin-top: 1em;font-weight: bold;" align="center">You are all set for the wedding</h5>-->
+<!--                                         <p style="margin-top: 0.5em;padding: 1em;" align="center">Execution of layout  plans for your celebrations.</p><br>-->
+<!--                                     </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                          </div>-->
+<!--                     </div>-->
+
+   
+
+
+<!--        <div class="hide-mobile">-->
+<!--            <div class="slideshows" style="margin-top: 3em;">-->
+
+<!--                <div class="mySlides fades">-->
+<!--                  <img src="{% static 'home/images/store/1.jpeg' %}" style="width: 100%;display: block;height: 650px;object-fit: cover;object-position: 0% 20%;">-->
+<!--                  <div class="text">Caption Text</div>-->
+<!--                </div>-->
+
+<!--                <div class="mySlides fades" >-->
+<!--                  <img src="{% static 'home/images/store/2.jpg' %}" style="width: 100%;height: 650px;object-fit: fill;">-->
+<!--                  <div class="text">Caption Two</div>-->
+<!--                </div>-->
+
+<!--                <div class="mySlides fades">-->
+<!--                  <img src="{% static 'home/images/store/3.jpg' %}"style="width:100%;display: block;height: 650px;object-fit: ;width: 100%;background-position: top;">-->
+<!--                  <div class="text">Caption Three</div>-->
+<!--                </div>-->
+
+<!--                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
+<!--                <a class="next" onclick="plusSlides(1)">&#10095;</a>-->
+
+<!--                </div>-->
+<!--                <br>-->
+
+<!--                <div style="text-align:center">-->
+<!--                  <span class="dot" onclick="currentSlide(1)"></span>-->
+<!--                  <span class="dot" onclick="currentSlide(2)"></span>-->
+<!--                  <span class="dot" onclick="currentSlide(3)"></span>-->
+<!--                </div>-->
+
+<!--            <script>-->
+<!--var slideIndex = 1;-->
+<!--showSlides(slideIndex);-->
+
+<!--function plusSlides(n) {-->
+<!--  showSlides(slideIndex += n);-->
+<!--}-->
+
+<!--function currentSlide(n) {-->
+<!--  showSlides(slideIndex = n);-->
+<!--}-->
+
+<!--function showSlides(n) {-->
+<!--  var i;-->
+<!--  var slides = document.getElementsByClassName("mySlides");-->
+<!--  var dots = document.getElementsByClassName("dot");-->
+<!--  if (n > slides.length) {slideIndex = 1}-->
+<!--  if (n < 1) {slideIndex = slides.length}-->
+<!--  for (i = 0; i < slides.length; i++) {-->
+<!--      slides[i].style.display = "none";-->
+<!--  }-->
+<!--  for (i = 0; i < dots.length; i++) {-->
+<!--      dots[i].className = dots[i].className.replace(" active", "");-->
+<!--  }-->
+<!--  slides[slideIndex-1].style.display = "block";-->
+<!--  dots[slideIndex-1].className += " active";-->
+<!--}-->
+<!--</script>-->
+<!--</div>-->
+
+
+
+<div class="show-mobile">
+<div id="carouselExampleControl" class="carousel slide" data-ride="carousel" style="margin-top: 2em;">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06179_9c754551-f482-4b00-aca5-e397952dc2ac_1944x.jpg?v=1610637983" alt="First slide" style="width: 100%;display: block;height: 250px;object-position: 0% 20%;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06237_be01c129-2818-4882-b845-1a3b38929b08_1944x.jpg?v=1610637943" alt="Second slide" style="width: 100%;display: block;height: 250px;object-position: 0% 20%;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06229_d80fb56f-24cd-4262-8a73-2803381e5097_1944x.jpg?v=1610637875" alt="Third slide" style="width: 100%;display: block;height: 250px;object-position: 0% 60%;">
+    </div>
+  </div>
+  <!--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">-->
+  <!--  <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+  <!--  <span class="sr-only">Previous</span>-->
+  <!--</a>-->
+  <!--<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">-->
+  <!--  <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+  <!--  <span class="sr-only">Next</span>-->
+  <!--</a>-->
+</div>
+</div>
+
+
+
+
+
+<div class="hide-mobile">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="margin-top: 2em;">
+  <div class="carousel-inner">
+   <div class="carousel-item active">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06179_9c754551-f482-4b00-aca5-e397952dc2ac_1944x.jpg?v=1610637983" alt="First slide" style="width: 100%;display: block;height: 650px;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06237_be01c129-2818-4882-b845-1a3b38929b08_1944x.jpg?v=1610637943" alt="Second slide" style="width: 100%;display: block;height: 650px;object-position: 0% 20%;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/0505/1147/8954/files/DSC06229_d80fb56f-24cd-4262-8a73-2803381e5097_1944x.jpg?v=1610637875" alt="Third slide" style="width: 100%;display: block;height: 650px;object-position: 0% 60%;">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+
+ <div class="container" style="margin-top: 4em;margin-bottom: 3em;">
+
+
+    <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">Browse by Function</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+<div class="average-device">
+    <div class="section__content">
+            <div class="slider-fouc" style="background-color: rgb(253, 236, 230);">
+                <div class="owl-carousel product-slider" data-item="4">
+                       {% for category in f_category %}
+                        <div class="u-s-m-b-30" onclick="window.location.href='https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&f_category={{category.id}}&label=&vendor_name='">
+                            <div class="containers" style="padding: 1em 1em;">
+                              <img src="{{ category.image.url }}" alt="Snow" style="width: 100%;height: 400px;object-fit: cover;border-radius: 0.5em;">
+                              <div class="centered" style="background: #fff;color: #000;padding: 1em;font-weight: bold;">{{ category.title }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+    </div>
+</div>
+
+   <div class="small-device">
+    <div class="row p-2" style="background-color: rgb(253, 236, 230);">
+        <div class="col-xs-12 col-sm-6 p-0 d-flex flex-wrap">
+       {% for category in f_category%}
+        <div class="col-6 col-md-4 col-sm-6 p-1">
+            <div class="containers" onclick="window.location.href='https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&f_category={{category.id}}&label=&vendor_name='">
+              <img src="{{ category.image.url }}" alt="Snow" style="width: 100%;height: 300px;object-fit: cover;border-radius: 0.5em;">
+              <div class="centered" style="background: #fff;color: #000;padding: 1em;font-weight: bold;">{{ category.title }}</div>
+            </div>
+        </div>
+       {% endfor %}
+
+        </div>
+    </div>
+   </div>
+
+        <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">Browse by Type</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+        <div class="average-device">
+            <div class="slider-fouc">
+                 <div class="owl-carousel product-slider" data-item="4">
+              {% for category in category %}
+                    <div class="uk-card uk-card-default uk-card-body" style="padding: 0em;margin: 0.5em;background-color: #E5EFE6" onclick="window.location.href='https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&category={{category.id}}&vendor_name='">
+                     <table>
+                         <tr>
+                             <th width="50%">
+                                 {% if category.image %}
+                                 <img src="{{ category.image.url }}" style="width: 100px;height: 100px;object-fit: cover;border-radius: 50%;padding: 0.5em;">
+                                 {% else %}
+                                 <img src="https://cdn.shopify.com/s/files/1/0505/1147/8954/products/DSC09436copy.jpg?v=1604334080" style="width: 100px;height: 100px;object-fit: cover;border-radius: 50%;padding: 0.5em;">
+                                 {% endif %} 
+                             </th>
+                             <th>
+                                 <p style="margin-top: 0.5em;font-weight: bold;">{{ category.title }}</p>
+                             </th>
+                         </tr>
+                     </table>
+                    </div>
+               {% endfor %}
+            </div>
+            </div>
+        </div>
+
+
+   <div class="small-device">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 p-0 d-flex flex-wrap">
+            {% for category in category%}
+					<div class="col-6 p-0">
+						 <div class="uk-card uk-card-default uk-card-body" style="padding: 0em;margin: 0.5em;background-color: #E5EFE6" onclick="window.location.href='http://127.0.0.1:8000/products/list/?note=&discount_price_min=&discount_price_max=&category={{category.id}}&vendor_name='">
+                             <table>
+                                 <tr>
+                                     <th width="50%">
+                                         <img src="{% if category.image %}{{ category.image.url }}{% else %}https://cdn.shopify.com/s/files/1/0505/1147/8954/products/DSC09436copy.jpg?v=1604334080{% endif %}" style="width: 100px;height: 90px;object-fit: cover;border-radius: 50%;padding: 0.5em;">
+                                     </th>
+                                     <th>
+                                         <p style="margin-top: 0.5em;font-weight: bold;">{{ category.title }}</p>
+                                     </th>
+                                 </tr>
+                             </table>
+                       </div>
+					</div>
+            {% endfor %}
+        </div>
+
+    </div>
+   </div>
+
+
+
+    <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">Top Trending</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+         <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for product in product %}
+                                <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on" onclick="window.location.href='{% url 'product-detail-view' product.id %}'">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect aspect--square u-d-block" href="product-detail.html" style="height: 400px;">
+
+                                                <img class="aspect__img" src="{{product.get_image}}" alt="" style="height: 400px;width: 100%;object-fit: cover;border-radius: 0.3em;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+
+                                                        <a data-modal="modal" href="{% url 'product-detail-view' product.id %}" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+
+                                                    {%  if product.variation_set.all %}
+                                                    <li>
+                                                        <a href="{% url 'product-detail-view' product.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% else %}
+                                                    <li>
+                                                        <a href="{{ product.get_add_to_cart_url }}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% endif %}
+
+
+                                                    <li>
+
+                                                        <a href="{% url 'product-favorite-add' product.id %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="product-detail.html">{{ product.title }}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+
+                                            <span class="product-o__review">{{product.brand}}</span></div>
+
+
+                                        <span class="product-o__price">{% currency request product.discount_price %}
+
+                                            <span class="product-o__discount">{% currency request product.price %}</span></span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+         </div>
+
+         <center><a class="btn btn-sm btn-block btn-outline-dark" href="https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&label=Trending&vendor_name=" style="padding: 1em;width: 40%;">
+                          View All
+                        </a></center>
+                        
+                        
+                        <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">VNV Best Deals</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+         <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for product in vnv %}
+                                <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on" onclick="window.location.href='{% url 'product-detail-view' product.id %}'">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect aspect--square u-d-block" href="product-detail.html" style="height: 400px;">
+
+                                                <img class="aspect__img" src="{{product.get_image}}" alt="" style="height: 400px;width: 100%;object-fit: cover;border-radius: 0.3em;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+
+                                                        <a data-modal="modal" href="{% url 'product-detail-view' product.id %}" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+
+                                                    {%  if product.variation_set.all %}
+                                                    <li>
+                                                        <a href="{% url 'product-detail-view' product.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% else %}
+                                                    <li>
+                                                        <a href="{{ product.get_add_to_cart_url }}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% endif %}
+
+
+                                                    <li>
+
+                                                        <a href="{% url 'product-favorite-add' product.id %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="product-detail.html">{{ product.title }}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+
+                                            <span class="product-o__review">{{product.brand}}</span></div>
+
+
+                                        <span class="product-o__price">{% currency request product.discount_price %}
+
+                                            <span class="product-o__discount">{% currency request product.price %}</span></span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+         </div>
+
+         <center><a class="btn btn-sm btn-block btn-outline-dark" href="https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&label=Best+Deal&vendor_name=" style="padding: 1em;width: 40%;">
+                          View All
+                        </a></center>
+
+
+        <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">Luxury bridal couture</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+        <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc" style="background-color: rgb(255, 230, 208);">
+                            <div class="owl-carousel product-slider" data-item="4">
+
+                                {% for product in product_luxury %}
+                                    <div class="containers" style="padding: 2em 1em;" onclick="window.location.href='https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&brand={{product.id}}&label=&vendor_name='">
+                                      <img src="{% if product.image.url %}{{product.image.url}}{% else %}https://image.wedmegood.com/resized/600X/uploads/member/16809/1600494058_GG_26aug0814.jpg{% endif %}" alt="Snow" style="width: 100%;height: 400px;object-fit: cover;border-radius: 0.2em;padding: 0.3em 0em 0em 0.3em;background: #fff;">
+                                      <div class="bottoms" style="background: #fff;color: #000;padding: 1em;font-weight: bold;">{{product.title}}</div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+     <center><a class="btn btn-sm btn-block btn-outline-dark mb-5" href="{% url 'product-list-view' %}" style="padding: 1em;width: 23%;">
+                          View All
+                        </a></center>
+                        
+                        
+                        
+                        <h2 style="color: #000;font-weight: bold;margin-top: 3em;" align="center">Our Recommendation</h2>
+    <p align="center" style="margin-bottom: 3em;">Get Best Deals From Our In House Listed Store</p>
+
+
+         <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for product in recommendation %}
+                                <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on" onclick="window.location.href='{% url 'product-detail-view' product.id %}'">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect aspect--square u-d-block" href="product-detail.html" style="height: 400px;">
+
+                                                <img class="aspect__img" src="{{product.get_image}}" alt="" style="height: 400px;width: 100%;object-fit: cover;border-radius: 0.3em;"></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+
+                                                        <a data-modal="modal" href="{% url 'product-detail-view' product.id %}" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="View"><i class="fas fa-search-plus"></i></a></li>
+
+                                                    {%  if product.variation_set.all %}
+                                                    <li>
+                                                        <a href="{% url 'product-detail-view' product.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% else %}
+                                                    <li>
+                                                        <a href="{{ product.get_add_to_cart_url }}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    {% endif %}
+
+
+                                                    <li>
+
+                                                        <a href="{% url 'product-favorite-add' product.id %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="">{{ product.category }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="product-detail.html">{{ product.title }}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+
+                                            <span class="product-o__review">{{product.brand}}</span></div>
+
+
+                                        <span class="product-o__price">{% currency request product.discount_price %}
+
+                                            <span class="product-o__discount">{% currency request product.price %}</span></span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+         </div>
+
+         <center><a class="btn btn-sm btn-block btn-outline-dark mb-5" href="https://vowsnviews.com/products/list/?note=&discount_price_min=&discount_price_max=&label=Recommendation&vendor_name=" style="padding: 1em;width: 23%;">
+                          View All
+                        </a></center>
+                        
+
+<!--        <div class="row" style="margin-top: 0em;">-->
+<!--     <div class="col-lg-8 col-md-12">-->
+<!--&lt;!&ndash;        <div class="dash__box dash__box&#45;&#45;shadow dash__box dash__box&#45;&#45;bg-white u-s-m-b-30">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="dash__pad-2">&ndash;&gt;-->
+
+
+
+
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--         <div class="row" style="margin-top: 2em;">-->
+<!--             <div class="col-lg-6 col-md-12" style="padding: 0.2em;margin: 0em;">-->
+<!--                    <div class=" overlay-image _ay "><a href="{% url 'planning-decor' %}">-->
+<!--                     <img class=" image _b0 " src="{% static 'home/images/banner/Planning_and_Decor.jpg' %}" alt="Alt text" style="width: 100%;height:400px;object-fit: cover;" />-->
+<!--                     <div class=" hover _b1 ">-->
+<!--                      <div class=" text _2 " style="padding: 1em;">-->
+<!--                          <h3 style="color: #fff;font-size: 1em;font-weight: bold;">Event Planner and Decoration</h3>-->
+<!--                          <p style="margin-top: 1em;">Planning your wedding cannot be easy and will occupy your time of enjoyment through out of the wedding. we are trained in managing all of the services to make your wedding stress free.</p>-->
+<!--                      </div>-->
+<!--                     </div>-->
+<!--                    </a></div>-->
+<!--             </div>-->
+<!--             <div class="col-lg-6 col-md-12" style="padding: 0.2em;margin: 0em;">-->
+<!--                    <div class=" overlay-image _ay "><a href="{% url 'wedding-stylist' %}">-->
+<!--                     <img class=" image _b0 " src="{% static 'home/images/banner/fashion_stylist.jpg' %}" alt="Alt text" style="width: 100%;height:400px;object-fit: cover;"/>-->
+<!--                     <div class=" hover _b1 ">-->
+<!--                      <div class=" text _2 " style="padding: 1em;">-->
+<!--                          <h3 style="color: #fff;font-size: 1em;font-weight: bold;">Fashion Stylist</h3>-->
+<!--                          <p style="margin-top: 1em;">Fickled and excited for your wedding look?Get amazing styling services and personal shopper to make your job easier. Form makeup to outfit to jewelry to footwear, Vows n Views keep all in mind for both Bride and Groom.</p>-->
+<!--                      </div>-->
+<!--                     </div>-->
+<!--                    </a></div>-->
+<!--             </div>-->
+<!--         </div>-->
+
+<!--         <div class="row">-->
+<!--             <div class="col-lg-6 col-md-12" style="padding: 0.2em;margin: 0em;">-->
+<!--                    <div class=" overlay-image _ay "><a href="{% url 'destination-wedding' %}">-->
+<!--                     <img class=" image _b0 " src="{% static 'home/images/banner/desitnation_wedding.jpg' %}" alt="Alt text" style="width: 100%;height:400px;object-fit: cover;" />-->
+<!--                     <div class=" hover _b1 ">-->
+<!--                      <div class=" text _2 " style="padding: 1em;">-->
+<!--                          <h3 style="color: #fff;font-size: 1em;font-weight: bold;">Destined To Be Together</h3>-->
+<!--                          <p style="margin-top: 1em;">Destination Wedding is the most desired way of getting married by our loved ones. Vow’s N View’s idea is to make you feel like you are a vacation and getting married.</p>-->
+<!--                      </div>-->
+<!--                     </div>-->
+<!--                    </a></div>-->
+<!--             </div>-->
+<!--             <div class="col-lg-6 col-md-12" style="padding: 0.2em;margin: 0em;">-->
+<!--                    <div class=" overlay-image _ay "><a href="{% url 'product-list-view' %}">-->
+<!--                     <img class=" image _b0 " src="{% static 'home/images/banner/bridal_wear.jpg' %}" alt="Alt text" style="width: 100%;height:400px;object-fit: cover;"/>-->
+<!--                     <div class=" hover _b1 ">-->
+<!--                      <div class=" text _2 " style="padding: 1em;">-->
+<!--                          <h3 style="color: #fff;font-size: 1em;font-weight: bold;">In House Store</h3>-->
+<!--                          <p style="margin-top: 1em;">Shopping becomes easy get the latest bridal collection from our in house store Mauve story and get your dream wedding and outfit customize.</p>-->
+<!--                      </div>-->
+<!--                     </div>-->
+<!--                    </a></div>-->
+<!--             </div>-->
+<!--         </div>-->
+
+<!--    </div>-->
+
+
+<!-- <div class="col-lg-4 col-md-12">-->
+<!--                <div class="dash__box dash__box&#45;&#45;shadow dash__box dash__box&#45;&#45;bg-white u-s-m-b-30" style="margin-top: 2em;">-->
+<!--            <div class="dash__pad-2">-->
+
+<!--        <h3>Question ?</h3><hr>-->
+
+<!--                <form method="post">-->
+<!--                    {% csrf_token %}-->
+<!--                    <div class="gl-inline">-->
+<!--                        <div class="u-s-m-b-30">-->
+
+<!--                            <label class="gl-label" for="id_name">NAME *</label>-->
+
+<!--                            <input class="input-text input-text&#45;&#45;primary-style" type="text" id="id_name" name="name" placeholder="John" required style="width: 100%;"></div>-->
+<!--                    </div>-->
+
+<!--                    <div class="gl-inline">-->
+<!--                        <div class="u-s-m-b-30">-->
+
+<!--                            <label class="gl-label" for="id_email">E-MAIL *</label>-->
+
+<!--                            <input class="input-text input-text&#45;&#45;primary-style" type="text" id="id_email" name="email" placeholder="John@domain.com" required style="width: 100%;"></div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="gl-inline">-->
+<!--                        <div class="u-s-m-b-30">-->
+
+<!--                            <label class="gl-label" for="id_mobile">Phone *</label>-->
+
+<!--                            <input class="input-text input-text&#45;&#45;primary-style" type="tel" pattern="[789][0-9]{9}"  id="id_mobile" name="mobile" placeholder="Mobile No" required style="width: 100%;"></div>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="gl-inline" style="margin-top: 0em;">-->
+<!--                        <div class="u-s-m-b-30">-->
+<!--                          <label class="gl-label" for="id_description">MESSAGE *</label>-->
+<!--                          <textarea class="text-area text-area&#45;&#45;border text-area&#45;&#45;primary-style" id="id_description" name="description" placeholder="Compose a Message (Required)" required style="width: 100%;"></textarea></div>-->
+<!--                    </div>-->
+
+<!--                      <div class="gl-inline" style="margin-top: 0em;">-->
+<!--                        <div class="u-s-m-b-30">-->
+<!--                            <button type="submit" style="width: 100%;border: 1px solid #965B92;background: #fff;padding: 0.5em;">Submit</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                </form>-->
+<!--            </div>-->
+<!--                </div>-->
+<!--    </div>-->
+
+
+<!--    </div>-->
+
+<!--</div>-->
+
+
+<!--        	<div class="section__content" style="margin-top: 6em;margin-bottom:4em;">-->
+<!--		<div class="container">-->
+<!--			 <h2 style="font-weight: bold" align="center">Find Vendors</h2>-->
+<!--            <p style="margin-top: 0em;margin-bottom: 3em;" align="center">Select the vendors from the location on which you are planning the wedding</p>-->
+<!--                        <div class="slider-fouc">-->
+<!--                            <div class="owl-carousel product-slider" data-item="4">-->
+<!--                             {% for list in list_location %}-->
+<!--                                <div class="u-s-m-b-30" style="margin: 0.5em;">-->
+<!--								<div class="team-member u-h-100">-->
+<!--									<div class="team-member__wrap">-->
+<!--										<div class="aspect aspect&#45;&#45;bg-grey-fb aspect&#45;&#45;square"> <img class="aspect__img team-member__img" src="{{list.get_image}}" alt="" style="padding: 0em;"></div>-->
+<!--										<div class="team-member__social-wrap">-->
+<!--											<ul class="team-member__social-list">-->
+<!--												<li> <a class="s-tw&#45;&#45;bgcolor-hover" href="{% url 'listing-detail-view' list.id %}"><i class="fab fa-add"></i> +</a></li>-->
+<!--											</ul>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--									<div class="team-member__info"> <span class="team-member__name">{{list.title}}</span> <span class="team-member__job-title"></span></div>-->
+<!--								</div>-->
+<!--                                </div>-->
+<!--                            {% endfor %}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+</div>
+{% endblock content %}

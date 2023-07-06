@@ -1,0 +1,294 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+
+
+<!--    <div class="main">-->
+<!--        <section class="sign-in">-->
+<!--            <div class="container" style="margin-top: -7em;">-->
+<!--                <div class="signin-content">-->
+<!--                    <div class="signin-image">-->
+<!--                        <figure><img src="{% static 'home/login/images/signin-image.jpg' %}" alt="sing up image"></figure>-->
+<!--                        <a href="#" class="signup-image-link">Create an account</a>-->
+<!--                    </div>-->
+
+<!--                    <div class="signin-form">-->
+<!--                        <h2 class="form-title" style="font-family: alegrya;">Sign In</h2>-->
+<!--                        <form method="POST" class="register-form" id="login-form">-->
+<!--                            {% csrf_token %}-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="id_email"><i class="zmdi zmdi-account material-icons-name"></i></label>-->
+<!--                                <input type="text" name="your_name" id="id_email" placeholder="Your Name"/>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="id_password"><i class="zmdi zmdi-lock"></i></label>-->
+<!--                                <input type="password" name="your_pass" id="id_password" placeholder="Password"/>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />-->
+<!--                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>-->
+<!--                            </div>-->
+<!--                            <div class="form-group form-button">-->
+<!--                                <input type="submit" name="signin" id="signin" class="form-submit" value="Login" style="background: #DAA520;color: #fff;border-radius: 0.5em;width: 100%;padding: 0.9em;"/>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                        <div class="social-login">-->
+<!--                            <span class="social-label">Or login with</span>-->
+<!--                            <ul class="socials">-->
+<!--                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>-->
+<!--                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>-->
+<!--                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--    </div>-->
+
+<!--    &lt;!&ndash; JS &ndash;&gt;-->
+<!--    <script src="{% static 'home/login/vendor/jquery/jquery.min.js' %}"></script>-->
+<!--    <script src="{% static 'home/login/js/main.js' %}"></script>-->
+
+
+
+        <!--====== End - Main Header ======-->
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+<!--                <div class="section__content">-->
+<!--                    <div class="container">-->
+<!--                        <div class="breadcrumb">-->
+<!--                            <div class="breadcrumb__wrap">-->
+<!--                                <ul class="breadcrumb__list">-->
+<!--                                    <li class="has-separator">-->
+
+<!--                                        <a href="/">Home</a></li>-->
+<!--                                    <li class="is-marked">-->
+
+<!--                                        <a href="">Signin</a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+<!--                <div class="section__intro u-s-m-b-60">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-lg-6">-->
+<!--&lt;!&ndash;                                <div class="section__text-wrap">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <img src="{% static 'home/images/Vnvlogo.png' %}" style="width: 20%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-6">-->
+<!--                                -->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content" >
+                    <div class="container">
+                        <div class="row row--center">
+                            <div class="col-lg-7 col-md-8 u-s-m-b-30" style="background: #fff;">
+                                <div class="l-f-o">
+                                    <div class="l-f-o__pad-box">
+
+                                        <img src="{% static 'home/images/vnvlogo.png' %}" style="width: 30%;margin-left: -1em;">
+
+                                        <h1 class="gl-h1">REGISTER</h1>
+<!--                                        <h1 class="gl-h1">PERSONAL INFORMATION</h1>-->
+                                        <form class="l-f-o__form" method="POST" style="MARGIN-TOP: 2EM;">
+                                            {% csrf_token %}
+<!--                                            <div class="gl-s-api">-->
+<!--                                                <div class="u-s-m-b-15">-->
+
+<!--                                                    <button class="gl-s-api__btn gl-s-api__btn&#45;&#45;fb" type="button"><i class="fab fa-facebook-f"></i>-->
+
+<!--                                                        <span>Signup with Facebook</span></button></div>-->
+<!--                                                <div class="u-s-m-b-30">-->
+
+<!--                                                    <button class="gl-s-api__btn gl-s-api__btn&#45;&#45;gplus" type="button"><i class="fab fa-google"></i>-->
+
+<!--                                                        <span>Signup with Google</span></button></div>-->
+<!--                                            </div>-->
+
+
+
+{% if form.errors %}
+                                                <div class="alert alert-danger  alert-error">
+                                                    {% for field in form %}
+                                                      {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                           <p style="color: #fff;">{{ error }}</p>
+                                                        {% endfor %}
+                                                      {% endif %}
+                                                    {% endfor %}
+                                                  {% if form.non_field_errors %}
+                                                    <p style="color: #fff;">{{ form.non_field_errors }}</p>
+                                                  {% endif %}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if messages %}
+                                                <span class="messages">
+                                                    {% for message in messages %}
+                                                    <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+                                                    {% endfor %}
+                                                </span>
+                                            {% endif %}
+
+
+
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="id_user_full_name">NAME *</label>
+                                                <input class="input-text input-text--primary-style" type="text" id="id_user_full_name" name="user_full_name" placeholder="Full Name" required>
+                                            </div>
+
+<!--                                            <div class="gl-inline">-->
+<!--                                                <div class="u-s-m-b-30">-->
+
+<!--                                                    &lt;!&ndash;====== Date of Birth Select-Box ======&ndash;&gt;-->
+
+<!--                                                    <span class="gl-label">WEDDING DATE</span>-->
+<!--&lt;!&ndash;                                                    <div class="gl-dob"><select class="select-box select-box&#45;&#45;primary-style">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option selected>Month</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="male">January</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="male">February</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="male">March</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="male">April</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </select><select class="select-box select-box&#45;&#45;primary-style">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option selected>Day</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="01">01</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="02">02</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="03">03</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="04">04</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </select><select class="select-box select-box&#45;&#45;primary-style">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option selected>Year</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="1991">1991</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="1992">1992</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="1993">1993</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <option value="1994">1994</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </select></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    &lt;!&ndash;====== End - Date of Birth Select-Box ======&ndash;&gt;&ndash;&gt;-->
+<!--                                                </div>-->
+<!--                                                <div class="u-s-m-b-30">-->
+
+<!--                                                    <label class="gl-label" for="gender">GENDER</label><select class="select-box select-box&#45;&#45;primary-style u-w-100" id="gender">-->
+<!--                                                        <option selected>Select</option>-->
+<!--                                                        <option value="male">Male</option>-->
+<!--                                                        <option value="male">Female</option>-->
+<!--                                                    </select></div>-->
+<!--                                            </div>-->
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="id_email">E-MAIL *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="id_email" name="email" placeholder="Enter E-mail" required></div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="id_password1">PASSWORD *</label>
+
+                                                <input class="input-text input-text--primary-style" type="password" id="id_password1" name="password1" placeholder="Enter Password" required></div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="id_password2">PASSWORD CONFIRM*</label>
+
+                                                <input class="input-text input-text--primary-style" type="password" id="id_password2" name="password2" placeholder="Confirm Password" required></div>
+
+                                            <div class="gl-inline">
+                                                <div class="u-s-m-b-30">
+                                                    <label class="gl-label" for="id_phone_number">PHONE NUMBER</label>
+                                                    <input class="input-text input-text--primary-style" pattern="[789][0-9]{9}" required type="tel" name="phone_number" id="id_phone_number" placeholder="Phone"/>
+                                                </div>
+
+<!--                                                <div class="u-s-m-b-30">-->
+<!--                                                    <label class="gl-label">I AM</label>-->
+<!--                                                    <div class="input-text input-text&#45;&#45;primary-style">-->
+<!--                                                         <input type="radio" id="id_user_bride_groom" name="user_bride_groom" value="Bride" style="margin-top: 1em;">-->
+<!--                                                         <span for="id_user_bride_groom" style="margin-top: 0em;">Bride</span>-->
+
+<!--                                                        <input type="radio" id="id_user_bride_groom" name="user_bride_groom" value="Groom" style="margin-left: 1em;">-->
+<!--                                                        <span for="id_user_is_groom" style="margin-top: 0em;">Groom</span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+
+<!--                                            <div class="gl-inline">-->
+<!--                                                <div class="u-s-m-b-30">-->
+<!--                                                    <label class="gl-label" for="id_wedding_date">WEDDING DATE</label>-->
+<!--                                                    <input class="input-text input-text&#45;&#45;primary-style" required type="date" name="wedding_date" id="id_wedding_date" min='' placeholder="Wedding Date"/>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="u-s-m-b-30">-->
+<!--                                                    <label class="gl-label" for="id_wedding_venue">WEDDING VENUE</label>-->
+<!--                                                    <input class="input-text input-text&#45;&#45;primary-style" required type="text" name="wedding_venue" id="id_wedding_venue" placeholder="Wedding Venue"/>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                             
+
+                                            <div class="u-s-m-b-15">
+
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit"  style="border-color:#965B92;">REGISTER</button></div>
+
+                                            <a class="gl-link" href="{% url 'home' %}">Return to Store</a>
+                                        </form>
+
+                                        <h1 class="gl-h1">I'M ALREADY CUSTOMER</h1>
+
+                                        <span class="gl-text u-s-m-b-30">By login to your account with our store, you will be able to move through the checkout process faster, store shipping addresses, view and track your orders in your account and more.</span>
+                                        <div class="u-s-m-b-15">
+
+                                            <a class="l-f-o__create-link btn--e-transparent-brand-b-2" href="{% url 'users-login' %}">LOGIN</a></div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <img src="{% static 'home/images/banner/desitnation_wedding.jpg' %}" style="width: 100%;height: 1070px;object-fit: cover;">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+        <!--====== Main Footer ======-->
+
+    </div>
+    <!--====== End - Main App ======-->
+
+
+
+
+
+{% endblock content %}<!-- This templates was made by Colorlib (https://colorlib.com) -->

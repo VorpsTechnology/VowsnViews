@@ -1,0 +1,258 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'vendors/css/vendor-styles.css' %}">
+{% endblock head %}
+
+{% block content %}
+<!--====== App Content ======-->
+<style>
+.active-tertiary-nav-item {
+    box-shadow: 0px 0.3rem 0 0 #965B92;
+    border: none;
+}
+
+.tertiary-nav-item:hover:not(.active-tertiary-nav-item) {
+    box-shadow: 0 0.3rem 0 0 #b6a3b5;
+}
+</style>
+<br>
+<div class="hide-mobile">
+    <!--====== Dashboard Features ======-->
+    <div class="dash__box dash__box--bg-white mt-3 pt-2 border-bottom border-top">
+        <div class="container">
+
+            <!-- <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span> -->
+            <ul class="dash__f-list d-flex align-items-center justify-content-left">
+
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/home/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="{% url 'vendor-home' %}">
+                    <span class="d-block">
+                        {% comment %} <i class="fas fa-home pb-2" style="font-size: 2em; color:#333333;"></i> {% endcomment %}
+                        <img style="width:3em" class="pb-2" src="{% static 'vendors/images/homestore.png' %}"/>
+                    </span><span >Home</span></a>
+                </li>
+
+                {% if is_listing_assign %}
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/faq/view/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="#">
+                    <span class="d-block">
+                        {% comment %} <i class="fas fa-question-circle pb-2" style="font-size: 2em; color:#333333;"></i> {% endcomment %}
+                        <img style="width: 2.5em" class="pb-2" src="{% static 'vendors/images/faq_2.png' %}"/>
+                    </span><span>FAQs</span></a>
+                </li>
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/portfolio/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="#">
+                    <span class="d-block">
+                        {% comment %} <i class="fas fa-th-large pb-2" style="font-size: 2em; color:#333333;"></i> {% endcomment %}
+                        <img style="width: 3em" class="pb-2" src="{% static 'vendors/images/portfolio.png' %}"/>
+                    </span><span>Portfolio</span>
+                    </a>
+                </li>
+
+
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/inquiry/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="#">
+                    <span class="d-block">
+<!--                        <i class="far fa-envelope pb-2" style="font-size: 2em; color:#333333;"></i>-->
+                        <img style="width:3em" class="pb-2" src="{% static 'vendors/images/inquiry.png' %}"/>
+                    </span><span>Inquiry</span> </a>
+                </li>
+
+                {% endif %}
+
+                {% if not is_listing_assign %}
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/faq/view/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2 {% if not is_listing_assign %} disabled {% endif %}" href="{% url 'faq-view' %}">
+                    <span class="d-block">
+                        {% comment %} <i class="fas fa-question-circle pb-2" style="font-size: 2em; color:#333333;"></i> {% endcomment %}
+                        <img style="width: 2.5em" class="pb-2" src="{% static 'vendors/images/faq_2.png' %}"/>
+                    </span><span>FAQs</span></a>
+                </li>
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/portfolio/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="{% url 'instagram-portfolio' %}">
+                    <span class="d-block">
+                        {% comment %} <i class="fas fa-th-large pb-2" style="font-size: 2em; color:#333333;"></i> {% endcomment %}
+                        <img style="width: 3em" class="pb-2" src="{% static 'vendors/images/portfolio.png' %}"/>
+                    </span><span>Portfolio</span>
+                    </a>
+                </li>
+
+
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/vendors/inquiry/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="{% url 'inquiry' %}">
+                    <span class="d-block">
+<!--                        <i class="far fa-envelope pb-2" style="font-size: 2em; color:#333333;"></i>-->
+                        <img style="width:3em" class="pb-2" src="{% static 'vendors/images/inquiry.png' %}"/>{% if show_notification %}<span class="total-item-round">{{contact_count}}</span>{% endif %}
+                    </span><span>Inquiry</span> </a>
+                </li>
+                
+                <li class="text-center mx-2 px-4 pb-3 pt-2 tertiary-nav-item {% if request.get_full_path == "/pricing/" %} active-tertiary-nav-item {% endif %}">
+                    <a class="dash-active mt-2" href="{% url 'pricing' %}">
+                    <span class="d-block">
+<!--                        <i class="far fa-envelope pb-2" style="font-size: 2em; color:#333333;"></i>-->
+                        <img style="width:3em" class="pb-2" src="{% static 'vendors/images/pricing.png' %}"/>
+                    </span><span>Pricing</span> </a>
+                </li>
+
+                {% endif %}
+                <li class="ml-auto">
+                    {% if vendor_user.last.draft_listing.is_approved %}
+                    <button type="submit" class="mr-2 px-4 py-2 btn btn-success">
+                                                <i class="fas fa-check-circle p-1"></i>
+                                                PUBLISHED
+                    </button>
+                    {% else %}
+                    <button type="submit" class="mr-2 px-4 py-2 btn btn-outline-warning font-weight-bold">
+                                                <i class="fa fa-clock-o p-1"></i>
+                                                Pending Approval
+                    </button>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="u-s-p-b-60">
+    <!--====== Section Content ======-->
+    <div class="section__content">
+        <div class="dash">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+
+                        <div class="show-mobile">
+                            <div class="dash__box dash__box dash__box--bg-white dash__box u-s-m-b-30"
+                                style="margin-top: -2em;margin: 0.3em;">
+                                <div style="overflow-x:auto;">
+                                    <table class=""
+                                        style="padding-left: 0.5em;padding-right: 0.5em; border-collapse: collapse;border-spacing: 0;">
+                                        <tr>
+                                            <td class="py-2 px-1">
+                                                <a href="{% url 'vendor-home' %}">
+                                                    <div class="uk-card uk-card-default text-center"
+                                                        style="padding: 1em 2em 1em 2em;max-width:30vw;">
+                                                        <span>
+<!--                                                            <i class="fas fa-home" style="color: #965B92;font-size: 2.2em;"></i>-->
+                                                            <img style="width:2em" class="pb-0" src="{% static 'vendors/images/homestore.png' %}"/>
+                                                        </span>
+                                                        <p class="font-weight-bold" style="color: #000;margin-top: 0.7em;">Home
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                                </td>
+
+                                                <td class="py-2 px-1">
+                                                <a href="{% url 'faq-view' %}">
+                                                    <div class="uk-card uk-card-default text-center"
+                                                        style="padding:1em 2em 1em 2em;max-width:30vw;">
+                                                        <span>
+<!--                                                            <i class="fas fa-question-circle" style="color: #965B92;font-size: 2.2em;"></i>-->
+                                                          <img style="width:2em" class="pb-0" src="{% static "vendors/images/faq_2.png" %}"/>
+                                                        </span>
+                                                        <p class="font-weight-bold" style="color: #000;margin-top: 0.7em;">FAQs
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </td>
+
+                                            <td class="py-2 px-1">
+                                                <a href="{% url 'instagram-portfolio' %}">
+                                                    <div class="uk-card uk-card-default text-center"
+                                                        style="padding:1em 2em 1em 2em;max-width:30vw;">
+                                                        <span>
+<!--                                                            <i class="fas fa-th-large" style="color: #965B92;font-size: 2.2em;"></i>-->
+                                                             <img style="width:2em" class="pb-0" src="{% static "vendors/images/portfolio.png" %}"/>
+                                                        </span>
+                                                        <p class="font-weight-bold" style="color: #000;margin-top: 0.7em;">Portfolio
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                                </td>
+
+                                            <td class="py-2 px-1">
+                                                <a href="{% url 'faq-view' %}">
+                                                    <div class="uk-card uk-card-default text-center"
+                                                        style="padding:1em 2em 1em 2em;max-width:30vw;">
+                                                        <span>
+<!--                                                            <i class="fas fa-envelope" style="color: #965B92;font-size: 2.2em;"></i>-->
+                                                           <img style="width:2em" class="pb-0" src="{% static "vendors/images/inquiry.png" %}"/>
+                                                        </span>
+                                                        <p class="font-weight-bold" style="color: #000;margin-top: 0.7em;">Inquiry
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            
+                                            <td class="py-2 px-1">
+                                                <a href="{% url 'pricing' %}">
+                                                    <div class="uk-card uk-card-default text-center"
+                                                        style="padding:1em 2em 1em 2em;max-width:30vw;">
+                                                        <span>
+<!--                                                            <i class="fas fa-envelope" style="color: #965B92;font-size: 2.2em;"></i>-->
+                                                           <img style="width:2em" class="pb-0" src="{% static 'vendors/images/pricing.png' %}"/>
+                                                        </span>
+                                                        <p class="font-weight-bold" style="color: #000;margin-top: 0.7em;">Pricing
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {% if vendor_user.last.draft_listing.is_approved %}
+                    <button type="submit" class="mr-2 px-4 py-2 my-3 btn btn-success w-100">
+                                                <i class="fas fa-check-circle p-1"></i>
+                                                PUBLISHED
+                    </button>
+                    {% else %}
+                    <button type="submit" class="mr-2 px-4 py-2 my-3 btn btn-outline-warning font-weight-bold w-100">
+                                                <i class="fa fa-clock-o p-1"></i>
+                                                Pending Approval
+                    </button>
+                    {% endif %}
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="dash__box dash__box--radius dash__box--bg-white u-s-m-b-30">
+                            <div class="dash__pad-2 my-1 px-0">
+                                {% block data %} {% endblock data %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 2 ======-->
+</div>
+<!--====== End - App Content ======-->
+
+</div>
+<!--====== End - Main App ======-->
+<script src="{% static 'home/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'home/js/jquery/plugins.js' %}"></script>
+<script src="{% static 'home/js/jquery/scripts.js' %}"></script>
+{% block javascript %} {% endblock %}
+
+{% endblock content %}

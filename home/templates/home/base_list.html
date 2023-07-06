@@ -1,0 +1,905 @@
+{% load static %} {% load home_extras %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<meta charset="UTF-8">
+
+<head>
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="{% static 'home/images/Vnvlogo.png' %}" rel="shortcut icon">
+	<title>VowsnView</title>
+	<!--====== Google Font ======-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+	<!--====== Vendor Css ======-->
+	<link rel="stylesheet" href="{% static 'home/css/vendor.css' %}">
+	<!--====== Utility-Spacing ======-->
+	<link rel="stylesheet" href="{% static 'home/css/utility.css' %}">
+	<!--====== App ======-->
+	<link rel="stylesheet" href="{% static 'home/css/app.color2.css' %}">
+	<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{% static 'home/css/all.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'home/css/mine-style.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<a href="https://api.whatsapp.com/send?phone=9313846800&text=VowsnViews" class="float" target="_blank"> <i class="fa fa-whatsapp my-float"></i> </a> {% block head %}
+	<style>
+
+	</style>
+    {% endblock head %}
+</head>
+
+<body class="config">
+	<div class="preloader is-active">
+		<div class="preloader__wrap"> <img class="preloader__img" src="{% static 'home/images/loader.gif' %}" alt="" style="width: 20%;"></div>
+	</div>
+	<!--====== Main App ======-->
+	<div id="app">
+		<!--====== Main Header ======-->
+		<div class="show-mobile">
+			<header class="header--style-1" style="margin-bottom:-2em;">
+				<!--====== Nav 1 ======-->
+				<nav class="primary-nav primary-nav-wrapper--border">
+					<div class="container">
+						<!--====== Primary Nav ======-->
+						<div class="primary-nav">
+							<!--====== Main Logo ======-->
+							<a class="main-logo" href="/" style="margin-top: 0.5em;"> <img src="{% static 'home/images/Vnvlogo.png' %}" alt="" style="width: 20%;height: 10%;"> </a>
+							<!--====== End - Main Logo ======-->
+							<!--====== Search Form ======-->
+							<form class="main-form" method='GET' action="{% url 'search' %}" style="margin-top: -4em;margin-left: 10em;">
+								<label for="main-search"></label>
+								<input class="input-text input-text--border-radius input-text--style-1" type="text" name="q" id="main-search" placeholder="Search" style="border-radius: 0em;width: 130%;margin-left: -4em;">
+								<button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top:0em;margin-right: 0.5em;"></button>
+							</form>
+							<div class="hide-mobile">
+								<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+									<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select">
+										<option disabled>All Currency</option>
+										<option disabled>────────────</option> {% if user.is_authenticated %} {% if user.currency == 'INR' %}
+										<option value=INR selected>INR</option> {% else %}
+										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+										<option value=USD selected>USD</option> {% else %}
+										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+										<option value=EUR selected>EUR</option> {% else %}
+										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+										<option value=AUD selected>AUD</option> {% else %}
+										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+										<option value=GBP selected>GBP</option> {% else %}
+										<option value=GBP>GBP</option> {% endif %} {% else %}
+										<option value=INR>INR</option>
+										<option value=USD>USD</option>
+										<option value=EUR>EUR</option>
+										<option value=AUD>AUD</option>
+										<option value=GBP>GBP</option> {% endif %} </select>
+									<noscript>
+										<input type="submit" value="Submit">
+									</noscript>
+									<!--                                    <input class="btn btn-primary" type="submit" />-->
+								</form>
+							</div>
+							<!--====== End - Search Form ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation" style="margin-top: -4em;margin-right: 0.7em;">
+								<button class="show-mobile btn btn--icon toggle-button toggle-button--secondary" type="button"><i class="fas fa-user-cog"></i></button>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<br>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary" style="margin-top:-1.5em;">
+										<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account"> <a><i class="far fa-user-circle"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:120px"> {% if not user.is_authenticated %}
+												<li> <a href="{% url 'users-register' %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
+
+                                                    <span>Signup</span></a></li>
+												<li> <a href="{% url 'users-login' %}"><i class="fas fa-lock u-s-m-r-6"></i>
+
+                                                    <span>Signin</span></a></li> {% else %}
+												<li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+												<li>
+													<a href="{% url 'profile' %}"><img src="{% static 'home/icons/wedding.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbspDashboard</span></a>
+												</li>
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li> {% endif %} </ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<!--                                    <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Settings">-->
+										<!--                                        <a><i class="fas fa-user-cog"></i></a>-->
+										<!--                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                        <span class="js-menu-toggle"></span>-->
+										<!--                                        <ul style="width:120px">-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Language<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:120px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">ENGLISH</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ARABIC</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>FRANCAIS</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ESPANOL</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Currency<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:225px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">$ - US DOLLAR</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>£ - BRITISH POUND STERLING</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>€ - EURO</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                        </ul>-->
+										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9313846800"><i class="fas fa-phone-volume"></i></a></li>
+										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:vowsnviews@gmail.com"><i class="far fa-envelope"></i></a></li>
+									</ul>
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Primary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 1 ======-->
+				<!--====== Nav 2 ======-->
+				<nav class="secondary-nav-wrapper" style="margin-top: 0em;">
+					<div class="container">
+						<!--====== Secondary Nav ======-->
+						<div class="secondary-nav">
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation1" style="margin-left: 1em;">
+								<div class="show-mobile">
+									<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog toggle-button-shop" type="button"></button>
+									<!--                            <span class="total-item-round">2</span>--></div>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+										<!--                                    <li> <a href="https://api.whatsapp.com/send?phone=9313846800&text=VowsnViews">What's app me !</a> <li>-->
+										<li> <a href="/"><i class="fas fa-home u-c-brand"></i></a></li>
+										<li> <a href="{% url 'product-favorite-list' %}" style="color:#965B92;"><i class="far fa-heart"></i></a></li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+								<!--====== Dropdown Main plugin ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation2">
+								<div class="show-mobile">
+									<table style="margin-right: 0em;">
+										<tr>
+											<th>
+												<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+													<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select">
+														<option disabled>All Currency</option>
+														<option disabled>────────────</option> {% if user.is_authenticated %} {% if user.currency == 'INR' %}
+														<option value=INR selected>INR</option> {% else %}
+														<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+														<option value=USD selected>USD</option> {% else %}
+														<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+														<option value=EUR selected>EUR</option> {% else %}
+														<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+														<option value=AUD selected>AUD</option> {% else %}
+														<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+														<option value=GBP selected>GBP</option> {% else %}
+														<option value=GBP>GBP</option> {% endif %} {% else %}
+														<option value=INR>INR</option>
+														<option value=USD>USD</option>
+														<option value=EUR>EUR</option>
+														<option value=AUD>AUD</option>
+														<option value=GBP>GBP</option> {% endif %} </select>
+													<noscript>
+														<input type="submit" value="Submit">
+													</noscript>
+													<!--                                    <input class="btn btn-primary" type="submit" />-->
+												</form>
+											</th>
+											<th>
+												<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button" style="margin-left: 2em;"></button>
+											</th>
+										</tr>
+									</table>
+								</div>
+								<!--                            <button class="btn btn&#45;&#45;icon toggle-button toggle-button&#45;&#45;secondary fas fa-cog" type="button"></button>-->
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design2 ah-list--link-color-secondary"> {% if user.is_staff %}
+										<li class="has-dropdown"> <a>Analytics Ecommerce<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-dashboard' %}">Analytics Home</a> </li>
+												<li> <a href="{% url 'admin-product-list' %}">All Products</a> </li>
+												<li> <a href="{% url 'admin-category-list' %}">Category</a> </li>
+												<li> <a href="{% url 'admin-order-list' %}">Orders</a> </li>
+												<li> <a href="{% url 'admin-order-return' %}">Return</a> </li>
+												<li> <a href="{% url 'admin-order-cancel' %}">Cancellations</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-contact' %}">Contact</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li class="has-dropdown"> <a>Analytics Listing<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-listing-dashboard' %}">Analytics Listing Home</a> </li>
+												<li> <a href="{% url 'admin-listing-list' %}">Listing</a> </li>
+												<li> <a href="{% url 'admin-listing-category-list' %}">Listing Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-parent-category-list' %}">Listing Parent Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-location-list' %}">Location</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-contact' %}">Listing Contact</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li> {% endif %}
+										<li> <a href="{% url 'home' %}">Home</a> </li>
+										<li> <a href="{% url 'product-list-view' %}">In House Store</a> </li>
+										<li> <a href="{% url 'listing-list-view' %}">Listing's</a> </li>
+										<li class="has-dropdown"> <a href="{% url 'in-house-service' %}">In House Service<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'planning-decor'  %}">Planning And Decor</a></li>
+												<li> <a href="{% url 'wedding-stylist'  %}">Wedding Stylist</a></li>
+												<li> <a href="{% url 'destination-wedding'  %}">Destination Wedding</a></li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li> <a href="{% url 'contact' %}">Contact Us</a> </li>
+										<!--                                    <li class="has-dropdown">-->
+										<!--                                        <a>In House Store<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                        <span class="js-menu-toggle"></span>-->
+										<!--                                        <ul style="width:170px">-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Products<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:118px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="index.html">Home 1</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="index-2.html">Home 2</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="index-3.html">Home 3</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="signin.html">Signin / Already Registered</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="signup.html">Signup / Register</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="lost-password.html">Lost Password</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a href="dashboard.html">Dashboard<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                        <a href="dashboard.html">Manage My Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                        <span class="js-menu-toggle"></span>-->
+										<!--                                                        <ul style="width:180px">-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-edit-profile.html">Edit Profile</a></li>-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-address-book.html">Edit Address Book</a></li>-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-manage-order.html">Manage Order</a></li>-->
+										<!--                                                        </ul>-->
+										<!--                                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                                    </li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="dash-my-profile.html">My Profile</a></li>-->
+										<!--                                                    <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                        <a href="dash-address-book.html">Address Book<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                        <span class="js-menu-toggle"></span>-->
+										<!--                                                        <ul style="width:180px">-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-address-make-default.html">Address Make Default</a></li>-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-address-add.html">Add New Address</a></li>-->
+										<!--                                                            <li>-->
+										<!--                                                                <a href="dash-address-edit.html">Edit Address Book</a></li>-->
+										<!--                                                        </ul>-->
+										<!--                                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                                    </li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="dash-track-order.html">Track Order</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="dash-my-order.html">My Orders</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="dash-payment-option.html">My Payment Options</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="dash-cancellation.html">My Returns & Cancellations</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Empty<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="empty-search.html">Empty Search</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="empty-cart.html">Empty Cart</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="empty-favorite_list.html">Empty Wishlist</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Product Details<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="product-detail.html">Product Details</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="product-detail-variable.html">Product Details Variable</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="product-detail-affiliate.html">Product Details Affiliate</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Shop Grid Layout<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-grid-left.html">Shop Grid Left Sidebar</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-grid-right.html">Shop Grid Right Sidebar</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-grid-full.html">Shop Grid Full Width</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-side-version-2.html">Shop Side Version 2</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-left-100">-->
+										<!--                                                <a>Shop List Layout<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:200px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-list-left.html">Shop List Left Sidebar</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-list-right.html">Shop List Right Sidebar</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a href="shop-list-full.html">Shop List Full Width</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="cart.html">Cart</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="favorite_list.html">Wishlist</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="checkout.html">Checkout</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="faq.html">FAQ</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="about.html">About us</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="contact.html">Contact</a></li>-->
+										<!--                                            <li>-->
+										<!--                                                <a href="404.html">404</a></li>-->
+										<!--                                        </ul>-->
+										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                    </li>-->
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation3" style="margin-right: 1em;">
+								<div class="menu-init" id="navigation1">
+									<div class="show-mobile">
+										<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag" type="button"></button>
+										<!--                            <span class="total-item-round">2</span>--></div>
+									<!--====== Menu ======-->
+									<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+										<!--====== List ======-->
+										<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+											<!--                                    <li> <a href="https://api.whatsapp.com/send?phone=9313846800&text=VowsnViews">What's app me !</a> <li>-->
+											<li class="has-dropdown"> <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                                <span class="total-item-round">{{ cart_count }}</span></a>
+												<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+												<div class="mini-cart"> {% if cart %}
+													<!--====== Mini Product Container ======-->
+													<div class="mini-product-container gl-scroll u-s-m-b-15"> {% for cart in cart %}
+														<!--====== Card for mini cart ======-->
+														<div class="card-mini-product">
+															<div class="mini-product">
+																<div class="mini-product__image-wrapper">
+																	<a class="mini-product__link" href="product-detail.html"> <img class="u-img-fluid" src="{{ cart.product.image_main.url }}" alt=""></a>
+																</div>
+																<div class="mini-product__info-wrapper"> <span class="mini-product__category">
+
+                                                                    <a href="shop-side-version-2.html">{{ cart.product.category }}</a></span> <span class="mini-product__name">
+
+                                                                    <a href="product-detail.html">{{ cart.product.title }}</a></span> <span class="mini-product__quantity">{{ cart.quantity }} x</span> <span class="mini-product__price">{% currency request cart.get_final_price %}</span></div>
+															</div>
+															<a class="mini-product__delete-link far fa-trash-alt" href="{% url 'delete-cart' cart.id %}"></a>
+														</div>
+														<!--====== End - Card for mini cart ======-->{% endfor %} </div>
+													<!--====== Mini Product Statistics ======-->
+													<div class="mini-product-stat">
+														<div class="mini-total"> <span class="subtotal-text">SUBTOTAL</span> <span class="subtotal-value">{% currency request  order.get_sub_total %}</span></div>
+														<div class="mini-action"> <a class="mini-link btn--e-brand-b-2" href="{% url 'order-checkout' %}" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">PROCEED TO CHECKOUT</a> <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'order-view-cart' %}">VIEW CART</a></div>
+													</div> {% else %}
+													<h3 style="margin: 2em;">No Product in cart.</h3> {% endif %}
+													<!--====== End - Mini Product Statistics ======-->
+												</div>
+												<!--====== End - Dropdown ======-->
+											</li>
+										</ul>
+										<!--====== End - List ======-->
+									</div>
+									<!--====== End - Menu ======-->
+									<!--====== Dropdown Main plugin ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Secondary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 2 ======-->
+			</header>
+		</div>
+		<div class="hide-mobile">
+			<header class="header--style-1" style="margin-bottom:-3em;">
+				<!--====== Nav 1 ======-->
+				<nav class="primary-nav primary-nav-wrapper--border">
+					<div class="container">
+						<!--====== Primary Nav ======-->
+						<div class="primary-nav">
+							<!--====== Main Logo ======-->
+							<a class="main-logo" href="/" style="margin-top: 0em;margin-left: -1.3em;"> <img src="{% static 'home/images/Vnvlogo.png' %}" alt="" style="width: 15%;height: 10%;"> </a>
+							<!--====== End - Main Logo ======-->
+							<!--====== Search Form ======-->
+							<form class="main-form" method='GET' action="{% url 'search' %}" style="margin-top: -5em;margin-left: 15em;">
+								<label for="main-search"></label>
+								<input class="input-text input-text--border-radius input-text--style-1" type="text" name="q" id="main-search" placeholder="Search" style="border-radius: 0em;">
+								<button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top:0em;"></button>
+							</form>
+							<div class="hide-mobile">
+								<form method="post" action="{% url 'home' %}" style="margin-top: -3.6em;margin-left: 6em;"> {% csrf_token %}
+									<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select">
+										<option disabled>All Currency</option>
+										<option disabled>────────────</option> {% if user.is_authenticated %} {% if user.currency == 'INR' %}
+										<option value=INR selected>INR</option> {% else %}
+										<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+										<option value=USD selected>USD</option> {% else %}
+										<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+										<option value=EUR selected>EUR</option> {% else %}
+										<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+										<option value=AUD selected>AUD</option> {% else %}
+										<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+										<option value=GBP selected>GBP</option> {% else %}
+										<option value=GBP>GBP</option> {% endif %} {% else %}
+										<option value=INR>INR</option>
+										<option value=USD>USD</option>
+										<option value=EUR>EUR</option>
+										<option value=AUD>AUD</option>
+										<option value=GBP>GBP</option> {% endif %} </select>
+									<noscript>
+										<input type="submit" value="Submit">
+									</noscript>
+									<!--                                    <input class="btn btn-primary" type="submit" />-->
+								</form>
+							</div>
+							<!--====== End - Search Form ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation" style="margin-top: -5em;">
+								<button class="show-mobile btn btn--icon toggle-button toggle-button--secondary" type="button"><i class="fas fa-user-cog"></i></button>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<br>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary" style="margin-top:-1.5em;">
+										<li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account"> <a><i class="far fa-user-circle"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:120px"> {% if not user.is_authenticated %}
+												<li> <a href="{% url 'users-register' %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
+
+                                                    <span>Signup</span></a></li>
+												<li> <a href="{% url 'users-login' %}"><i class="fas fa-lock u-s-m-r-6"></i>
+
+                                                    <span>Signin</span></a></li> {% else %}
+												<li> <a href="{% url 'user-account' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+
+                                                    <span>Account</span></a></li>
+												<li>
+													<a href="{% url 'profile' %}"><img src="{% static 'home/icons/wedding.png' %}" width="20%;" style="margin-left: -0.2em;"> <span> &nbspDashboard</span></a>
+												</li>
+												<li> <a href="{% url 'users-logout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+
+                                                    <span>Signout</span></a></li> {% endif %} </ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<!--                                    <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Settings">-->
+										<!--                                        <a><i class="fas fa-user-cog"></i></a>-->
+										<!--                                        &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                        <span class="js-menu-toggle"></span>-->
+										<!--                                        <ul style="width:120px">-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Language<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:120px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">ENGLISH</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ARABIC</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>FRANCAIS</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>ESPANOL</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                            <li class="has-dropdown has-dropdown&#45;&#45;ul-right-100">-->
+										<!--                                                <a>Currency<i class="fas fa-angle-down u-s-m-l-6"></i></a>-->
+										<!--                                                &lt;!&ndash;====== Dropdown ======&ndash;&gt;-->
+										<!--                                                <span class="js-menu-toggle"></span>-->
+										<!--                                                <ul style="width:225px">-->
+										<!--                                                    <li>-->
+										<!--                                                        <a class="u-c-brand">$ - US DOLLAR</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>£ - BRITISH POUND STERLING</a></li>-->
+										<!--                                                    <li>-->
+										<!--                                                        <a>€ - EURO</a></li>-->
+										<!--                                                </ul>-->
+										<!--                                                &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                            </li>-->
+										<!--                                        </ul>-->
+										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
+										<!--                                    </li>-->
+										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
+										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
+									</ul>
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Primary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 1 ======-->
+				<!--====== Nav 2 ======-->
+				<nav class="secondary-nav-wrapper" style="margin-top: 0em;">
+					<div class="container">
+						<!--====== Secondary Nav ======-->
+						<div class="secondary-nav">
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation1"> <a href="/"><i class="fas fa-home u-c-brand"></i></a></li>
+								<!--====== Menu ======-->
+								<!--====== End - Menu ======-->
+								<!--====== Dropdown Main plugin ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation2">
+								<div class="show-mobile">
+									<table>
+										<tr>
+											<th>
+												<form method="post" action="{% url 'home' %}"> {% csrf_token %}
+													<select id="id_currency" name="currency" onChange="this.form.submit()" class="uk-select">
+														<option disabled>All Currency</option>
+														<option disabled>────────────</option> {% if user.is_authenticated %} {% if user.currency == 'INR' %}
+														<option value=INR selected>INR</option> {% else %}
+														<option value=INR>INR</option> {% endif %} {% if user.currency == 'USD' %}
+														<option value=USD selected>USD</option> {% else %}
+														<option value=USD>USD</option> {% endif %} {% if user.currency == 'EUR' %}
+														<option value=EUR selected>EUR</option> {% else %}
+														<option value=EUR>EUR</option> {% endif %} {% if user.currency == 'AUD' %}
+														<option value=AUD selected>AUD</option> {% else %}
+														<option value=AUD>AUD</option> {% endif %} {% if user.currency == 'GBP' %}
+														<option value=GBP selected>GBP</option> {% else %}
+														<option value=GBP>GBP</option> {% endif %} {% else %}
+														<option value=INR>INR</option>
+														<option value=USD>USD</option>
+														<option value=EUR>EUR</option>
+														<option value=AUD>AUD</option>
+														<option value=GBP>GBP</option> {% endif %} </select>
+													<noscript>
+														<input type="submit" value="Submit">
+													</noscript>
+													<!--                                    <input class="btn btn-primary" type="submit" />-->
+												</form>
+											</th>
+											<th>
+												<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button" style="margin-left: 1em;"></button>
+											</th>
+										</tr>
+									</table>
+								</div>
+								<!--                            <button class="btn btn&#45;&#45;icon toggle-button toggle-button&#45;&#45;secondary fas fa-cog" type="button"></button>-->
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design2 ah-list--link-color-secondary" > {% if user.is_staff %}
+										<li class="has-dropdown"  style="color: #965B92;"> <a>Analytics Ecommerce<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-dashboard' %}">Analytics Home</a> </li>
+												<li> <a href="{% url 'admin-product-list' %}">All Products</a> </li>
+												<li> <a href="{% url 'admin-category-list' %}">Category</a> </li>
+												<li> <a href="{% url 'admin-order-list' %}">Orders</a> </li>
+												<li> <a href="{% url 'admin-order-return' %}">Return</a> </li>
+												<li> <a href="{% url 'admin-order-cancel' %}">Cancellations</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-contact' %}">Contact</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+										<li class="has-dropdown"  style="color: #965B92;"> <a>Analytics Listing<i class="fas fa-angle-down u-s-m-l-6"></i></a> <span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'admin-listing-dashboard' %}">Analytics Listing Home</a> </li>
+												<li> <a href="{% url 'admin-listing-list' %}">Listing</a> </li>
+												<li> <a href="{% url 'admin-listing-category-list' %}">Listing Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-parent-category-list' %}">Listing Parent Category</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-location-list' %}">Location</a> </li>
+												<li> <a class="dash-active" href="{% url 'admin-listing-contact' %}">Listing Contact</a> </li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li> {% endif %}
+										<li> <a href="{% url 'home' %}"  style="color: #965B92;">Home</a> </li>
+										<li> <a href="{% url 'product-list-view' %}"  style="color: #965B92;">In House Store</a> </li>
+										<li> <a href="{% url 'listing-list-view' %}"  style="color: #965B92;">Vendors & Venues</a> </li>
+										<li class="has-dropdown"> <a href="{% url 'in-house-service' %}"  style="color: #965B92;">In House Service<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<ul style="width:200px">
+												<li> <a href="{% url 'planning-decor'  %}">Planning And Decor</a></li>
+												<li> <a href="{% url 'wedding-stylist'  %}">Wedding Stylist</a></li>
+												<li> <a href="{% url 'destination-wedding'  %}">Destination Wedding</a></li>
+											</ul>
+											<!--====== End - Dropdown ======-->
+										</li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+							<!--====== Dropdown Main plugin ======-->
+							<div class="menu-init" id="navigation3">
+								<div class="show-mobile">
+									<button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars toggle-button-shop" type="button"></button>
+									<!--                            <span class="total-item-round">2</span>--></div>
+								<!--====== Menu ======-->
+								<div class="ah-lg-mode"> <span class="ah-close">✕ Close</span>
+									<!--====== List ======-->
+									<ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+										<a href="{% url 'product-favorite-list' %}" style="color:#965B92;"><i class="far fa-heart"></i></a></li>
+										<li class="has-dropdown"> <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                                <span class="total-item-round">{{ cart_count }}</span></a>
+											<!--====== Dropdown ======--><span class="js-menu-toggle"></span>
+											<div class="mini-cart"> {% if cart %}
+												<!--====== Mini Product Container ======-->
+												<div class="mini-product-container gl-scroll u-s-m-b-15"> {% for cart in cart %}
+													<!--====== Card for mini cart ======-->
+													<div class="card-mini-product">
+														<div class="mini-product">
+															<div class="mini-product__image-wrapper">
+																<a class="mini-product__link" href="product-detail.html"> <img class="u-img-fluid" src="{{ cart.product.image_main.url }}" alt=""></a>
+															</div>
+															<div class="mini-product__info-wrapper"> <span class="mini-product__category">
+
+                                                                    <a href="shop-side-version-2.html">{{ cart.product.category }}</a></span> <span class="mini-product__name">
+
+                                                                    <a href="product-detail.html">{{ cart.product.title }}</a></span> <span class="mini-product__quantity">{{ cart.quantity }} x</span> <span class="mini-product__price">{% currency request cart.get_final_price %}</span></div>
+														</div>
+														<a class="mini-product__delete-link far fa-trash-alt" href="{% url 'delete-cart' cart.id %}"></a>
+													</div>
+													<!--====== End - Card for mini cart ======-->{% endfor %} </div>
+												<!--====== Mini Product Statistics ======-->
+												<div class="mini-product-stat">
+													<div class="mini-total"> <span class="subtotal-text">SUBTOTAL</span> <span class="subtotal-value">{% currency request  order.get_sub_total %}</span></div>
+													<div class="mini-action"> <a class="mini-link btn--e-brand-b-2" href="{% url 'order-checkout' %}" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">PROCEED TO CHECKOUT</a> <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'order-view-cart' %}">VIEW CART</a></div>
+												</div>
+												<!--====== End - Mini Product Statistics ======-->{% else %}
+												<h3 style="margin: 2em;">No Product in cart.</h3> {% endif %} </div>
+											<!--====== End - Dropdown ======-->
+										</li>
+									</ul>
+									<!--====== End - List ======-->
+								</div>
+								<!--====== End - Menu ======-->
+							</div>
+							<!--====== End - Dropdown Main plugin ======-->
+						</div>
+						<!--====== End - Secondary Nav ======-->
+					</div>
+				</nav>
+				<!--====== End - Nav 2 ======-->
+			</header>
+		</div>
+
+        {% block content %} {% endblock content %}
+
+		<footer>
+			<div class="outer-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4 col-md-6">
+							<div class="outer-footer__content u-s-m-b-40"> <span class="outer-footer__content-title">Contact Us</span>
+								<div class="outer-footer__text-wrap"><i class="fas fa-home"></i> <span>Delhi</span></div>
+								<div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i> <span>(+91) 9313846800</span></div>
+								<div class="outer-footer__text-wrap"><i class="far fa-envelope"></i> <span>vowsnview@gmail.com</span></div>
+								<div class="outer-footer__social">
+									<ul>
+										<li> <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a></li>
+<!--										<li> <a class="s-tw&#45;&#45;color-hover" href="#"><i class="fab fa-twitter"></i></a></li>-->
+										<li> <a class="s-youtube--color-hover" href="#"><i class="fab fa-youtube"></i></a></li>
+										<li> <a class="s-insta--color-hover" href="#"><i class="fab fa-instagram"></i></a></li>
+<!--										<li> <a class="s-gplus&#45;&#45;color-hover" href="#"><i class="fab fa-google-plus-g"></i></a></li>-->
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="row">
+								<div class="col-lg-6 col-md-6">
+									<div class="outer-footer__content u-s-m-b-40"> <span class="outer-footer__content-title">Pages</span>
+										<div class="outer-footer__list-wrap">
+											<ul>
+												<li> <a href="{% url 'listing-list-view' %}">Vendors & Venues</a></li>
+												<li> <a href="{% url 'product-list-view' %}">In House Store</a></li>
+												<li> <a href="{% url 'order-view-cart' %}">Cart</a></li>
+												<li> <a href="{% url 'profile' %}">My Dashboard</a></li>
+												<li> <a href="{% url 'listing-list-view' %}">My Account</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<div class="outer-footer__content u-s-m-b-40">
+										<div class="outer-footer__list-wrap"> <span class="outer-footer__content-title"></span>
+											<ul>
+												<li> <a href="{% url 'about' %}">About us</a></li>
+												<li> <a href="{% url 'contact' %}">Contact Us</a></li>
+												<li> <a href="{% url 'sitemap' %}">Sitemap</a></li>
+												<li> <a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
+												<li> <a href="{% url 'terms-and-condition' %}">Terms & Condition</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<div class="outer-footer__content"> <span class="outer-footer__content-title">Join our Newsletter</span>
+								<form class="newsletter" method="post" action="{% url 'news-letter' %}"> {% csrf_token %}
+									<div class="newsletter__group">
+										<label for="id_email"></label>
+										<input class="input-text input-text--only-white" type="text" id="id_email" name="email" placeholder="Enter your Email" style="margin-right:1em;">
+										<button class="btn btn--e-brand newsletter__btn" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">SUBSCRIBE</button>
+									</div> <span class="newsletter__text">Subscribe to the mailing list to receive updates on promotions, new arrivals, discount and coupons.</span> </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="lower-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="lower-footer__content">
+								<div class="lower-footer__copyright"> <span>Copyright © 2020</span> <a href="/l">Vowsnviews</a> <span>All Right Reserved</span></div>
+								<div class="lower-footer__payment">
+									<ul>
+										<a href="http://siteguide.co.in">
+											<li style="color: #fff;">Developed By Siteguide</li>
+										</a>
+										<!--                                        <li><i class="fab fa-cc-paypal"></i></li>-->
+										<!--                                        <li><i class="fab fa-cc-mastercard"></i></li>-->
+										<!--                                        <li><i class="fab fa-cc-visa"></i></li>-->
+										<!--                                        <li><i class="fab fa-cc-discover"></i></li>-->
+										<!--                                        <li><i class="fab fa-cc-amex"></i></li>-->
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+
+		<!-- Facebook Pixel Code -->
+		<script>
+		! function(f, b, e, v, n, t, s) {
+			if(f.fbq) return;
+			n = f.fbq = function() {
+				n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if(!f._fbq) f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '136403081447207');
+		fbq('track', 'PageView');
+		</script>
+		<noscript> <img height="1" width="1" src="https://www.facebook.com/tr?id=136403081447207&ev=PageView
+&noscript=1" /> </noscript>
+		<!-- End Facebook Pixel Code -->
+
+
+		<script type="text/javascript">
+		window.ga = function() {
+			ga.q.push(arguments)
+		};
+		ga.q = [];
+		ga.l = +new Date;
+		ga('create', 'UA-XXXXX-Y', 'auto');
+		ga('send', 'pageview')
+		</script>
+		<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+		<!--====== Vendor Js ======-->
+		<script src="{% static 'home/js/vendor.js' %}"></script>
+		<!--====== jQuery Shopnav plugin ======-->
+		<script src="{% static 'home/js/jquery.shopnav.js' %}"></script>
+		<!--====== App ======-->
+		<script src="{% static 'home/js/app.js' %}"></script>
+		<!--====== Noscript ======-->
+		<noscript>
+			<div class="app-setting">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="app-setting__wrap">
+								<h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1> <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</noscript>
+	</div>
+</body>
+
+</html>

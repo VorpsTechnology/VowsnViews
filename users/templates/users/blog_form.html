@@ -1,0 +1,59 @@
+{% extends "users/dashboard_base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+<style>
+    th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+}
+</style>
+{% endblock head %}
+
+{% block data %}
+    <form method="POST" enctype="multipart/form-data" style="margin-left: 0em;padding: 1em;width: 100%;">
+        {% csrf_token %}
+        
+            <legend class="border-bottom mb-4">Add Diaries</legend>
+            
+            <fieldset class="form-group row">
+            <div class="col-lg-6 mb-4">
+
+            <label class="gl-label" for="id_email">Title *</label>
+
+            <input class="input-text input-text--primary-style" type="text" id="id_title" name="title" placeholder="" required style="width: 100%;"></div>
+            
+            
+            <div class="col-lg-6">
+                {{ form.image|as_crispy_field }}
+            </div>
+            
+            <div class="col-lg-12 mb-4">
+
+            <label class="gl-label" for="id_email">Short Description *</label>
+
+            <textarea class="input-text--primary-style" id="id_short_description" name="short_description" cols="10" rows="10"  required style="width: 100%;"></textarea></div>
+            
+            
+            <div class="col-lg-12 mb-5">
+
+            <label class="gl-label" for="id_email">Content *</label>
+
+            <textarea class="input-text--primary-style" id="id_description" name="description" cols="40" rows="10"  required style="width: 100%;"></textarea></div>
+            
+            <div class="col-12">
+            <button class="btn btn-info w-100" type="submit">Submit</button>
+        </div>
+            
+            
+            
+            <!--{{ form|crispy }}-->
+        </fieldset>
+        
+    </form>
+{% endblock data %}

@@ -1,0 +1,160 @@
+{% extends "home/base.html" %}
+{% load home_extras %}
+{% load static %}
+{% block content %}
+
+
+<div class="app-content">
+        <div class="u-s-p-y-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shop-p">
+                            <div class="shop-p__toolbar u-s-m-b-30">
+                                <div class="shop-p__meta-wrap u-s-m-b-60">
+                                <div class="shop-p__tool-style">
+                                    <div class="tool-style__group u-s-m-b-8">
+                                        <span class="js-shop-grid-target is-active">Grid</span>
+                                        <span class="js-shop-list-target">List</span>
+
+                                         <div class='row title-row my-5' style="margin-left:5em;">
+                                            <div class='col-12 py-0'>
+                                                <h3 class='my-0 py-0'>{{ count }} results for <b>{{ query }}</b></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <form>
+                                        <div class="tool-style__form-wrap">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="shop-p__collection">
+                                <div class="row is-grid-active">
+                                   {% for object in object_list %}
+                                     {% with object|class_name as klass %}
+                                     {% if klass == 'Product' %}
+                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                     {% else %}
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                     {% endif %}
+                                        <div class="product-m">
+                                            <div class="product-m__thumb">
+
+                                            {% if klass == 'Product' %}
+                                                <a class="aspect aspect aspect--square u-d-block" href="{{ object.get_search_redirect }}">
+                                            {% else %}
+                                              <a class="aspect aspect--bg-grey  u-d-block" href="{{ object.get_search_redirect }}" style="height: 260px;">
+                                            {% endif %}   
+                                            
+                                                    {% if klass == 'Product' %}
+                                                       <img class="aspect__img" src="{{ object.get_image }}" alt="" style="width: 170px;margin-left: 3em;"></a>
+                                                    {% else %}
+                                                        <img class="aspect__img" src="{{ object.get_image }}" alt="" style="height: 260px;object-fit: cover;"></a>
+                                                    {% endif %}
+                                                <div class="product-m__add-cart">
+                                                    <a href="{{ object.get_search_redirect }}" class="btn--e-brand" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">View Detail</a>
+                                                </div>
+
+                                            </div>
+                                              {% if klass == 'Product' %}
+                                              {% if object.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;">{{object.label}}</span>
+                                              {% endif %}
+                                              {% elif klass == 'Listing' %}
+                                              {% if object.label %}
+                                                <span class="pd-text" style="background-color:#965B92;color:#fff;">{{object.label}}</span>
+                                              {% endif %}
+                                              {% endif %}
+
+ 
+                                           {% if klass == 'Product' %}
+                                            <div class="product-m__content">
+                                                    <center><div class="product-m__category">
+
+                                                        <a href="">{{ object.category }}</a></div></center>
+                                                    <center><div class="product-m__name">
+
+                                                        <a href="{% url 'product-detail-view' object.id %}">{{ object.title }}</a></div></center>
+                                                    <div class="product-m__rating gl-rating-style">
+<!--                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>-->
+<!--                                                        <span class="product-m__review">(23)</span>-->
+                                                    </div>
+                                                
+
+                            
+                                            <center><span class="product-o__price">{% currency request object.discount_price %}
+
+                                            <span class="product-o__discount">{% currency request object.price %}</span></span></center>
+                                            
+                                            <center><span class="product-o__price">({{ object.discount_percentage }}% OFF)</span></span></center>
+                                          
+                                                    <div class="product-m__hover">
+                                                        <center><div class="product-m__preview-description">
+                                                            
+                                                         
+
+                                                            <!--<span>{{ object.short_description|safe }}</span>-->
+                                                            </div></center>
+                                                        <div class="product-m__wishlist">
+
+                                                            <a class="far fa-heart" href="{% url 'product-favorite-add' object.id %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                            
+                                            <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="">{{ object.category }}</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="{% url 'listing-detail-view' object.id %}">{{ object.title }} -</a> &nbsp;&nbsp;&nbsp;&nbsp;  <a href="{% url 'listing-favorite-add' object.id %}"><span class="pd-detail__click-wrap"><i class="far fa-heart u-s-m-r-6" ></i></span></a><span>&nbsp;&nbsp;{% if object.is_verified %}<img src="{% static 'home/icons/check.png' %}" width="20px" style="margin-top: -0.2em;" data-toggle="tooltip" data-placement="bottom" title="This Vendor is Verified">{% endif %}</span>                             
+
+                                                           <br> <span>{{ object.location }}</span><br>
+                                                            <span>
+                                                                {% if object.low_price and object.high_price %}
+                                                                {% currency request object.low_price %}-{% currency request object.high_price %}
+                                                                
+                                        {% if object.price_for %}
+                                         / - {{ object.price_for }}
+                                        {% endif %}
+                                                                
+                                                                {% endif %}
+                                                                </span>
+
+                                                    </div>
+                                                    <div class="product-m__rating gl-rating-style">
+<!--                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>-->
+<!--                                                        <span class="product-m__review">(23)</span>-->
+                                                    </div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+                                                            <div class="product-m__name">
+
+                                                        </div>
+                                                        </div>
+                                                        <div class="product-m__wishlist">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                    {% endwith %}
+                                    {% empty %}
+                                        <h1>Nothing matching this search!</h1>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+{% endblock content %}

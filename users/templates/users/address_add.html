@@ -1,0 +1,81 @@
+{% extends "users/account_base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {% if 'safe' in message.tags %}
+            {{ message|safe }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% block data %}
+<div class="dash__pad-2">
+<h1 class="dash__h1 u-s-m-b-14">Add new Address</h1>
+
+<span class="dash__text u-s-m-b-30">We need an address where we could deliver products.</span>
+
+<form class="dash-address-manipulation" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="gl-inline">
+            <div class="u-s-m-b-30">
+                <label class="gl-label" for="id_street_address">STREET ADDRESS  *</label>
+                <textarea class="input-text input-text--primary-style" cols="20" rows="20" name="street_address" id="id_street_address" required placeholder="House Name and Street" style="padding-top:0.5em;"></textarea>
+            </div>
+        </div>
+
+        <div class="gl-inline">
+            <div class="u-s-m-b-30">
+                <label class="gl-label" for="id_country">Country *</label>
+               <input class="input-text input-text--primary-style" name="country" type="text" id="id_country" required placeholder="Country">
+            </div>
+
+            <div class="u-s-m-b-30">
+                <label class="gl-label" for="id_state">STATE/PROVINCE *</label>
+               <input class="input-text input-text--primary-style" name="state" type="text" id="id_state" required placeholder="State/Province">
+            </div>
+        </div>
+
+        <div class="gl-inline">
+            <div class="u-s-m-b-30">
+                <label class="gl-label" for="id_city">TOWN/CITY *</label>
+                <input class="input-text input-text--primary-style" type="text" id="id_city" name="city" placeholder="Town/City" required>
+            </div>
+            
+            <div class="u-s-m-b-30">
+                <label class="gl-label" for="id_pin_code">ZIP/POSTAL CODE *</label>
+                <input class="input-text input-text--primary-style" type="number" id="id_pin_code" placeholder="Zip/Postal Code" name="pin_code" required>
+            </div>
+        
+        </div>
+        
+        <div class="gl-inline">
+            {% for field in form %}
+                {% if 'Default:' in field.label_tag %}
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label">DEFAULT ADDRESS *</label>
+                        <div class="gl-inline">
+                            <span>Make Default Address</span>
+                            <div class="input-text" style="padding-top:1em;">{{ field }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">SAVE</button>
+</form>
+</div>
+
+{% endblock data %}
+
+
+
+
+
+

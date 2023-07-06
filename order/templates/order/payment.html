@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_i0HNRWk4YcxzS6
+            data-amount="{{ amount }}"
+            data-currency="{{ order_currency }}"
+            data-order_id="{{ payment.id }}"
+            data-buttontext="Pay with Razorpay"
+            data-name="VowsnViews"
+            data-description="VowsnViews"
+            data-image="https://example.com/your_logo.jpg"
+            data-prefill.name="{{ user.user_full_name }}"
+            data-prefill.email="{{ user }}"
+            data-prefill.contact="{{ user.phone_number }}"
+            data-theme.color="#965B92"
+            >
+        </script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+
+{% endblock %}

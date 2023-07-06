@@ -1,0 +1,192 @@
+{% extends "vendors/base.html" %}
+{% load static %}
+
+{% block meta %}
+
+<title>Pricing Plans</title>
+<meta name="description" content="Planning your wedding? VowsnViews guide you to find the best wedding planners and decorators.  Hire professional Handpicked wedding planners & décorators.">
+
+{% endblock meta %}
+
+{% block head %}
+<style>
+   .overlays {
+  opacity: 10;
+  color: white;
+  background-color: #000;
+}
+
+
+
+.pricing .card {
+  border-radius: 0rem;
+  transition: all 0.2s;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.pricing hr {
+  margin: 1.5rem 0;
+}
+
+.pricing .card-title {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+}
+
+.pricing .card-price {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.pricing .card-price .period {
+  font-size: 0.8rem;
+}
+
+.pricing ul li {
+  margin-bottom: 1rem;
+}
+
+.pricing .text-muted {
+  opacity: 0.7;
+}
+
+.pricing .btn {
+  border: none;
+  font-size: 80%;
+  border-radius: 0rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+/* Hover Effects on Card */
+
+@media (min-width: 992px) {
+  .pricing .card:hover {
+    margin-top: -.25rem;
+    margin-bottom: .25rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+  }
+  .pricing .card:hover .btn {
+    opacity: 1;
+  }
+}
+
+</style>
+{% endblock head %}
+
+{% block data %}
+
+<section class="pricing pb-5">
+  <div class="container">
+
+    <!--<h2 style="font-weight: bold;margin-top: 1em;" align="Center">Pricing Plans</h2>-->
+    <!--                      <p style="margin-bottom: 5em;" align="Center">Find the best vendor for your wedding & Events , Plan You wedding easy!</p>-->
+
+    <div class="row">
+      <!-- Free Tier -->
+      <div class="col-lg-3 p-1">
+        <div class="card mb-5 mb-lg-0">
+          <div class="card-body" style="padding: 2em 1em;font-weight: 500;">
+            <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
+            <h6 class="card-price text-center">₹0<span class="period">/-</span></h6>
+            <hr>
+            <ul class="fa-ul" style="text-transform: capitalize;">
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span><strong>Limited Inquiries / Leads</strong></li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing Display.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Limited Image & Video Upload</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Connect Instagram & Google Reviews.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Email Support.</li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-block btn-primary text-uppercase" style="background: #965B92;">Contact</a>
+          </div>
+        </div>
+      </div>
+      <!-- Plus Tier -->
+      <div class="col-lg-3 p-1">
+        <div class="card mb-5 mb-lg-0">
+          <div class="card-body" style="padding: 2em 1em;font-weight: 500;">
+            <h5 class="card-title text-muted text-uppercase text-center"> Recommended</h5>
+            <h6 class="card-price text-center">₹4,799<span class="period">/month</span></h6>
+            <hr>
+            <ul class="fa-ul" style="text-transform: capitalize;">
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span><strong>Unlimitied Inquiries / Leads</strong></li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Personal landing page ads.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366;"></i> </span>Listing Display will be on top of the free listings and special Sections.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Limited Image & Video Upload.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Connect Instagram & Google Reviews.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Email Support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>call Support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Get direct Inquiries in your dashboard inbox.</li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-block btn-primary text-uppercase" style="background: #965B92;">Contact</a>
+          </div>
+        </div>
+      </div>
+      <!-- Pro Tier -->
+      <div class="col-lg-3 p-1">
+        <div class="card">
+          <div class="card-body" style="padding: 2em 1em;font-weight: 500;">
+            <h5 class="card-title text-muted text-uppercase text-center"> In Demand</h5>
+            <h6 class="card-price text-center">₹7,499<span class="period">/month</span></h6>
+            <hr>
+            <ul class="fa-ul" style="text-transform: capitalize;">
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span><strong>Unlimited Inquiries / Leads</strong></li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Personal landing page on ads.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing Display will be on top of the recommended listings and special Sections.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Unlimited Image/Video Upload.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Connect Instagram & Google Reviews.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Email Support. </li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Call Support. </li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing support. </li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Get direct Inquiries in your dashboard inbox.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Analytics.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Display contact Details.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Call now button.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Inquires update on SMS & Whats app.</li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-block btn-primary text-uppercase" style="background: #965B92;">Contact</a>
+          </div>
+        </div>
+      </div>
+
+        <div class="col-lg-3 p-1">
+        <div class="card">
+          <div class="card-body" style="padding: 2em 1em;font-weight: 500;">
+            <h5 class="card-title text-muted text-uppercase text-center">VNV Elite <br>(Selective Vendors Only)</h5>
+<!--            <h6 class="card-price text-center">$49<span class="period">/month</span></h6>-->
+            <hr>
+            <ul class="fa-ul" style="text-transform: capitalize;">
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span><strong>Unlimited Inquiries / Leads.</strong></li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>In House service vendor panel priority.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Personal landing page ads.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Unlimited Image/Video Upload.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing Display Will Be On Top Of The In-demand Listings And Special Sections.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Connect Instagram & Google Reviews.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Verified Listing.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Email Support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>call Support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Listing Support.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Get Direct Inquiries In Your Dashboard Inbox.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Analytics.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Display contact Details.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Call now button.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Inquires Update On SMS & Whatsapp.</li>
+              <li><span class="fa-li"><i class="fas fa-check" style="color: #25d366"></i> </span>Chatbox .</li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-block btn-primary text-uppercase" style="background: #965B92;">Contact</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+{% endblock data %}

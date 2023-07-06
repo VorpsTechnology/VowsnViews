@@ -1,0 +1,467 @@
+{% extends "users/dashboard_base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {% if 'safe' in message.tags %}
+            {{ message|safe }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+	{% block head %}
+
+<style>
+
+   .containers {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.containers img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+
+.container {
+	position: relative;
+	color: white;
+}
+
+.bottom-left {
+	position: absolute;
+	bottom: 8px;
+	left: 16px;
+}
+
+.top-left {
+	position: absolute;
+	top: 8px;
+	left: 16px;
+}
+
+.top-right {
+	position: absolute;
+	top: 8px;
+	right: 16px;
+}
+
+.bottom-right {
+	position: absolute;
+	bottom: 8px;
+	right: 16px;
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+
+.containers img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.overlay-images {
+	position: relative;
+	width: 100%;
+}
+
+
+/* Original image */
+
+.overlay-images .image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+
+/* Original text overlay */
+
+.overlay-images .text {
+	color: #fff;
+	font-size: 30px;
+	line-height: 1.5em;
+	text-shadow: 2px 2px 2px #000;
+	text-align: center;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+.overlay-images .normal {
+	transition: .5s ease;
+}
+
+.overlay-images .normal {
+	opacity: 1;
+}
+
+.overlay-images .hover {
+
+}
+
+.overlay-images .hover {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 1;
+	transition: .5s ease;
+}
+
+
+/* New overlay appearance on hover */
+
+.overlay-images:hover .hover {
+	opacity: 1;
+}
+</style>
+
+	{% endblock head %}
+
+{% block data %}
+
+ <!--====== End - Main Header ======-->
+
+<!--====== App Content ======-->
+
+<!--                                <div class="col-lg-9 col-md-12">-->
+<!--                                    <div class="dash__box dash__box&#45;&#45;shadow dash__box&#45;&#45;radius dash__box&#45;&#45;bg-white">-->
+<!--                                        <div class="dash__pad-2">-->
+                                            <h3 style="color: #000;font-weight: bold;margin-top: 1em;">Edit Profile</h3>
+                                            <p style="margin-top: -1em;">Looks like you haven't update your profile</p><hr>
+
+<!--                                            <span class="dash__text u-s-m-b-30">Looks like you haven't update your profile</span>-->
+
+<!--                                                <div class="banner-bg" style="background-image: url({{ user.user_profile_pic.url }});height: 400px;">-->
+<!--                                            <div class="section__content">-->
+<!--                                                <div class="container">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-lg-12">-->
+<!--                                                            <div class="banner-bg__countdown">-->
+<!--                                                            </div>-->
+<!--                                                            <div class="banner-bg__wrap">-->
+<!--                                                                <div class="banner-bg__text-1"> </div>-->
+<!--                                                                <div class="banner-bg__text-2"> <span class="u-c-secondary"></span> <span class="u-c-white"></span></div><a onclick="chooseFile()"><span class="banner-bg__text-block banner-bg__text-3 u-c-secondary u-c-white" style="margin-top: 15em;background: #000;opacity: 0.5;padding: 1em;">Change Photo</span></a>-->
+<!--                                                                <a class="" href=""></a>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash;====== End - Section Content ======&ndash;&gt;-->
+<!--                                        </div>-->
+
+                                                <div class=" overlay-images _ay "><a>
+                                             <img class=" image _b0 " src="{{ user.user_profile_pic.url }}" alt="Alt text" style="width: 100%;height: 450px;object-fit: cover;object-position: 0% -20%;" />
+                                             <div class=" hover _b1 ">
+                                              <div class=" text _2 " style="padding: 1em;">
+                                                  <div class="banner-bg__text-2"> <span class="u-c-secondary"></span> <span class="u-c-white"></span></div><a onclick="chooseFile()"><span class="banner-bg__text-block banner-bg__text-3 u-c-secondary u-c-white" style="margin-top: 15em;background: #000;opacity: 0.5;padding: 0.5em;">Change Photo</span></a>
+                                              </div>
+                                             </div>
+                                             <p class="gl-label">Image size : min 700x500</p>
+                                            </a></div>
+                                            
+                                            
+                                            
+
+                                            <div class="row" style="padding: 2em;">
+                                                <div class="col-lg-12">
+                                                    <form class="dash-edit-p" method="post" enctype="multipart/form-data">
+                                                         {% csrf_token %}
+
+                                                        <div class="gl-inline">
+                                                            {% for field in form %}
+                                                          {% if "User profile pic:" in field.label_tag %}
+                                                            <div class="u-s-m-b-30" style="display:none;">
+                                                               <input type="file" id="id_user_profile_pic" name="user_profile_pic" onchange="this.form.submit()">
+                                                            </div>
+                                                            <noscript>
+														<input type="submit" value="Submit">
+													</noscript>
+                                                              {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="gl-inline">
+                                                        {% for field in form %}
+                                                        {% if 'Name:' in field.label_tag %}
+                                                            <div class="gl-inline">
+                                                                    <div class="u-s-m-b-30">
+                                                                        <label class="gl-label" for="id_user_full_name">NAME  *</label>
+                                                                        <input class="input-text input-text--primary-style" type="text" id="id_user_full_name" name="user_full_name" placeholder="James" required value="{{ field.value }}">
+                                                                    </div>
+                                                            </div>
+                                                            {% endif %}
+                                                         {% endfor %}
+
+                                                        {% for field in form %}
+                                                            {% if 'Partner name:' in field.label_tag %}
+                                                            <div class="gl-inline">
+                                                                    <div class="u-s-m-b-30">
+                                                                        <label class="gl-label" for="id_partner_full_name">PARTNER NAME *</label>
+                                                                        <input class="input-text input-text--primary-style" type="text" id="id_partner_full_name" name="partner_full_name" placeholder="Nia" required value="{{ field.value }}">
+                                                                    </div>
+                                                            </div>
+                                                            {% endif %}
+                                                         {% endfor %}
+                                                        </div>
+
+                                                        <div class="gl-inline">
+                                                              {% for field in form %}
+                                                            {% if "Phone number:" in field.label_tag %}
+                                                                <div class="gl-inline">
+                                                                     <div class="u-s-m-b-30">
+                                                                        <label class="gl-label" for="id_phone_number">PHONE NUMBER *</label>
+                                                                        <input class="input-text input-text--primary-style" required type="tel" pattern="[789][0-9]{9}" name="phone_number" id="id_phone_number" placeholder="Phone" value="{{ field.value }}"/>
+                                                                    </div>
+                                                                 </div>
+                                                            {% endif %}
+                                                         {% endfor %}
+
+
+                                                        {% for field in form %}
+                                                            {% if "Email:" in field.label_tag %}
+                                                                <div class="gl-inline">
+                                                                  <div class="u-s-m-b-30">
+                                                                    <label class="gl-label" for="id_email">E-MAIL *</label>
+                                                                    <input class="input-text input-text--primary-style" type="text" id="id_email" name="email" placeholder="Enter E-mail" required value="{{ field.value }}" s>
+                                                                  </div>
+                                                                 </div>
+                                                            {% endif %}
+                                                         {% endfor %}
+                                                        </div>
+
+
+
+                                                    <div class="gl-inline">
+
+                                                         {% for field in form %}
+                                                        {% if 'User bride groom:' in field.label_tag %}
+                                                            <div class="u-s-m-b-30">
+                                                                <label class="gl-label">I AM *</label>
+                                                                <div class="gl-inline">
+                                                                    <div class="input-text input-text&#45;&#45;primary-style">
+                                                                    <input type="radio"  name="user_bride_groom" value="Bride" style="margin-top: 1em;">
+                                                                     <span for="id_user_bride_groom" style="margin-top: 0em;">Bride</span>
+
+                                                                    <input type="radio" name="user_bride_groom" value="Groom" style="margin-left: 1em;">
+                                                                    <span for="id_user_is_groom" style="margin-top: 0em;">Groom</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% endfor %}
+
+                                                                       {% for field in form %}
+                                                         {% if 'Partner bride groom:' in field.label_tag %}
+                                                        <div class="u-s-m-b-30">
+                                                                <label class="gl-label">MY PARTNER IS *</label>
+                                                                    <div class="input-text input-text&#45;&#45;primary-style">
+                                                                    <input type="radio"  name="partner_bride_groom" value="Bride" style="margin-top: 1em;">
+                                                                     <span for="id_user_bride_groom" style="margin-top: 0em;">Bride</span>
+
+                                                                    <input type="radio" name="partner_bride_groom" value="Groom" style="margin-left: 1em;">
+                                                                    <span for="id_user_is_groom" style="margin-top: 0em;">Groom</span>
+                                                                    </div>
+                                                                </div>
+
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+
+                                                                                            <div class="gl-inline">
+                                                {% for field in form %}
+                                                            {% if 'Wedding date:' in field.label_tag %}
+                                                                <div class="gl-inline">
+                                                                   <div class="u-s-m-b-30">
+                                                                    <label class="gl-label" for="id_wedding_date">WEDDING DATE *</label>
+                                                                    <input class="input-text input-text--primary-style" type="text"  value="{{ field.value }}" disabled/>
+                                                                    <input class="input-text input-text--primary-style" type="date" name="wedding_date" id="id_wedding_date" placeholder="" value="{{ field.value }}" required/>
+                                                                       <br>
+                                                                    <small>Change Wedding Date to</small>
+                                                                   </div>
+                                                                </div>
+                                                            {% endif %}
+                                                         {% endfor %}
+
+                                                        {% for field in form %}
+                                                         {% if 'Wedding venue:' in field.label_tag %}
+                                                            <div class="gl-inline">
+                                                                <div class="u-s-m-b-30">
+                                                                    <label class="gl-label" for="id_wedding_venue">WEDDING VENUE *</label>
+                                                                    <input class="input-text input-text--primary-style" required type="text" name="wedding_venue" id="id_wedding_venue" placeholder="Wedding Venue" value="{{ field.value }}"/>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                         {% endfor %}
+                                                        </div>
+
+
+                                                                    {% if form.errors %}
+                                                <div class="alert alert-error">
+                                                    {% for field in form %}
+                                                      {% if field.errors %}
+                                                        {% for error in field.errors %}
+                                                           <p style="color: red;">{{ error }}</p>
+                                                        {% endfor %}
+                                                      {% endif %}
+                                                    {% endfor %}
+                                                  {% if form.non_field_errors %}
+                                                    <p style="color: red;">{{ form.non_field_errors }}</p>
+                                                  {% endif %}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if messages %}
+                                                <span class="messages">
+                                                    {% for message in messages %}
+                                                    <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+                                                    {% endfor %}
+                                                </span>
+                                            {% endif %}
+
+
+<!--                                                        <div class="gl-inline">-->
+<!--                                                            <div class="u-s-m-b-30">-->
+
+<!--                                                                &lt;!&ndash;====== Date of Birth Select-Box ======&ndash;&gt;-->
+
+<!--                                                                <span class="gl-label">BIRTHDAY</span>-->
+<!--                                                                <div class="gl-dob"><select class="select-box select-box&#45;&#45;primary-style">-->
+<!--                                                                        <option selected>Month</option>-->
+<!--                                                                        <option value="male">January</option>-->
+<!--                                                                        <option value="male">February</option>-->
+<!--                                                                        <option value="male">March</option>-->
+<!--                                                                        <option value="male">April</option>-->
+<!--                                                                    </select><select class="select-box select-box&#45;&#45;primary-style">-->
+<!--                                                                        <option selected>Day</option>-->
+<!--                                                                        <option value="01">01</option>-->
+<!--                                                                        <option value="02">02</option>-->
+<!--                                                                        <option value="03">03</option>-->
+<!--                                                                        <option value="04">04</option>-->
+<!--                                                                    </select><select class="select-box select-box&#45;&#45;primary-style">-->
+<!--                                                                        <option selected>Year</option>-->
+<!--                                                                        <option value="1991">1991</option>-->
+<!--                                                                        <option value="1992">1992</option>-->
+<!--                                                                        <option value="1993">1993</option>-->
+<!--                                                                        <option value="1994">1994</option>-->
+<!--                                                                    </select></div>-->
+<!--                                                                &lt;!&ndash;====== End - Date of Birth Select-Box ======&ndash;&gt;-->
+<!--                                                            </div>-->
+<!--                                                            <div class="u-s-m-b-30">-->
+
+<!--                                                                <label class="gl-label" for="gender">GENDER</label><select class="select-box select-box&#45;&#45;primary-style u-w-100" id="gender">-->
+<!--                                                                    <option selected>Select</option>-->
+<!--                                                                    <option value="male">Male</option>-->
+<!--                                                                    <option value="male">Female</option>-->
+<!--                                                                </select></div>-->
+<!--                                                        </div>-->
+
+
+<!--                                                        <div class="gl-inline">-->
+<!--                                                            <div class="u-s-m-b-30">-->
+<!--                                                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>-->
+
+<!--                                                                <span class="dash__text">johndoe@domain.com</span>-->
+<!--                                                                <div class="dash__link dash__link&#45;&#45;secondary">-->
+
+<!--                                                                    <a href="#">Change</a></div>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="u-s-m-b-30">-->
+<!--                                                                <h2 class="dash__h2 u-s-m-b-8">Phone</h2>-->
+
+<!--                                                                <span class="dash__text">Please enter your mobile</span>-->
+<!--                                                                <div class="dash__link dash__link&#45;&#45;secondary">-->
+
+<!--                                                                    <a href="#">Add</a></div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+
+                                                        <button class="btn btn--e-transparent-brand-b-2" type="submit" style="border: 2px solid red">SAVE</button>
+                                                    </form>
+
+                                                    <br>
+<!--                                                     <div class="content-section">-->
+<!--                                                        <form method="POST" enctype="multipart/form-data">-->
+<!--                                                            {% csrf_token %}-->
+<!--                                                            <fieldset class="form-group">-->
+<!--                                                                <legend class="border-bottom mb-4">Update Details</legend>-->
+<!--                                                                {{ form|crispy }}-->
+<!--                                                            </fieldset>-->
+<!--                                                            <div class="form-group">-->
+<!--                                                                <button class="btn btn-outline-info" type="submit">Submit</button>-->
+<!--                                                            </div>-->
+<!--                                                        </form>-->
+
+<!--                                                        <div class="border-top pt-3">-->
+<!--                                                            <small class="text-muted">-->
+<!--                                                                Reset Password<a class="ml-2" href="{% url 'password_reset' %}">Sign Up</a>-->
+<!--                                                            </small>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+
+
+    <!--====== End - Main App ======-->
+
+
+    <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+
+
+
+
+
+
+
+
+
+    <!--====== End - Main App ======-->
+
+
+    <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+
+<script>
+   function chooseFile() {
+      document.getElementById("id_user_profile_pic").click();
+   }
+</script>
+
+{% endblock data %}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,282 @@
+
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block meta %}
+
+<title>Find the best destination wedding planner in Delhi, India</title>
+<meta name="description" content="Plan your destination wedding with vowsnviews experts in Goa, Udaipur, Jaipur, Jim Corbett. Browse your location list, filter vendor, check prices, portfolios.">
+
+{% endblock meta %}
+
+
+{% block head %}
+<style>
+.collapsible {
+  background-color: #965B92;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #965B92;
+}
+
+.contents {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #965B92;
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+{% endblock head %}
+{% block content %}
+
+<div class="app-content" style="margin-top:3em;">
+   <div class="hide-mobile" >
+	<div class=" overlay-image _ay "><a>
+                     <img class=" image _b0 " src="{% static 'home/images/banner/desitnation_wedding.jpg' %}" alt="Alt text" style="width: 100%;height: 400px;object-fit: cover;" />
+                     <div class=" hover _b1 ">
+                      <div class=" text _2 " style="padding: 1em;">
+						  <h2 style="color:#fff;font-weight: bold;">Destination Wedding</h1>
+                          <p style="margin-top:-1em;padding: 3em;font-size:0.6em;">When it comes to a wedding every single couple has their wishlist but some of them want to celebrate their wedding at an exotic and beautiful location that can embellish the most special occasion of a person’s life with charm and an incredible heavenliness. Where you love the palaces of Rajasthan or the beaches of Goa or the mountains of Kashmir, India has all of it to make your marriage ceremony an unforgettable event. we are here to help you with smart services and little hacks that will promise a smooth and fun experience!</p>
+                      </div>
+                     </div>
+                    </a></div>
+</div>
+
+	<div class="show-mobile" style="margin-top: -3em;">
+	<div class=" overlay-image _ay "><a href="">
+                     <img class=" image _b0 " src="{% static 'home/images/banner/desitnation_wedding.jpg' %}" alt="Alt text" style="width: 100%;height: 500px;object-fit: cover;" />
+                     <div class=" hover _b1 ">
+                      <div class=" text _2 " style="padding: 1em;">
+						  <h3 style="color:#fff;font-weight: bold;font-size:0.8em;">Destination Wedding</h3>
+                          <p style="margin-top: 1em;text-align: justify;font-size:0.5em;">When it comes to a wedding every single couple has their wishlist but some of them want to celebrate their wedding at an exotic and beautiful location that can embellish the most special occasion of a person’s life with charm and an incredible heavenliness. Where you love the palaces of Rajasthan or the beaches of Goa or the mountains of Kashmir, India has all of it to make your marriage ceremony an unforgettable event. we are here to help you with smart services and little hacks that will promise a smooth and fun experience!</p>
+<!--                    <p style="margin-top: 0em;">Find the best vendor for your wedding & Events , Plan You wedding easy!</p>-->
+                      </div>
+                     </div>
+                    </a></div>
+    </div>
+
+<div class="container" style="margin-top: 3em;margin-bottom: 3em;">
+
+    <div class="hide-mobile">
+                         <table width="100%" style="margin-top: 3em;">
+    <tr>
+        <th width="16.66%">
+            <center><i class="far fa-calendar-check" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Date</p>
+        </th>
+        <th width="16.66%">
+            <center><i class="fas fa-map-marker-alt" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Perfect Location</p>
+        </th>
+        
+        
+        <th width="16.66%">
+            <center><i class="fas fa-truck" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Perfect Vendor</p>
+        </th>
+        <th width="16.66%">
+            <center><i class="fas fa-clipboard-list" style="color: #965B92;font-size: 3em;" ></i></center>
+            <p align="center" style="margin-top: 1em;">Organizing Checklist</p>
+        </th>
+        <th width="16.66%">
+            <center><i class="fa fa-shopping-bag" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Wedding Shopping</p>
+        </th>
+        <th width="16.66%">
+            <center><i class="fas fa-magic" style="color: #965B92;font-size: 3em;margin-top: 0.5em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Decoration & Organizing Event</p>
+        </th>
+    </tr>
+</table>
+    </div>
+
+    <div class="show-mobile">
+        <table width="100%" style="margin-top: 3em;">
+    <tr>
+        <th width="33.33%">
+            <center><i class="far fa-calendar-check" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Date</p>
+        </th>
+        <th width="33.33%">
+            <center><i class="fas fa-map-marker-alt" style="color: #965B92;font-size: 3em;margin-top: 0.5em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Perfect Location</p>
+        </th>
+        <th width="33.33%">
+            <center><i class="fas fa-truck" style="color: #965B92;font-size: 3em;margin-top: 0.5em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Select Perfect Vendor</p>
+        </th>
+
+    </tr>
+            <tr>
+                <th width="33.33%">
+            <center><i class="fas fa-clipboard-list" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Organizing Checklist</p>
+        </th>
+        <th width="33.33%">
+            <center><i class="fa fa-shopping-bag" style="color: #965B92;font-size: 3em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Wedding Shopping</p>
+        </th>
+        <th width="33.33%">
+            <center><i class="fas fa-magic" style="color: #965B92;font-size: 3em;margin-top: 0.5em;"></i></center>
+            <p align="center" style="margin-top: 1em;">Decoration & Organizing Event</p>
+        </th>
+            </tr>
+</table>
+    </div>
+
+    <button type="button" class="collapsible" style="margin-top: 5em;font-size: 0.8em;"><i class="fas fa-caret-right"></i> &nbsp&nbspShould You Book A Wedding Planner For Your Wedding?</button>
+                        <div class="content">
+                          <p style="margin: 2em;">In India, wedding planners are often considered an ‘extra expenditure’ at a wedding – something that only the ‘rich people’ can afford.Yes, we know you can manage all those wedding arrangements yourself, but wouldn’t you want to keep your hands free and have a good time at a wedding ? If you really want to have fun at your wedding, without any worry or restrictions, then it would be a wise decision to rope in a good wedding planner!(This is applicable for budget weddings, too!)</p>
+                        </div>
+
+                        <button type="button" class="collapsible" style="font-size: 0.8em;"><i class="fas fa-caret-right"></i> &nbsp&nbspWhat all will a wedding planner take care of?</button>
+                        <div class="content">
+                          <p style="margin: 2em;">A wedding planner would provide 360-degree services to organize your dream wedding for you.From taking care of the venue, along with the different vendors and services for your wedding, to accomodation, food, videography and / or photography, decor design and execution to traveling, and more, the planner will take care of every big and small detail on your behalf.</p>
+                        </div>
+                        <button type="button" class="collapsible" style="font-size: 0.8em;"><i class="fas fa-caret-right"></i> &nbsp&nbspHow much does a wedding planner cost?</button>
+                        <div class="content">
+                          <p style="margin: 2em;">Wedding planners in India can cost anywhere between Rs 2 to 6 Lakhs.This cost can vary, depending upon the popularity of the planners, and the destination or the scale of the wedding.Please note – This is only the cost of the wedding planner’s services.Every other service that you avail for your wedding is a tie up with third party vendors that you will need to additionally pay for.</p>
+                        </div>
+
+
+    <h2 align="center" style="margin-top: 3em;color: #965B92">Hot Locatations To Get Married</h2>
+
+                         <div class="section__content" style="margin-top: 3em;">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            {% for list in object_list%}
+                                                            <div class="col-lg-3 col-md-4 col-sm-6 u-s-m-b-30" onclick="window.location.href='https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{list.id}}&vendor_name='">
+                                                                <div class="team-member u-h-100">
+                                                                    <div class="team-member__wrap">
+                                                                        <div class="aspect aspect--bg-grey-fb aspect--square" >
+                                                                        {% if list.image %}
+                                                                            <img class="aspect__img team-member__img" src="{{ list.image.url }}" alt="" style="padding: 0em;">
+                                                                        {% endif %}
+                                                                            </div>
+                                                                        <div class="team-member__social-wrap">
+                                                                            <ul class="team-member__social-list">
+                                                                              <!--<li>-->
+
+                                                                              <!--      <a class="s-tw--bgcolor-hover" href="https://vowsnviews.com/listing/list/?note=&discount_price_min=&discount_price_max=&location={{list.id}}&vendor_name="><i class="fab fa-add"></i> + </a></li>-->
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="team-member__info">
+
+                                                                        <span class="team-member__name">{{ list.title }}</span>
+
+                                                                        <span class="team-member__job-title"></span></div>
+                                                                </div>
+                                                            </div>
+                                                            {% endfor %}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+<div class="tab" style="margin-top: 3em;">
+  <button class="tablinks active" onclick="openCity(event, 'Goa')">Goa</button>
+  <button class="tablinks" onclick="openCity(event, 'Jaipur')">Jaipur</button>
+  <button class="tablinks" onclick="openCity(event, 'Udaipur')">Udaipur</button>
+  <button class="tablinks" onclick="openCity(event, 'Jim')">Jim Corbet</button>
+</div>
+
+<div id="Goa" class="tabcontent" style="display:block;">
+<p>{{ destination_wedding.goa|safe }}</p>
+</div>
+
+<div id="Jaipur" class="tabcontent">
+<p>{{ destination_wedding.jaipur|safe }}</p>
+</div>
+
+
+ <div id="Udaipur" class="tabcontent">
+<p>{{ destination_wedding.udaipur|safe }}</p>
+</div>
+
+ <div id="Jim" class="tabcontent">
+<p>{{ destination_wedding.jim_corbet|safe }}</p>
+</div>
+
+
+
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+    {% endblock content %}

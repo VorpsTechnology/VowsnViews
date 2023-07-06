@@ -1,0 +1,36 @@
+{% extends "analytics/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this message code for HTML in message-->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {% if 'safe' in message.tags %}
+            {{ message|safe }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% block data %}
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <!--<legend class="border-bottom mb-4">Parent Category</legend>-->
+            <h2>Are you sure you want to delete ?</h2>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </div>
+    </form>
+{% endblock data %}
+
+
+
+
+
+

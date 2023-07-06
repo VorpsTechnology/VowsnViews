@@ -1,0 +1,251 @@
+{% extends "analytics/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+            <h2 style="margin-left:0.5em;margin-bottom: -0.2em;">Order Details</h2>
+</div></div>
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                <div class="dash__pad-2">
+                    <div class="dash-l-r">
+                    <div>
+                        <div class="manage-o__text-2 u-c-secondary">Order #{{ object.order_ref_number }}</div>
+                        <div class="manage-o__text u-c-silver">Placed on {{ object.ordered_date_time }}</div>
+                    </div>
+                    <div>
+                        <div class="manage-o__text-2 u-c-silver">Total:
+                            <span class="manage-o__text-2 u-c-secondary">₹{{ object.cart.get_final_price }}</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+    </div>
+
+ <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+            <div class="dash__pad-2">
+                <div class="manage-o">
+            <div class="manage-o__header u-s-m-b-30">
+                <div class="manage-o__icon"><i class="fas fa-box u-s-m-r-5"></i>
+
+                    <span class="manage-o__text">Package 1</span></div>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                </div>
+            </form>
+            <div class="dash-l-r">
+                {% if mini_order.order_status == 'Delivered' %}
+                    <div class="manage-o__text u-c-secondary">Delivered on {{ mini_order.delivered_time }}</div>
+                {% endif %}
+            </div>
+            <div class="manage-o__timeline">
+                <div class="timeline-row">
+                {% if mini_order.returnminiorder_set.all %}
+                    {% for return in mini_order.returnminiorder_set.all %}
+                        {% if return.return_status == 'Processing Return Request' %}
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Processing Return Request</span>
+                                </div>
+                            </div>
+                             <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Item Received by Vendor</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Return Granted</span>
+                                </div>
+                            </div>
+                         {% elif return.return_status == 'Item Received by Vendor' %}
+                             <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Processing Return Request</span>
+                                </div>
+                            </div>
+                             <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Item Received by Vendor</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Return Granted</span>
+                                </div>
+                            </div>
+                        {% elif return.return_status == 'Return Granted' %}
+                             <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Processing Return Request</span>
+                                </div>
+                            </div>
+                             <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Item Received by Vendor</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Return Granted</span>
+                                </div>
+                            </div>
+                        {% elif return.return_status == 'Return Denied' %}
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Processing Return Request</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Item Received by Vendor</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+
+                                        <span class="timeline-circle"></span></div>
+
+                                    <span class="timeline-text">Return Denied</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
+                </div>
+            </div>
+            <div class="manage-o__description">
+                <div class="description__container">
+                    <div>
+
+                        <img src="{{  mini_order.cart.product.get_image }}" alt="" style="width: 100px;height: 100px;border-radius: 10%;"></div>
+                    <div class="description-title"><a href="{% url 'product-detail-view' mini_order.cart.product.id %}">{{ mini_order.cart.product.title }}</a></div>
+                    <div class="description-title">Vendor Name: {{ mini_order.cart.product.vendor_name }}</div>
+                </div>
+                <div class="description__info-wrap">
+                    <div>
+
+                        <span class="manage-o__text-2 u-c-silver">Quantity:
+
+                            <span class="manage-o__text-2 u-c-secondary">{{ mini_order.cart.quantity }}</span></span></div>
+                    <div>
+
+                        <span class="manage-o__text-2 u-c-silver">Total:
+
+                            <span class="manage-o__text-2 u-c-secondary">₹{{  mini_order.cart.get_final_price }}</span></span></div>
+                </div>
+
+            </div>
+                </div>
+
+
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-lg-6">
+             <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Shipping Address</h2>
+                <h2 class="dash__h2 u-s-m-b-8">{{ object.user.user_full_name }}</h2>
+
+                <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                <span class="dash__text-2">{{ object.user.phone_number }}</span>
+            </div>
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Billing Address</h2>
+                <h2 class="dash__h2 u-s-m-b-8">{{ object.user.user_full_name }}</h2>
+
+                <span class="dash__text-2">4247 Ashford Drive Virginia - VA-20006 - USA</span>
+
+                <span class="dash__text-2">{{ object.user.phone_number }}</span>
+            </div>
+             </div>
+        </div>
+        <div class="col-lg-6">
+             <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+            <div class="dash__pad-3">
+                <h2 class="dash__h2 u-s-m-b-8">Total Summary</h2>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Subtotal</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹{{ mini_order.cart.get_total_item_price }}</div>
+                </div>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Shipping Fee</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹0.0</div>
+                </div>
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Total</div>
+                    <div class="manage-o__text-2 u-c-secondary">₹{{ mini_order.cart.get_final_price }}</div>
+                </div>
+
+                <div class="dash-l-r u-s-m-b-8">
+                    <div class="manage-o__text-2 u-c-secondary">Paid by </div>
+                    <div class="manage-o__text-2 u-c-secondary">{{ mini_order.order_set.all.first.payment.payment_method }}</div>
+                </div>
+            </div>
+             </div>
+        </div>
+        </div>
+
+{% endblock data %}

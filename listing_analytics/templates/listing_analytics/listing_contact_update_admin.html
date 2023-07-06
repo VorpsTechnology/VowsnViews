@@ -1,0 +1,47 @@
+{% extends "listing_analytics/base.html" %}
+{% load crispy_forms_tags %}
+{% load products_extras %}
+{% load widget_tweaks %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block data %}
+
+{% block head %}
+
+<style>
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+</style>
+
+{% endblock head %}
+
+<!--<div class="tool-style__group u-s-m-b-8">-->
+
+<!--    <span class="js-shop-filter-target" data-side="#side-filter">Filters</span>-->
+<!--    <a href="{% url 'admin-product-category-add' %}"><span class="js-shop-list-target">Add Category</span></a>-->
+
+<!--</div>-->
+
+<div class="dash__pad-2">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Contact</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock data %}
