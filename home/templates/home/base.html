@@ -39,8 +39,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" href="{% static 'home/images/vnvlogo.png' %}"/>
     <link rel="icon" type="image/png" href="{% static 'home/images/vnvlogo.png' %}"/>
-	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float hide-mobile" target="_blank"> <i class="fab fa-whatsapp my-float"></i> </a>
-	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float show-mobile" target="_blank" style="bottom: 100px;"> <i class="fab fa-whatsapp my-float"></i> </a>
+	{% comment %} <a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float hide-mobile" target="_blank"> <i class="fab fa-whatsapp my-float"></i> </a>
+	<a href="https://api.whatsapp.com/send?phone=+91-9811041767&text=Contacting to you in regards of this page https://www.vowsnviews.com{{ request.path }}" class="float show-mobile" target="_blank" style="bottom: 100px;"> <i class="fab fa-whatsapp my-float"></i> </a> {% endcomment %}
 
 	<title>VowsnView</title>
 	<!--====== Google Font ======-->
@@ -258,7 +258,7 @@
 										<!--                                            </li>-->
 										<!--                                        </ul>-->
 										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
-										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9811041767"><i class="fas fa-phone-volume"></i></a></li>
+										{% comment %} <li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9811041767"><i class="fas fa-phone-volume"></i></a></li> {% endcomment %}
 										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:vowsnviews@gmail.com"><i class="far fa-envelope"></i></a></li>
 									</ul>
 								</div>
@@ -629,7 +629,7 @@
 										<!--                                        </ul>-->
 										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
 										<!--                                    </li>-->
-										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
+										{% comment %} <li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li> {% endcomment %}
 										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
 									</ul>
 								</div>
@@ -890,7 +890,7 @@
 										<div class="outer-footer__list-wrap"> <span class="outer-footer__content-title"></span>
 											<ul>
 												<!--<li> <a href="{% url 'about' %}">About us</a></li>-->
-												<li> <a href="{% url 'contact' %}">Contact Us</a></li>
+												{% comment %} <li> <a href="{% url 'contact' %}">Contact Us</a></li> {% endcomment %}
 												<!--<li> <a href="{% url 'sitemap' %}">Sitemap</a></li>-->
 												<li> <a href="{% url 'vendor-policy' %}">Vendor Policy</a></li>
 												<li> <a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
@@ -925,8 +925,8 @@
 						</div>
 
 								<div class="col-lg-4 pb-3">
-								    <a href="http://siteguide.co.in">
-											<p style="color: #fff;">Developed By Siteguide</p>
+								    <a href="https://vorpstech.com/">
+											<p style="color: #fff;">Developed By vorpstech</p>
 										</a>
 								</div>
 								<div class="col-lg-4 pb-5 mb-5 show-mobile">

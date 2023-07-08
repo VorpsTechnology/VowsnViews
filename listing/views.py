@@ -235,7 +235,7 @@ class ListingDetailView(View):
                 url = reverse('vendor-instagram-connect')
                 url = self.request.build_absolute_uri(url)
                 instagram_basic_display = InstagramBasicDisplay(app_id='549315439403500',
-                                                                app_secret='0c3fd79c822b212973bbd2f63d523137',
+                                                                app_secret='3e3eb5c1f2459efae6472238185f88c1',
                                                                 redirect_url='https://vowsnviews.com/auth/')
                 instagram_basic_display.set_access_token(token['access_token'])
                 profile = instagram_basic_display.get_user_profile()
@@ -296,7 +296,7 @@ class ListingDetailView(View):
         else:
             messages.warning(self.request, 'Please login to post review!')
             return redirect(f'/user/login/?next=detail/{self.kwargs.get("pk")}/')
-            
+
 
 class ListingInDetailView(View):
     def get(self, *args, **kwargs):
@@ -346,7 +346,8 @@ class ListingInDetailView(View):
                 url = reverse('vendor-instagram-connect')
                 url = self.request.build_absolute_uri(url)
                 instagram_basic_display = InstagramBasicDisplay(app_id='549315439403500',
-                                                                app_secret='0c3fd79c822b212973bbd2f63d523137',
+                                                                # app_secret='0c3fd79c822b212973bbd2f63d523137',
+                                                                app_secret='3e3eb5c1f2459efae6472238185f88c1',
                                                                 redirect_url='https://vowsnviews.com/auth/')
                 instagram_basic_display.set_access_token(token['access_token'])
                 profile = instagram_basic_display.get_user_profile()

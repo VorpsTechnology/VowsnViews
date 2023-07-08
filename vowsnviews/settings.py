@@ -6,9 +6,12 @@ from .local_settings import *
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = Secret_key
+
+
 # DEBUG = False
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ['vowsnviews.com', 'www.vowsnviews.com']
 
 
 INSTALLED_APPS = [
@@ -126,7 +129,7 @@ AUTH_USER_MODEL = 'users.User'  # Custom User Model
 # BootStrap
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  # To use Bootstrap
 
-# Basic Static and Media Files settings
+#Basic Static and Media Files settings
 # STATIC_URL = '/static/'
 # STATIC_ROOT = '/home/vowsnvie/public_html/static'
 # MEDIA_URL = '/media/'
@@ -151,5 +154,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER ='vowsnviews@gmail.com' 
-EMAIL_HOST_PASSWORD = 'hvfrtjoqpzchupdr'
+EMAIL_HOST_USER = Email 
+EMAIL_HOST_PASSWORD = Email_Pass

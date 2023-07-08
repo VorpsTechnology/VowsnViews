@@ -11,6 +11,7 @@ from users.forms import CurrencySelectForm
 from home.forms import NewsLetterForm
 from home.models import Contact, DestinationWedding, TPP, Landing, ListingCategoryBudget
 from .forms import ListingSearchForm, ContactForm, LandingForm, ListingCategoryBudgetForm
+from django.http import HttpResponse
 
 from users.models import (
     User, Address, Task, Budget, GuestList, Blog
@@ -18,6 +19,8 @@ from users.models import (
 from itertools import chain
 from products.models import Product, Category
 from listing.models import Listing, ListingLocation, ListingCategory, ParentListingCategory
+from django.urls import reverse_lazy
+
 
 
 def handler404(request, *args, **kwargs):
@@ -154,9 +157,10 @@ class listVendor(View):
                     listing_with_filter['planning_decor'][item.label]['normal'].append(item)
             else:
                 if item.is_verified:
-                    listing_with_filter['planning_decor']['without_label']['is_Verified'].append(item)
+                    listing_with_filter['planning_decor']['without_label']['is_verified'].append(item)
                 else:
                     listing_with_filter['planning_decor']['without_label']['normal'].append(item)
+
 
         for item in music:
             if item.label:
@@ -166,7 +170,7 @@ class listVendor(View):
                     listing_with_filter['music'][item.label]['normal'].append(item)
             else:
                 if item.is_verified:
-                    listing_with_filter['music']['without_label']['is_Verified'].append(item)
+                    listing_with_filter['music']['without_label']['is_verified'].append(item)
                 else:
                     listing_with_filter['music']['without_label']['normal'].append(item)
 
@@ -424,8 +428,9 @@ def save_location(request):
 class LandingView(CreateView):
     model = Landing
     form_class = LandingForm
-    template_name = "home/landing.html"
-    success_url = '/landing/'
+    template_name = "home/landings.html"
+    # success_url = '/landing/'
+    success_url = reverse_lazy('users-register')  
 
     def form_valid(self, form):
         phone_number = form.cleaned_data['mobile']
@@ -459,3 +464,25 @@ class LandingView(CreateView):
         list = ParentListingCategory.objects.all()
         context['parent_listing'] = list
         return context
+    
+
+
+    # def download_file(request):
+    #     file_url = 'https://vowsnviews.com/landing/path/to/file.js'
+    #     local_path = 'http://127.0.0.1:8000/landings/'  # Specify the local path where you want to save the file
+        
+    #     # Download the file
+    #     urllib.request.urlretrieve(file_url, local_path)
+        
+    #     # Once downloaded, you can use the file locally as needed
+        
+    #     # Example: Read the contents of the file
+    #     with open(local_path, 'r') as file:
+    #         file_contents = file.read()
+        
+    #     # Example: Perform operations on the file contents or use it in your Django application
+        
+    #     return HttpResponse('File downloaded successfully.')
+
+
+

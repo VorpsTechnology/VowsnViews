@@ -19,12 +19,12 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{% static 'home/landing/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+ <link href="{% static 'home/landing/assets/vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'home/landing/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'home/landing/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'home/landing/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
   <link href="{% static 'home/landing/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'home/landing/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/landing/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet"> 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <!-- For Custom Range Slider -->
@@ -270,12 +270,13 @@ button {
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center" style="height: 100%;">
+   
 
     <div class="container" style="top: 50%;">
       <div class="row">
         <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
           <div>
-            <h1 style="color: #965b92;">Vowsnviews</h1>
+            <h1 style="color: #965b92;">Create Your Wedding Plan With Ai</h1>
             <h4 style="font-size: 13px;line-height: 1.4;">Vow’s n View’s is an Indian Wedding Planning Website where you can find suitable and best wedding vendors in your budget at a single place. From booking a venue for your wedding till your honeymoon bookings we are here to serve you with numerous inspirational ideas for making your day special.</h2>
 <!--            <a href="#" class="download-btn"><i class="bx bxl-play-store"></i> Google Play</a>-->
 <!--            <a href="#" class="download-btn"><i class="bx bxl-apple"></i> App Store</a>-->
@@ -294,7 +295,7 @@ button {
             
             {% else %}
 
-            <form id="regForm" action="{% url 'landing' %}" method="post" style="width: 100%; height:100%;">
+            <form id="regForm" action="{% url 'landings' %}" method="post" style="width: 100%; height:100%;">
                 {% csrf_token %}
                 <!-- One "tab" for each step in the form: -->
 
@@ -381,7 +382,7 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "Get Started";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
@@ -609,7 +610,7 @@ function generateSubCategoriesForm() {
   let html = ''
   for (let object of objects){
     const default_min = 1000;
-    const default_max = 50000;
+    const default_max = 10000000;
     html = `
       <div class="budget_wrap mb-2">
         <p class="budget_name">${object.name}</p>
@@ -625,7 +626,7 @@ function generateSubCategoriesForm() {
     budgetContainer.append(html);
     let mySlider = new rSlider({
       target: `#${object.prefix}-rangeSlider`,
-      values: {min: 1000, max: 100000},
+      values: {min: 1000, max: 10000000},
       step: 1000,
       range: true,
       tooltip: true,
