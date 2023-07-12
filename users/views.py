@@ -101,10 +101,13 @@ def get_listing_category(request):
         parent_category=parent_listing_category)
     return render(request, 'users/listing_category.html', {'result': result})
 
+
+
 def get_listing_category_landing(request):
     result_arr = []
     try:
         ids = [int(id) for id in request.GET.getlist('ids')]
+        print('id is',ids)
         if ids:
             parent_listing_category = ParentListingCategory.objects.filter(id__in=ids)
             result = ListingCategory.objects.filter(parent_category__in=parent_listing_category)

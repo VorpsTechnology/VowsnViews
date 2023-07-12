@@ -425,47 +425,80 @@ def save_location(request):
     })
 
 
+# class LandingView(CreateView):
+#     model = Landing
+#     form_class = LandingForm
+#     template_name = "home/landings.html"
+#     # success_url = '/landing/'
+#     success_url = reverse_lazy('users-register')  
+
+#     def form_valid(self, form):
+#         phone_number = form.cleaned_data['mobile']
+#         if len(str(phone_number)) != 10:
+#             messages.warning(self.request, 'Invalid mobile number')
+#             return redirect('contact')
+#         landing_model = form.instance
+#         landing_model.save()
+
+#         # saving budgets
+#         prefix_arr = self.request.POST.getlist('prefix_array')
+#         try:
+#             for prefix in prefix_arr:
+#                 budget_form = ListingCategoryBudgetForm(self.request.POST, prefix=prefix)
+#                 if budget_form.is_valid():
+#                     budget_model = budget_form.instance
+#                     budget_model.save()
+#                     landing_model.budget.add(budget_model)
+#         except Exception as e:
+#             print(e)
+#         messages.success(self.request, 'You will be get in touch shortly.')
+#         return super().form_valid(form)
+
+#     def form_invalid(self, form):
+#         # messages.error(self.request, 'Invalid details.')
+#         print(form.errors)
+#         return super().form_invalid(form)
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super().get_context_data(*args, **kwargs)
+#         list = ParentListingCategory.objects.all()
+#         context['parent_listing'] = list
+#         return context
+    
 class LandingView(CreateView):
     model = Landing
     form_class = LandingForm
-    template_name = "home/landings.html"
-    # success_url = '/landing/'
-    success_url = reverse_lazy('users-register')  
+    template_name = "home/landing.html"
+    success_url = reverse_lazy('users-register')
 
     def form_valid(self, form):
         phone_number = form.cleaned_data['mobile']
         if len(str(phone_number)) != 10:
             messages.warning(self.request, 'Invalid mobile number')
             return redirect('contact')
-        landing_model = form.instance
-        landing_model.save()
+        landing_model = form.save()
 
-        # saving budgets
+        # Saving budgets
         prefix_arr = self.request.POST.getlist('prefix_array')
         try:
             for prefix in prefix_arr:
                 budget_form = ListingCategoryBudgetForm(self.request.POST, prefix=prefix)
                 if budget_form.is_valid():
-                    budget_model = budget_form.instance
-                    budget_model.save()
+                    budget_model = budget_form.save()
                     landing_model.budget.add(budget_model)
         except Exception as e:
             print(e)
-        messages.success(self.request, 'You will be get in touch shortly.')
+        messages.success(self.request, 'You will be contacted shortly.')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        # messages.error(self.request, 'Invalid details.')
         print(form.errors)
         return super().form_invalid(form)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        list = ParentListingCategory.objects.all()
-        context['parent_listing'] = list
+        context['parent_listing'] = ParentListingCategory.objects.all()
         return context
-    
-
 
     # def download_file(request):
     #     file_url = 'https://vowsnviews.com/landing/path/to/file.js'

@@ -13,7 +13,7 @@ urlpatterns = [
     path('newsletter', NewsLetterCreateView.as_view(), name='news-letter'),
     path('wedding-stylist/', TemplateView.as_view(template_name='home/wedding_stylist.html'), name='wedding-stylist'),
     path('pricing/', TemplateView.as_view(template_name='home/pricing.html'), name='pricing'),
-    path('landings/', LandingView.as_view(), name='landings'), #--recent change
+    path('landing/', LandingView.as_view(), name='landing'), #--recent change
     path('planning-decor/', PlanningDecorView.as_view(), name='planning-decor'),
     path('destination-wedding/', DestinationWeddingView.as_view(), name='destination-wedding'),
     path('in-house-services/', InHouseServiceListView.as_view(), name='in-house-service'),

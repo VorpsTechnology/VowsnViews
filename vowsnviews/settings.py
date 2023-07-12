@@ -129,11 +129,13 @@ AUTH_USER_MODEL = 'users.User'  # Custom User Model
 # BootStrap
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  # To use Bootstrap
 
-#Basic Static and Media Files settings
+# Basic Static and Media Files settings 
 # STATIC_URL = '/static/'
 # STATIC_ROOT = '/home/vowsnvie/public_html/static'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/home/vowsnvie/public_html/media'
+
+# Basic Static and Media Files settings  for local
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

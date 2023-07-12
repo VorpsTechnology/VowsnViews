@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'home/css/mine-style.css' %}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<a href="https://api.whatsapp.com/send?phone=9313846800&text=VowsnViews" class="float" target="_blank"> <i class="fa fa-whatsapp my-float"></i> </a> {% block head %}
+	{% comment %} <a href="https://api.whatsapp.com/send?phone=9313846800&text=VowsnViews" class="float" target="_blank"> <i class="fa fa-whatsapp my-float"></i> </a> {% block head %} {% endcomment %}
 	<style>
 
 	</style>
@@ -149,7 +149,7 @@
 										<!--                                            </li>-->
 										<!--                                        </ul>-->
 										<!--                                        &lt;!&ndash;====== End - Dropdown ======&ndash;&gt;-->
-										<li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9313846800"><i class="fas fa-phone-volume"></i></a></li>
+										{% comment %} <li data-tooltip="tooltip" data-placement="left" title="Contact"> <a href="tel:+9313846800"><i class="fas fa-phone-volume"></i></a></li> {% endcomment %}
 										<li data-tooltip="tooltip" data-placement="left" title="Mail"> <a href="mailto:vowsnviews@gmail.com"><i class="far fa-envelope"></i></a></li>
 									</ul>
 								</div>
@@ -762,7 +762,7 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="outer-footer__content u-s-m-b-40"> <span class="outer-footer__content-title">Contact Us</span>
 								<div class="outer-footer__text-wrap"><i class="fas fa-home"></i> <span>Delhi</span></div>
-								<div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i> <span>(+91) 9313846800</span></div>
+								{% comment %} <div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i> <span>(+91) 9313846800</span></div> {% endcomment %}
 								<div class="outer-footer__text-wrap"><i class="far fa-envelope"></i> <span>vowsnview@gmail.com</span></div>
 								<div class="outer-footer__social">
 									<ul>

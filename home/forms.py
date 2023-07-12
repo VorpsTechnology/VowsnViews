@@ -35,6 +35,7 @@ class ContactForm(forms.ModelForm):
         fields = ('name', 'email', 'mobile', 'city','description')
 
 
+
 class LandingForm(forms.ModelForm):
     listing_parent_category = forms.ModelMultipleChoiceField(
         queryset=ParentListingCategory.objects.all(),
